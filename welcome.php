@@ -10,8 +10,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
     exit;
 }
 
-
-
 ?>
 <!-- This is just a template example of html that i pinched off the internet obviously ours will be different -->
 <!DOCTYPE html>

@@ -98,10 +98,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err) && empty($hobby_err)) {
 
         //sql statement for inserting data into users table with parameters
-        $sql = "INSERT INTO users (username, email, bio, password) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO users (username, email, password) VALUES (?,?,?)";
 
         if ($stmt = $mysqli->prepare($sql)) {
-            $stmt->bind_param("ssss", $param_username, $param_email, $param_password); // bind parameters to  queries
+            $stmt->bind_param("sss", $param_username, $param_email, $param_password); // bind parameters to  queries
 
             $param_username = $username;
             $param_email = $email;
