@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @var mysqli $mysqli
+ */
 
 // Initialise the session
 session_start();
@@ -16,12 +18,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
 //get group information for user hobbys
 
 //initial sql
-$sql = "SELECT * FROM groups WHERE ";
-
-if($stmt = $mysqli->prepare($sql))
-{
-
-}
+//get hobby ids for user
+$sql = "SELECT groupid FROM grouphobbies WHERE hobbyid = 
+                                       (SELECT hobbyid FROM userhobbies WHERE userid =" . $_SESSION["id"] . ");";
 
 
 ?>
