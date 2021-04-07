@@ -106,7 +106,7 @@ SET time_zone = "+00:00";
     ALTER TABLE `userhobbies` MODIFY `userhobbiesId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
     -- Dumping data for table `userhobbies`
-    INSERT INTO `userhobbies` (`userid`, `hobbyid`, `userhobbiesId`) VALUES (22, 1, 21);
+    INSERT INTO `userhobbies` (`userid`, `hobbyid`, `userhobbiesId`) VALUES (22, 1, 1);
 
 -- Groups
     -- Table structure for table `groups`
@@ -124,6 +124,9 @@ SET time_zone = "+00:00";
     -- AUTO_INCREMENT for table `groups`
     ALTER TABLE `groups` MODIFY `groupid` int(11) NOT NULL AUTO_INCREMENT;
 
+    -- Dumping data for table `groups`
+    INSERT INTO `groups` (`groupid`, `name`, `description`) VALUES (1, 'Rock Club', 'This group rocks.');
+
 -- User Groups
     -- Table structure for table `usergroups`
     CREATE TABLE `usergroups` (
@@ -140,6 +143,30 @@ SET time_zone = "+00:00";
     ALTER TABLE `usergroups`
     ADD CONSTRAINT `groupid` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`),
     ADD CONSTRAINT `userid_usergroups` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
+
+    -- Dumping data for table `usergroups`
+    INSERT INTO `groups` (`userid`, `groupid`) VALUES (21, 'Rock Club', 'This group rocks.');
+
+-- Group Hobbies
+    -- Table structure for table `grouphobbies`
+    CREATE TABLE `grouphobbies` (
+        `hobbyid` int(11) NOT NULL,
+        `groupid` int(11) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+    -- Indexes for table `grouphobbies`
+    ALTER TABLE `grouphobbies`
+    ADD KEY `hobbyid_idx` (`hobbyid`),
+    ADD KEY `groupid_idx` (`groupid`);
+
+    -- Constraints for table `grouphobbies`
+    ALTER TABLE `usergroups`
+    ADD CONSTRAINT `groupid` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`),
+    ADD CONSTRAINT `hobbyid` FOREIGN KEY (`hobbyid`) REFERENCES `hobbies` (`hobbyid`);
+
+    -- Dumping data for table `usergroups`
+    INSERT INTO `grouphobbies` (`hobbyid`, `groupid`) VALUES (1, 1),(2,1),(3,1);
+
 
 -- Posts
     -- Table structure for table `posts`
