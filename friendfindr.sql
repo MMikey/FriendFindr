@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `events` (
-  `eventid` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `location` varchar(45) NOT NULL,
-  `finish_time` datetime NOT NULL,
-  `start_time` datetime NOT NULL
+                          `eventid` int(11) NOT NULL,
+                          `name` varchar(45) NOT NULL,
+                          `description` varchar(255) NOT NULL,
+                          `location` varchar(45) NOT NULL,
+                          `finish_time` datetime NOT NULL,
+                          `start_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -43,9 +43,9 @@ CREATE TABLE `events` (
 --
 
 CREATE TABLE `groups` (
-  `groupid` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `description` varchar(255) NOT NULL,
+                          `groupid` int(11) NOT NULL,
+                          `name` varchar(45) NOT NULL,
+                          `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -55,9 +55,9 @@ CREATE TABLE `groups` (
 --
 
 CREATE TABLE `hobbies` (
-  `hobbyid` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `description` varchar(255) NOT NULL
+                           `hobbyid` int(11) NOT NULL,
+                           `name` varchar(45) NOT NULL,
+                           `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -85,11 +85,11 @@ INSERT INTO `hobbies` (`hobbyid`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `posts` (
-  `postid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
-  `groupid` int(11) NOT NULL,
-  `posted_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `content` varchar(255) NOT NULL
+                         `postid` int(11) NOT NULL,
+                         `userid` int(11) NOT NULL,
+                         `groupid` int(11) NOT NULL,
+                         `posted_at` datetime NOT NULL DEFAULT current_timestamp(),
+                         `content` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -99,8 +99,8 @@ CREATE TABLE `posts` (
 --
 
 CREATE TABLE `userevent` (
-  `userid` int(11) NOT NULL,
-  `eventid` int(11) NOT NULL
+                             `userid` int(11) NOT NULL,
+                             `eventid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -110,8 +110,8 @@ CREATE TABLE `userevent` (
 --
 
 CREATE TABLE `usergroups` (
-  `userid` int(11) NOT NULL,
-  `groupid` int(11) NOT NULL
+                              `userid` int(11) NOT NULL,
+                              `groupid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -121,9 +121,9 @@ CREATE TABLE `usergroups` (
 --
 
 CREATE TABLE `userhobbies` (
-  `userid` int(11) NOT NULL,
-  `hobbyid` int(11) NOT NULL,
-  `userhobbiesId` int(11) NOT NULL
+                               `userid` int(11) NOT NULL,
+                               `hobbyid` int(11) NOT NULL,
+                               `userhobbiesId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -140,14 +140,14 @@ INSERT INTO `userhobbies` (`userid`, `hobbyid`, `userhobbiesId`) VALUES
 --
 
 CREATE TABLE `users` (
-  `userid` int(11) NOT NULL,
-  `username` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `location` varchar(45) DEFAULT NULL,
-  `bio` varchar(255) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `DateOfBirth` date NOT NULL
+                         `userid` int(11) NOT NULL,
+                         `username` varchar(45) NOT NULL,
+                         `email` varchar(45) NOT NULL,
+                         `password` varchar(255) NOT NULL,
+                         `location` varchar(45) DEFAULT NULL,
+                         `bio` varchar(255) DEFAULT NULL,
+                         `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+                         `DateOfBirth` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -167,28 +167,28 @@ INSERT INTO `users` (`userid`, `username`, `email`, `password`, `location`, `bio
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
-  ADD PRIMARY KEY (`eventid`),
+    ADD PRIMARY KEY (`eventid`),
   ADD UNIQUE KEY `eventid_UNIQUE` (`eventid`);
 
 --
 -- Indexes for table `groups`
 --
 ALTER TABLE `groups`
-  ADD PRIMARY KEY (`groupid`),
+    ADD PRIMARY KEY (`groupid`),
   ADD UNIQUE KEY `groupid_UNIQUE` (`groupid`);
 
 --
 -- Indexes for table `hobbies`
 --
 ALTER TABLE `hobbies`
-  ADD PRIMARY KEY (`hobbyid`),
+    ADD PRIMARY KEY (`hobbyid`),
   ADD UNIQUE KEY `hobbyid_UNIQUE` (`hobbyid`);
 
 --
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
-  ADD PRIMARY KEY (`postid`),
+    ADD PRIMARY KEY (`postid`),
   ADD UNIQUE KEY `postid_UNIQUE` (`postid`),
   ADD KEY `userid_posts_idx` (`userid`),
   ADD KEY `groupid_posts_idx` (`groupid`);
@@ -197,21 +197,21 @@ ALTER TABLE `posts`
 -- Indexes for table `userevent`
 --
 ALTER TABLE `userevent`
-  ADD KEY `userid_userevent_idx` (`userid`),
+    ADD KEY `userid_userevent_idx` (`userid`),
   ADD KEY `eventid_userevent_idx` (`eventid`);
 
 --
 -- Indexes for table `usergroups`
 --
 ALTER TABLE `usergroups`
-  ADD KEY `userid_idx` (`userid`),
+    ADD KEY `userid_idx` (`userid`),
   ADD KEY `groupid_idx` (`groupid`);
 
 --
 -- Indexes for table `userhobbies`
 --
 ALTER TABLE `userhobbies`
-  ADD PRIMARY KEY (`userhobbiesId`),
+    ADD PRIMARY KEY (`userhobbiesId`),
   ADD KEY `userid_idx` (`userid`),
   ADD KEY `hobbyid_idx` (`hobbyid`);
 
@@ -219,7 +219,7 @@ ALTER TABLE `userhobbies`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`userid`),
+    ADD PRIMARY KEY (`userid`),
   ADD UNIQUE KEY `userid_UNIQUE` (`userid`),
   ADD UNIQUE KEY `username_UNIQUE` (`username`);
 
@@ -231,37 +231,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `eventid` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `eventid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `groupid` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `groupid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
 --
 ALTER TABLE `hobbies`
-  MODIFY `hobbyid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+    MODIFY `hobbyid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `userhobbies`
 --
 ALTER TABLE `userhobbies`
-  MODIFY `userhobbiesId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+    MODIFY `userhobbiesId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+    MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -271,28 +271,28 @@ ALTER TABLE `users`
 -- Constraints for table `posts`
 --
 ALTER TABLE `posts`
-  ADD CONSTRAINT `groupid_posts` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`),
+    ADD CONSTRAINT `groupid_posts` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`),
   ADD CONSTRAINT `userid_posts` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
 
 --
 -- Constraints for table `userevent`
 --
 ALTER TABLE `userevent`
-  ADD CONSTRAINT `eventid_userevent` FOREIGN KEY (`eventid`) REFERENCES `events` (`eventid`),
+    ADD CONSTRAINT `eventid_userevent` FOREIGN KEY (`eventid`) REFERENCES `events` (`eventid`),
   ADD CONSTRAINT `userid_userevent` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
 
 --
 -- Constraints for table `usergroups`
 --
 ALTER TABLE `usergroups`
-  ADD CONSTRAINT `groupid` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`),
+    ADD CONSTRAINT `groupid` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`),
   ADD CONSTRAINT `userid_usergroups` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
 
 --
 -- Constraints for table `userhobbies`
 --
 ALTER TABLE `userhobbies`
-  ADD CONSTRAINT `hobbyid_userhobbies` FOREIGN KEY (`hobbyid`) REFERENCES `hobbies` (`hobbyid`),
+    ADD CONSTRAINT `hobbyid_userhobbies` FOREIGN KEY (`hobbyid`) REFERENCES `hobbies` (`hobbyid`),
   ADD CONSTRAINT `userid_userhobbies` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
 COMMIT;
 
