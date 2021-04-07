@@ -45,7 +45,7 @@ CREATE TABLE `events` (
 CREATE TABLE `groups` (
   `groupid` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `description` varchar(255) NOT NULL
+  `description` varchar(255) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
