@@ -5,7 +5,7 @@ require_once "config.php";
 
 //initialise variables with empty values
 $username = $password = $confirm_password = $email = $bio = $location = "";
-$username_err = $password_err = $confirm_password_err = $hobby_err = $email_err = "";
+$username_err = $password_err = $confirm_password_err = $hobby_err = $email_err = $date_err = "";
 
 
 //processing form data when submitted
