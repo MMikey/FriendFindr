@@ -88,8 +88,6 @@ SET time_zone = "+00:00";
        `userhobbiesId` int(11) NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-     CHARSET=utf8;
-
     -- Indexes for table `userhobbies`
     ALTER TABLE `userhobbies`
     ADD PRIMARY KEY (`userhobbiesId`),
@@ -113,7 +111,7 @@ SET time_zone = "+00:00";
     CREATE TABLE `groups` (
         `groupid` int(11) NOT NULL,
         `name` varchar(45) NOT NULL,
-        `description` varchar(255) NOT NULL,
+        `description` varchar(255) NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     -- Indexes for table `groups`
@@ -145,7 +143,7 @@ SET time_zone = "+00:00";
     ADD CONSTRAINT `userid_usergroups` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
 
     -- Dumping data for table `usergroups`
-    INSERT INTO `groups` (`userid`, `groupid`) VALUES (21, 'Rock Club', 'This group rocks.');
+    INSERT INTO `usergroups` (`userid`, `groupid`) VALUES (21, 1);
 
 -- Group Hobbies
     -- Table structure for table `grouphobbies`
@@ -160,13 +158,12 @@ SET time_zone = "+00:00";
     ADD KEY `groupid_idx` (`groupid`);
 
     -- Constraints for table `grouphobbies`
-    ALTER TABLE `usergroups`
-    ADD CONSTRAINT `groupid` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`),
-    ADD CONSTRAINT `hobbyid` FOREIGN KEY (`hobbyid`) REFERENCES `hobbies` (`hobbyid`);
+    ALTER TABLE `grouphobbies`
+    ADD CONSTRAINT `hobbyid_gh` FOREIGN KEY (`hobbyid`) REFERENCES `hobbies` (`hobbyid`),
+    ADD CONSTRAINT `groupid_gh` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`);
 
     -- Dumping data for table `usergroups`
     INSERT INTO `grouphobbies` (`hobbyid`, `groupid`) VALUES (1, 1),(2,1),(3,1);
-
 
 -- Posts
     -- Table structure for table `posts`
