@@ -10,10 +10,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
     exit;
 }
 
-        //prepare sql select statement
-        //? is variable that will inserted as username
-        $sql = "SELECT name, description FROM groups grp join usergroups ugr on grp.group_id = ugr.group_id WHERE username = ?";
-ghhg
+        //SQL Queries
+        $usergroups = "SELECT name, description FROM groups grp join usergroups ugr on grp.group_id = ugr.group_id WHERE username = ?";
+        $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on grp.group_id = ugr.group_id WHERE username = ?";
+
 ?>
 <!-- This is just a template example of html that i pinched off the internet obviously ours will be different -->
 <!DOCTYPE html>
