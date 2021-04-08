@@ -1,5 +1,5 @@
 <?php
-
+/** @var mysqli $mysqli */
 //include config file - connects to database
 require_once "config.php";
 

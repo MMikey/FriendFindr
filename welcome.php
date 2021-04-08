@@ -9,38 +9,35 @@ session_start();
 require_once "config.php";
 
 //Check if the user is logged in, if not then redirect him to login page 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
-{
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
-
-//get group information for user hobbys
-$group_err = "";
+$group_err = $joinedgroups_err = "";
 
 
-//initial sql
-//get hobby ids for user
-$sql = "SELECT grouphobbies.groupid, userhobbies.hobbyid from grouphobbies, userhobbies 
-        where grouphobbies.hobbyid = userhobbies.hobbyid AND userhobbies.userid = " . $_SESSION["id"] . ";";
-
-//see if query passed successfully
-echo ($result = $mysqli->query($sql)) ? "" : "error: " . $mysqli->error;
-
-$groups = array(); // create array to store groupids in
-if($result->num_rows > 0)
-{
-    $result->fetch_assoc(); //fetch first result because it outputs duplicates for some reason
-    while($row = $result->fetch_assoc())
-    {
-        $groups[] = $row["groupid"];
+//getting joined groups
+$sql = "SELECT groupid from usergroups WHERE userid = " . $_SESSION["id"] . ";";
+$joinedgroups_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql statement
+$joined_groups = array(); //array to store groupids
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $joined_groups[] = $row["groupid"];
     }
 }
-else
-{
+
+//get hobby ids from current users hobbies
+$sql = "SELECT grouphobbies.groupid, userhobbies.hobbyid from grouphobbies, userhobbies 
+        where grouphobbies.hobbyid = userhobbies.hobbyid AND userhobbies.userid = " . $_SESSION["id"] . ";";
+$group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
+$recommended_groups = array(); // create array to store groupids
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $recommended_groups[] = $row["groupid"];
+    }
+} else {
     $group_err = "No groups to recommend.. Try selecting some hobbies";
 }
-
 
 
 ?>
@@ -55,31 +52,35 @@ else
 
 </head>
 <body>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <div class="container">
-        <h2> Recommended groups</h2>
-        <?php
-        foreach($groups as $group) //loop through array of relevant groups for the user to display them on the main window
-        {
-            $sql = "SELECT groupid, name, description FROM groups WHERE groupid = " . $group . ";";
+<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+<div class="container">
+    <h2> Recommended groups</h2>
+    <?php
+    if (!empty($group_err)) {
+        echo '<div class="alert alert-danger">' . $group_err . '</div>';
+    }
+    ?>
+    <?php
+    foreach ($recommended_groups as $group) //loop through array of relevant groups for the user to display them on the main window
+    {
+        $sql = "SELECT groupid, name, description FROM groups WHERE groupid = " . $group . ";";
 
-            echo ($result = $mysqli->query($sql)) ? "" : "error!";
+        echo ($result = $mysqli->query($sql)) ? "" : "error!";
 
-            while($row = $result->fetch_assoc())
-            {
-                echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
-                echo "<h3>" . $row["name"] . "</h3>\n";
-                echo "<p>" . $row["description"] . "</p>\n";
-                echo "</div>";
-            }
+        while ($row = $result->fetch_assoc()) {
+            echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
+            echo "<h3>" . $row["name"] . "</h3>\n";
+            echo "<p>" . $row["description"] . "</p>\n";
+            echo "</div>";
         }
-        ?>
+    }
+    ?>
 
-    </div>
-    <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-        <a href="
+</div>
+<p>
+    <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+    <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
+    <a href="
     </p>
 
 </body>
