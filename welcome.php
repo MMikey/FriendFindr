@@ -29,6 +29,8 @@ if ($result->num_rows > 0) {
 }
 
 //get hobby ids from current users hobbies
+//!!!better way of doing this!!! \/
+//sql = "SELECT g.name, g.description FROM groups g, grouphobbies gh, userhobbies uh where gh.hobbyid = uh.hobbyid AND uh.userid = 23";
 $sql = "SELECT grouphobbies.groupid, userhobbies.hobbyid from grouphobbies, userhobbies 
         where grouphobbies.hobbyid = userhobbies.hobbyid AND userhobbies.userid = " . $_SESSION["id"] . ";";
 $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
