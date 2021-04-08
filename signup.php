@@ -4,9 +4,8 @@
 require_once "config.php";
 
 //initialise variables with empty values
-$username = $password = $confirm_password = $email = $bio = $location = "";
+$username = $password = $confirm_password = $email = $bio = $location = $birthdate = "";
 $username_err = $password_err = $confirm_password_err = $hobby_err = $email_err = $date_err = "";
-
 
 //processing form data when submitted
 
@@ -55,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Validate password
+    //Validate password
     //check password field is empty or less that 6 chars
     if (empty(trim($_POST["password"]))) {
         $password_err = "Please enter a password.";
@@ -65,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = trim($_POST["password"]);
     }
 
-    // Validate confirm password
+    //Validate confirm password
     //checks if confirm password field is empty
     if (empty(trim($_POST["confirm_password"]))) {
         $confirm_password_err = "Please confirm password!";
@@ -84,8 +83,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST["email"];
     }
 
-
-
     //Validate Hobby Selection
     if (empty($_POST["hobby"])) {
         $hobby_err = "Please select at least one hobby!";
@@ -93,20 +90,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hobby = $_POST["hobby"];
     }
 
+    //Validate bio
+    if(empty(trim($_POST["bio"]))){
+        $bio = "";
+    } else {
+        $bio = $_POST["bio"];
+    }
+
+    //Validate location
+    if(empty(trim($_POST["location"]))){
+        $location = "";
+    } else {
+        $location = $_POST["location"];
+    }
+    //Validate birthdate
+    if(!empty($_POST["date"])) {
+        $birthday = strtotime($_POST["date"]);
+        //31536000 is the number of seconds
+        if(time() - $birthday < 18 * 31536000) {
+            $date_err = "You must be 18 to join!";
+        }else{
+            $birthdate = $_POST["date"];
+        }
+    } else {
+        $date_err = "Please enter your birthdate!";
+    }
+
+
 
     //Check input errors before inserting into database
-    if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err) && empty($hobby_err)) {
+    if (empty($username_err) && empty($email_err) &&
+        empty($password_err) && empty($confirm_password_err)
+        && empty($hobby_err) && empty($date_err)) {
 
         //sql statement for inserting data into users table with parameters
-        $sql = "INSERT INTO users (username, email, password) VALUES (?,?,?)";
+        $sql = "INSERT INTO users (username, email, password, location, bio, DateOfBirth ) VALUES (?,?,?,?,?,?)";
 
         if ($stmt = $mysqli->prepare($sql)) {
-            $stmt->bind_param("sss", $param_username, $param_email, $param_password); // bind parameters to  queries
+            $stmt->bind_param("ssssss", $param_username, $param_email, $param_password, $param_location
+            ,$param_bio, $param_date); // bind parameters to  queries
 
             $param_username = $username;
             $param_email = $email;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // creates password hash. (secure passwords)
-
+            $param_location = $location;
+            $param_bio = $bio;
+            $param_date = $birthdate;
             if ($stmt->execute()) {
                 //redirect to login page
                 //header("location: login.php");
@@ -182,16 +211,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="invalid-feedback"><?php echo $hobby_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Enter something about yourself!</label>
+                <label>
+                    Enter something about yourself!
+                    <small class="text-muted">Optional</small>
+                </label>
                 <textarea  name="bio" class="form-control" rows="3" value = "<?php echo $bio;?>"></textarea>
             </div>
             <div class="form-group">
-                <label>Whats your city?</label>
+                <label>
+                    Whats your city?
+                    <small class="text-muted">Optional</small>
+                </label>
                 <input type="text" name = "location" class = "form-control" value = "<?php echo $location?>">
             </div>
             <div class="form-group">
                 <label>Please confirm your date of birth</label>    
-                <input type = "date" name = "date" class = "form-control" id ="date">
+                <input type = "date" name = "date" class = "form-control <?php echo (!empty($date_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthdate; ?>" id ="date">
                 <span class="invalid-feedback"><?php echo $date_err; ?></span>
             </div>
             <div class="form-group">
