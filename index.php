@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>FriendFindr - Find some friends!</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/FFStylesheet.css">
 </head>
 
 <body>

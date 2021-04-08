@@ -51,13 +51,13 @@ else
     <meta charset="UTF-8">
     <title>Welcome</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; text-align: center; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/FFStylesheet.css">
+
 </head>
 <body>
     <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     <div class="container">
+        <h2> Recommended groups</h2>
         <?php
         foreach($groups as $group) //loop through array of relevant groups for the user to display them on the main window
         {
@@ -67,7 +67,7 @@ else
 
             while($row = $result->fetch_assoc())
             {
-                echo "<div class=\"jumbotron\">";
+                echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
                 echo "<h3>" . $row["name"] . "</h3>\n";
                 echo "<p>" . $row["description"] . "</p>\n";
                 echo "</div>";

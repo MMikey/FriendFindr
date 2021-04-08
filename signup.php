@@ -142,16 +142,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <title>Friend Finder - Sign Up</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font: 14px sans-serif;
-        }
+    <link rel="stylesheet" type="text/css" href="css/FFStylesheet.css">
 
-        .wrapper {
-            width: 350px;
-            padding: 20px;
-        }
-    </style>
 </head>
 
 <body>
