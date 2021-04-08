@@ -41,6 +41,8 @@ if ($result->num_rows > 0) {
     $group_err = "No groups to recommend.. Try selecting some hobbies";
 }
 
+//removes duplicates from joined groups
+$recommended_groups = array_diff($recommended_groups, $joined_groups);
 
 ?>
 <!-- This is just a template example of html that i pinched off the internet obviously ours will be different -->
@@ -99,6 +101,7 @@ if ($result->num_rows > 0) {
 
 </div>
 <p>
+    <a href="update_profile.php" class="btn btn-secondary">Update Profile</a>
     <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
     <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
 </p>

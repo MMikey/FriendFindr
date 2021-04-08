@@ -80,6 +80,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["email"])) || filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $email_err = "Please enter a valid email address";
     } else {
+        $sql = "SELECT userid FROM users WHERE email = ?";
+
+        if($stmt = $mysqli->prepare($sql)) {
+            $stmt->bind_param("s", $param_email);
+
+            $param_email = trim($_POST["email"]);
+
+            if ($stmt->execute()) {
+                $stmt->store_result();
+
+                if ($stmt->num_rows == 1) {
+                    $email_err = "This email is already taken";
+                } else {
+                    $email = trim($_POST["email"]);
+                }
+            } else // if statement can't be executed for whatever reason
+            {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+            $stmt->close();
+        }
         $email = $_POST["email"];
     }
 
