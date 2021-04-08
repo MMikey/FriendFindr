@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //Validate email
     if (empty(trim($_POST["email"])) || filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $email_err = "Please enter a valid email addres";
+        $email_err = "Please enter a valid email address";
     } else {
         $email = $_POST["email"];
     }

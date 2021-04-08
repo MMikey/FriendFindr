@@ -16,11 +16,31 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
 }
 
 //get group information for user hobbys
+$group_err = "";
+
 
 //initial sql
 //get hobby ids for user
-$sql = "SELECT groupid FROM grouphobbies WHERE hobbyid = 
-                                       (SELECT hobbyid FROM userhobbies WHERE userid =" . $_SESSION["id"] . ");";
+$sql = "SELECT grouphobbies.groupid, userhobbies.hobbyid from grouphobbies, userhobbies 
+        where grouphobbies.hobbyid = userhobbies.hobbyid AND userhobbies.userid = " . $_SESSION["id"] . ";";
+
+//see if query passed successfully
+echo ($result = $mysqli->query($sql)) ? "" : "error: " . $mysqli->error;
+
+$groups = array(); // create array to store groupids in
+if($result->num_rows > 0)
+{
+    $result->fetch_assoc(); //fetch first result because it outputs duplicates for some reason
+    while($row = $result->fetch_assoc())
+    {
+        $groups[] = $row["groupid"];
+    }
+}
+else
+{
+    $group_err = "No groups to recommend.. Try selecting some hobbies";
+}
+
 
 
 ?>
@@ -38,12 +58,29 @@ $sql = "SELECT groupid FROM grouphobbies WHERE hobbyid =
 <body>
     <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     <div class="container">
-        <h3><?php echo "insert group name here"?></h3>
-        <p><?php echo "insert group description" ?></p>
+        <?php
+        foreach($groups as $group) //loop through array of relevant groups for the user to display them on the main window
+        {
+            $sql = "SELECT groupid, name, description FROM groups WHERE groupid = " . $group . ";";
+
+            echo ($result = $mysqli->query($sql)) ? "" : "error!";
+
+            while($row = $result->fetch_assoc())
+            {
+                echo "<div class=\"jumbotron\">";
+                echo "<h3>" . $row["name"] . "</h3>\n";
+                echo "<p>" . $row["description"] . "</p>\n";
+                echo "</div>";
+            }
+        }
+        ?>
+
     </div>
     <p>
         <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
         <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
+        <a href="
     </p>
+
 </body>
 </html>
