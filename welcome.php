@@ -24,6 +24,8 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $joined_groups[] = $row["groupid"];
     }
+} else {
+    $joinedgroups_err = "You're not part of any groups.. ";
 }
 
 //get hobby ids from current users hobbies
@@ -54,13 +56,32 @@ if ($result->num_rows > 0) {
 <body>
 <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
 <div class="container">
-    <h2> Recommended groups</h2>
+    <h2>Your groups</h2>
+    <?php
+    if (!empty($joinedgroups_err)) {
+        echo '<div class="alert alert-danger">' . $joinedgroups_err . '</div>';
+    }
+
+    foreach ($joined_groups as $group)
+    {
+        $sql = "SELECT groupid, name, description FROM groups WHERE groupid = " . $group . ";";
+
+        echo ($result = $mysqli->query($sql)) ? "" : "error!";
+
+        while ($row = $result->fetch_assoc()) {
+            echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
+            echo "<h3>" . $row["name"] . "</h3>\n";
+            echo "<p>" . $row["description"] . "</p>\n";
+            echo "</div>";
+        }
+    }
+    ?>
+    <h2>Recommended groups</h2>
     <?php
     if (!empty($group_err)) {
         echo '<div class="alert alert-danger">' . $group_err . '</div>';
     }
-    ?>
-    <?php
+
     foreach ($recommended_groups as $group) //loop through array of relevant groups for the user to display them on the main window
     {
         $sql = "SELECT groupid, name, description FROM groups WHERE groupid = " . $group . ";";
@@ -80,8 +101,7 @@ if ($result->num_rows > 0) {
 <p>
     <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
     <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-    <a href="
-    </p>
+</p>
 
 </body>
 </html>
