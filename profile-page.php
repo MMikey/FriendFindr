@@ -1,5 +1,7 @@
 <?php
 
+/** @var mysqli $mysqli */
+
 session_start();
 
 if($_SESSION["loggedin"] !== true){
@@ -21,13 +23,28 @@ if($_SESSION["loggedin"] !== true){
 <h1><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
 <div class="container">
 
-    <h2>Groups:</h2>
+    <h2>Your Hobbies:</h2>
 
-    <?php
-
-
-
-    ?>
+    <div class="form-group">
+        <label>Select a Hobby</label>
+        <!-- user can select mulitple hobbys and store them as an array -->
+        <select multiple name="hobby[]" class="form-control <?php echo (!empty($hobby_err)) ? 'is-invalid' : ''; ?>">
+            <?php
+            //Populating hobby input field
+            //prepare sql select statement
+            $sql = "SELECT hobbyid, name FROM hobbies";
+            if ($result = $mysqli->query($sql)) {
+                while ($row = $result->fetch_assoc()) {
+                    //user echo with html to create stuff
+                    echo '<option value ="' . $row["hobbyid"] . '">' . $row["name"] . "</option>/n";
+                }
+            } else {
+                echo "Error!" . $mysqli->error;
+            }
+            ?>
+        </select>
+        <span class="invalid-feedback"><?php echo $hobby_err; ?></span>
+    </div>
 
 
 
