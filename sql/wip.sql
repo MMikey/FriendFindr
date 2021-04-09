@@ -123,7 +123,9 @@ SET time_zone = "+00:00";
     ALTER TABLE `groups` MODIFY `groupid` int(11) NOT NULL AUTO_INCREMENT;
 
     -- Dumping data for table `groups`
-    INSERT INTO `groups` (`groupid`, `name`, `description`) VALUES (1, 'Rock Club', 'This group rocks.');
+    INSERT INTO `groups` (`groupid`, `name`, `description`) VALUES (1, 'Rock Club', 'This group rocks.'),
+    (2, 'Manchester gigs', 'Gigs in Manchester'),
+    (3, 'Manchester festival group', 'Festivals and more');
 
 -- User Groups
     -- Table structure for table `usergroups`
@@ -144,26 +146,6 @@ SET time_zone = "+00:00";
 
     -- Dumping data for table `usergroups`
     INSERT INTO `usergroups` (`userid`, `groupid`) VALUES (21, 1);
-
--- Group Hobbies
-    -- Table structure for table `grouphobbies`
-    CREATE TABLE `grouphobbies` (
-        `hobbyid` int(11) NOT NULL,
-        `groupid` int(11) NOT NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-    -- Indexes for table `grouphobbies`
-    ALTER TABLE `grouphobbies`
-    ADD KEY `hobbyid_idx` (`hobbyid`),
-    ADD KEY `groupid_idx` (`groupid`);
-
-    -- Constraints for table `grouphobbies`
-    ALTER TABLE `grouphobbies`
-    ADD CONSTRAINT `hobbyid_gh` FOREIGN KEY (`hobbyid`) REFERENCES `hobbies` (`hobbyid`),
-    ADD CONSTRAINT `groupid_gh` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`);
-
-    -- Dumping data for table `usergroups`
-    INSERT INTO `grouphobbies` (`hobbyid`, `groupid`) VALUES (1, 1),(2,1),(3,1);
 
 -- Posts
     -- Table structure for table `posts`
@@ -225,3 +207,24 @@ SET time_zone = "+00:00";
     ALTER TABLE `userevent`
     ADD CONSTRAINT `eventid_userevent` FOREIGN KEY (`eventid`) REFERENCES `events` (`eventid`),
     ADD CONSTRAINT `userid_userevent` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
+
+
+-- Group Hobbies
+    -- Table structure for table `grouphobbies`
+    CREATE TABLE `grouphobbies` (
+        `groupid` int(11) NOT NULL,
+        `hobbyid` int(11) NOT NULL,
+        `grouphobbies_id` int(11) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+    -- Dumping data for table `grouphobbies`
+    INSERT INTO `grouphobbies` (`groupid`, `hobbyid`, `grouphobbies_id`) VALUES
+    (1, 1, 1),
+    (2, 1, 2),
+    (3, 1, 3);
+
+    -- Indexes for table `grouphobbies`
+    ALTER TABLE `grouphobbies`
+    ADD PRIMARY KEY (`grouphobbies_id`),
+    ADD KEY `hobbyid_grouphobbies` (`hobbyid`),
+    ADD KEY `groupid_grouphobbies` (`groupid`);
