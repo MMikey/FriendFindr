@@ -13,38 +13,50 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
-$group_err = $joinedgroups_err = "";
 
-
-//getting joined groups
-$sql = "SELECT groupid from usergroups WHERE userid = " . $_SESSION["id"] . ";";
-$joinedgroups_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql statement
-$joined_groups = array(); //array to store groupids
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $joined_groups[] = $row["groupid"];
+function getJoinedGroups()
+{
+    global $mysqli;
+    $sql = "SELECT g.name, g.description FROM groups g, usergroups ug WHERE g.groupid = ug.groupid AND ug.userid =" . $_SESSION["id"] . ";";
+    $joinedgroups_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql statement
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
+            echo "<h3>" . $row["name"] . "</h3>\n";
+            echo "<p>" . $row["description"] . "</p>\n";
+            echo "</div>";
+        }
+    } else {
+        $joinedgroups_err = "You're not part of any groups.. ";
     }
-} else {
-    $joinedgroups_err = "You're not part of any groups.. ";
+    if (!empty($joinedgroups_err)) {
+        echo '<div class="alert alert-danger">' . $joinedgroups_err . '</div>';
+    }
+
 }
 
-//get hobby ids from current users hobbies
-//!!!better way of doing this!!! \/
-//sql = "SELECT g.name, g.description FROM groups g, grouphobbies gh, userhobbies uh where gh.hobbyid = uh.hobbyid AND uh.userid = 23";
-$sql = "SELECT grouphobbies.groupid, userhobbies.hobbyid from grouphobbies, userhobbies 
-        where grouphobbies.hobbyid = userhobbies.hobbyid AND userhobbies.userid = " . $_SESSION["id"] . ";";
-$group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
-$recommended_groups = array(); // create array to store groupids
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $recommended_groups[] = $row["groupid"];
-    }
-} else {
-    $group_err = "No groups to recommend.. Try selecting some hobbies";
-}
+function getRecommendedGroups()
+{
+    global $mysqli;
+    $sql = "SELECT g.name, g.description FROM groups g, grouphobbies gh, userhobbies uh 
+            where gh.hobbyid = uh.hobbyid AND uh.userid = " . $_SESSION["id"] . ";";
+    $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+                echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
+                echo "<h3>" . $row["name"] . "</h3>\n";
+                echo "<p>" . $row["description"] . "</p>\n";
+                echo "</div>";
+            }
 
-//removes duplicates from joined groups
-$recommended_groups = array_diff($recommended_groups, $joined_groups);
+    } else {
+        $group_err = "No groups to recommend.. Try selecting some hobbies";
+    }
+    if (!empty($group_err)) {
+        echo '<div class="alert alert-danger">' . $group_err . '</div>';
+    }
+
+}
 
 ?>
 <!-- This is just a template example of html that i pinched off the internet obviously ours will be different -->
@@ -61,45 +73,10 @@ $recommended_groups = array_diff($recommended_groups, $joined_groups);
 <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
 <div class="container">
     <h2>Your groups</h2>
-    <?php
-    if (!empty($joinedgroups_err)) {
-        echo '<div class="alert alert-danger">' . $joinedgroups_err . '</div>';
-    }
+    <?php getJoinedGroups(); ?>
 
-    foreach ($joined_groups as $group)
-    {
-        $sql = "SELECT groupid, name, description FROM groups WHERE groupid = " . $group . ";";
-
-        echo ($result = $mysqli->query($sql)) ? "" : "error!";
-
-        while ($row = $result->fetch_assoc()) {
-            echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
-            echo "<h3>" . $row["name"] . "</h3>\n";
-            echo "<p>" . $row["description"] . "</p>\n";
-            echo "</div>";
-        }
-    }
-    ?>
     <h2>Recommended groups</h2>
-    <?php
-    if (!empty($group_err)) {
-        echo '<div class="alert alert-danger">' . $group_err . '</div>';
-    }
-
-    foreach ($recommended_groups as $group) //loop through array of relevant groups for the user to display them on the main window
-    {
-        $sql = "SELECT groupid, name, description FROM groups WHERE groupid = " . $group . ";";
-
-        echo ($result = $mysqli->query($sql)) ? "" : "error!";
-
-        while ($row = $result->fetch_assoc()) {
-            echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
-            echo "<h3>" . $row["name"] . "</h3>\n";
-            echo "<p>" . $row["description"] . "</p>\n";
-            echo "</div>";
-        }
-    }
-    ?>
+    <?php getRecommendedGroups(); ?>
 
 </div>
 <p>

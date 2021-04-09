@@ -38,22 +38,6 @@ $username = $email = $hobby = $bio = $location = "";
 
         <div class="form-group">
             <label>
-                Username
-                <small class="text-muted">Optional</small>
-            </label>
-            <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-            <span class="invalid-feedback"><?php echo $username_err; ?></span>
-        </div>
-        <div class="form-group">
-            <label>
-                Email
-                <small class="text-muted">Optional</small>
-            </label>
-            <input type="text" name="email" class="form-control <?php (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-            <span class="invalid-feedback"><?php echo $email_err; ?></span>
-        </div>
-        <div class="form-group">
-            <label>
                 Select a Hobby
                 <small class="text-muted">Optional</small>
             </label>
