@@ -1,6 +1,8 @@
 <?php
-
 /** @var mysqli $mysqli */
+//include config file - connects to database
+require_once "config.php";
+include("solution/Validator.php");
 
 session_start();
 
@@ -19,8 +21,19 @@ if($_SESSION["loggedin"] !== true){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 </head>
+
+
 <body>
 <h1><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
+
+<nav>
+    <ul id="navlist">
+        <li><a href="welcome.php" title="Home">Home</a></li>
+        <li><a href="groups-page.php" title="Groups">Groups</a></li>
+    </ul>
+</nav>
+
+
 <div class="container">
 
     <h2>Your Hobbies:</h2>
@@ -52,3 +65,4 @@ if($_SESSION["loggedin"] !== true){
 </body>
 </html>
 
+<?php $mysqli->close();?>
