@@ -2,6 +2,7 @@
 /** @var mysqli $mysqli */
 //include config file - connects to database
 require_once "config.php";
+include("solution/Validator.php");
 
 //initialise variables with empty values
 $username = $password = $confirm_password = $email = $bio = $location = $birthdate = "";
@@ -13,95 +14,40 @@ $username_err = $password_err = $confirm_password_err = $hobby_err = $email_err 
 //essentially checks if the user has clicked the submit button 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    //Validate username 
-    //here we check if the username field is empty or already taken
-    //empty = checks if field is empty
-    //trim = removes whitespace from beginning and end of string
-    if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter a username.";
+    //validate username
+    $checkUsername = Validator::validateUsername($_POST["username"]);
+    if($checkUsername === true)
+    {
+        $username = trim($_POST["username"]);
     } else {
-        //prepare sql select statement
-        //? is variable that will inserted as username
-        $sql = "SELECT userid FROM users WHERE username = ?";
-
-        //prepare = prepares a sql statement for execution.
-        //Basically, will bind parameters to the question mark
-        //then execute that statement
-        if ($stmt = $mysqli->prepare($sql)) {
-            //bind variable to prepared statement as parameters
-            //this method also sanitised inputs, no sql injections...
-            $stmt->bind_param("s", $param_username);
-
-            //set the username parameter from the username input
-            $param_username = trim($_POST["username"]);
-
-            //attempt to execute statement
-            if ($stmt->execute()) {
-                $stmt->store_result();
-
-                //check if there are rows from table that returns with same username
-                //i.e username already exists in table and user should try another one
-                if ($stmt->num_rows == 1) {
-                    $username_err = "This username is already taken";
-                } else {
-                    $username = trim($_POST["username"]);
-                }
-            } else // if statement can't be executed for whatever reason
-            {
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-            $stmt->close();
-        }
+        $username_err = $checkUsername;
     }
 
     //Validate password
     //check password field is empty or less that 6 chars
-    if (empty(trim($_POST["password"]))) {
-        $password_err = "Please enter a password.";
-    } elseif (strlen(trim($_POST["password"])) < 6) {
-        $password_err = "Password must have at least 6 characters.";
-    } else {
+    $checkPassword = Validator::validatePassword($_POST["password"]);
+    if($checkPassword === true)
+    {
         $password = trim($_POST["password"]);
+    } else {
+        $password_err = $checkPassword;
     }
 
     //Validate confirm password
     //checks if confirm password field is empty
-    if (empty(trim($_POST["confirm_password"]))) {
-        $confirm_password_err = "Please confirm password!";
-    } else {
+    $checkConfirmPassword = Validator::validateConfirmPassword($password,$confirm_password);
+    if($checkConfirmPassword === true) {
         $confirm_password = trim($_POST["confirm_password"]);
-        //check theres no password error and that the passwords match
-        if (empty($password_err) && ($password != $confirm_password)) {
-            $confirm_password_err = "Password did not match.";
-        }
+    } else {
+        $confirm_password_err = $checkConfirmPassword;
     }
 
     //Validate email
-    if (empty(trim($_POST["email"])) || filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $email_err = "Please enter a valid email address";
+    $checkEmail = Validator::validateEmail($_POST["email"]);
+    if($checkEmail === true) {
+        $email = $checkEmail;
     } else {
-        $sql = "SELECT userid FROM users WHERE email = ?";
-
-        if($stmt = $mysqli->prepare($sql)) {
-            $stmt->bind_param("s", $param_email);
-
-            $param_email = trim($_POST["email"]);
-
-            if ($stmt->execute()) {
-                $stmt->store_result();
-
-                if ($stmt->num_rows == 1) {
-                    $email_err = "This email is already taken";
-                } else {
-                    $email = trim($_POST["email"]);
-                }
-            } else // if statement can't be executed for whatever reason
-            {
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-            $stmt->close();
-        }
-        $email = $_POST["email"];
+        $email_err = $checkEmail;
     }
 
     //Validate Hobby Selection
@@ -124,19 +70,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $location = $_POST["location"];
     }
-    //Validate birthdate
-    if(!empty($_POST["date"])) {
-        $birthday = strtotime($_POST["date"]);
-        //31536000 is the number of seconds
-        if(time() - $birthday < 18 * 31536000) {
-            $date_err = "You must be 18 to join!";
-        }else{
-            $birthdate = $_POST["date"];
-        }
-    } else {
-        $date_err = "Please enter your birthdate!";
-    }
 
+    //Validate birthdate
+    $checkBirthdate = Validator::validateBirthday($_POST["date"]);
+    if($checkBirthdate === true){
+        $birthdate = $checkBirthdate;
+    } else {
+        $date_err = $checkBirthdate;
+    }
 
 
     //Check input errors before inserting into database
@@ -208,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="text" name="email" class="form-control <?php (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+                <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
             <div class="form-group">
