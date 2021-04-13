@@ -14,7 +14,23 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
-$username = $email = $hobby = $bio = $location = "";
+$hobby = $bio = $location = "";
+$hobby_err = $bio_err = $location_err = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if(!empty($_POST["hobby"])) {
+        foreach ($_POST["hobby"] as $value) {
+            $sql = "INSERT INTO userhobbies (hobbyid,userid) VALUES (" . $value . "," . $_SESSION["id"] . ");";
+            if ($mysqli->query($sql)) {
+                //redirect to login page
+            } else {
+                echo "Error!" . $mysqli->error;
+            }
+        }
+    }
+}
+
 
 ?>
 

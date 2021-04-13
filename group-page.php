@@ -1,6 +1,7 @@
 <?php
 /** @var mysqli $mysqli */
 include_once "config.php";
+include("solution/Group.php");
 
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
@@ -8,70 +9,28 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
     header("location: login.php");
     exit;
 }
-$currentGroup = $_GET["groupid"]; //gets id from url
+
+if(empty($_GET["groupid"])){
+    header('location: groups-page.php');
+}
+$group_ID = $_GET["groupid"]; //gets id from url
 
 $group_err = "";
-$sql = "SELECT name, description FROM groups WHERE groupid = ?";//fetch data about group
 
-if($stmt = $mysqli->prepare($sql)) {
-    $stmt->bind_param("s",$param_groupid);
-
-    $param_groupid = $currentGroup;
-
-    if($stmt->execute()) {
-        $stmt->store_result();
-        if($stmt->num_rows == 0){
-            $group_err = "Error: Group not found";
-        } else {
-            $stmt->bind_result($name,$description);
-            if($stmt->fetch()) {
-                $group_name = $name;
-                $group_description = $description;
-            }
-        }
-    } else {
-        echo $mysqli->error;
-    }
-} else {
-    echo $mysqli->error;
+try {
+    $group = new Group($group_ID);
+} catch(Exception $e) {
+    $group_err = $e->getMessage();
 }
-
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    $sql = "INSERT INTO usergroups (userid,groupid) VALUES (". $_SESSION["id"] . "," . $currentGroup . ");";
-
-    if ($mysqli->query($sql)) {
-        echo "You've successfully joined this group";
-    } else {
-        echo "$mysqli->error";
+    try {
+        $group->add_user($_SESSION["id"]);
+        header('location: group-page.php?groupid='.$group_ID);
+    } catch(Exception $e) {
+        $group_err = $e;
     }
-
-}
-
-function isJoined($group_id, $user_id) {
-    global $mysqli;
-    $sql = "SELECT groupid FROM usergroups WHERE groupid = ? AND userid = ?;";
-
-    if($stmt = $mysqli->prepare($sql)){
-        $stmt->bind_param("ss", $param_groupid, $param_userid);
-
-        $param_groupid = $group_id;
-        $param_userid = $user_id;
-
-        if($stmt->execute()) {
-            $stmt->store_result();
-            if($stmt->num_rows ==0) {
-                return false;
-            }
-            return true;
-        }else {
-            echo $mysqli->error;
-        }
-    } else {
-        echo $mysqli->error;
-    }
-    return false;
 }
 
 ?>
@@ -120,13 +79,13 @@ function isJoined($group_id, $user_id) {
         echo '<div class="alert alert-danger">' . $group_err . '</div>';
     }
     ?>
-    <h2><?php echo $group_name ?></h2>
-    <p><?php echo $group_description?></p>
+    <h2><?php echo $group->get_name() ?></h2>
+    <p><?php echo $group->get_description()?></p>
     </div>
     <form method="post">
-        <?php echo (!isJoined($currentGroup, $_SESSION["id"])) ? '<input type="submit" name="join_group" class="button" value="Join group">'  : '';?>
+        <?php echo (!$group->is_member($_SESSION["id"])) ? '<input type="submit" name="join_group" class="button" value="Join group">'  : '';?>
     </form>
-    <p><?php echo (isJoined($currentGroup,$_SESSION["id"])) ? "Joined!" : "";?>
+    <p><?php echo ($group->is_member($_SESSION["id"])) ? "Joined!" : "";?>
     </p>
 </div>
 
