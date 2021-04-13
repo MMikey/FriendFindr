@@ -124,7 +124,7 @@ function isJoined($group_id, $user_id) {
     <p><?php echo $group_description?></p>
     </div>
     <form method="post">
-        <input type="submit" name="join_group" class="button" value="Join group">
+        <?php echo (!isJoined($currentGroup, $_SESSION["id"])) ? '<input type="submit" name="join_group" class="button" value="Join group">'  : '';?>
     </form>
     <p><?php echo (isJoined($currentGroup,$_SESSION["id"])) ? "Joined!" : "";?>
     </p>

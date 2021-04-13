@@ -17,13 +17,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 function getJoinedGroups()
 {
     global $mysqli;
-    $sql = "SELECT g.name, g.description FROM groups g, usergroups ug WHERE g.groupid = ug.groupid AND ug.userid =" . $_SESSION["id"] . ";";
+    $sql = "SELECT g.groupid, g.name, g.description FROM groups g, usergroups ug WHERE g.groupid = ug.groupid AND ug.userid =" . $_SESSION["id"] . ";";
     $joinedgroups_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql statement
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
             echo "<h3>" . $row["name"] . "</h3>\n";
             echo "<p>" . $row["description"] . "</p>\n";
+            echo '<a href="group-page.php?groupid='.$row["groupid"].'" class="btn btn-info" role="button">View Group</a>';
             echo "</div>";
         }
     } else {
@@ -46,7 +47,7 @@ function getRecommendedGroups()
                 echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
                 echo "<h3>" . $row["name"] . "</h3>\n";
                 echo "<p>" . $row["description"] . "</p>\n";
-                echo '<a href="group-page.php?groupid='.$row["groupid"].'" class="btn btn-info" role="button">Link Button</a>';
+                echo '<a href="group-page.php?groupid='.$row["groupid"].'" class="btn btn-info" role="button">View Group</a>';
 
                 echo "</div>";
             }
@@ -98,7 +99,7 @@ function getRecommendedGroups()
         </li>
     </ul>
 </nav>
-<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+<h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to FriendFindr</h1>
 <div class="container">
     <h2>Your groups</h2>
     <?php getJoinedGroups(); ?>

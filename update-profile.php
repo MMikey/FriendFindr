@@ -33,7 +33,6 @@ $username = $email = $hobby = $bio = $location = "";
 </head>
 
 <body>
-<div class="container">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <!-- Links -->
         <a class="navbar-brand" href="index.php">FriendFindr</a>
@@ -57,6 +56,7 @@ $username = $email = $hobby = $bio = $location = "";
             </li>
         </ul>
     </nav>
+<div class="container">
     <h2>Update Profile</h2>
     <p>Please fill in fields that you would like to update</p>
 
