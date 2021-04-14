@@ -50,6 +50,9 @@ class Group
             throw new Exception($group_err);
         }
     }
+    public function get_id() {
+        return $this->id;
+    }
 
     public function get_name() : string {
         return $this->name;

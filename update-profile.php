@@ -2,6 +2,7 @@
 /**
  * @var mysqli $mysqli
  */
+include("solution/Validator.php");
 
 // Initialise the session
 session_start();
@@ -21,6 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(!empty($_POST["hobby"])) {
         foreach ($_POST["hobby"] as $value) {
+            if(Validator::validateHobby($_SESSION["id"],$value) !== true) continue; //if hobby already exists skip
             $sql = "INSERT INTO userhobbies (hobbyid,userid) VALUES (" . $value . "," . $_SESSION["id"] . ");";
             if ($mysqli->query($sql)) {
                 //redirect to login page
@@ -29,6 +31,39 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     }
+
+    if(!empty($_POST["bio"])) {
+        $sql = "UPDATE users SET bio= ? WHERE userid =" . $_SESSION["id"] . ";";
+
+        if($stmt = $mysqli->prepare($sql)) {
+            $stmt->bind_param("s", $param_bio);
+            $param_bio = $_POST["bio"];
+            if($stmt->execute()) {
+                $stmt->store_result();
+            } else {
+                $bio_err = "Oops! Something went wrong! " . $mysqli->error;
+            }
+        } else {
+            $bio_err = "Oops! Something went wrong! " . $mysqli->error;
+        }
+    }
+
+    if(!empty($_POST["location"])) {
+        $sql = "UPDATE users SET location=? WHERE userid =" . $_SESSION["id"] . ";";
+        if($stmt = $mysqli->prepare($sql)) {
+            $stmt->bind_param("s", $param_location);
+            $param_location = $_POST["location"];
+            if($stmt->execute()) {
+                $stmt->store_result();
+            } else {
+                $location_err = "Oops! Something went wrong! " . $mysqli->error;
+            }
+        } else {
+            $location_err = "Oops! Something went wrong! " . $mysqli->error;
+        }
+    }
+
+    header("location: profile-page.php");
 }
 
 
@@ -39,7 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Update Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/FFStylesheet.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -77,7 +112,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <p>Please fill in fields that you would like to update</p>
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-
         <div class="form-group">
             <label>
                 Select a Hobby
