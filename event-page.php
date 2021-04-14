@@ -10,6 +10,41 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
     exit;
 }
 
+//checks if the page sends a 'post' method
+//essentially checks if the user has clicked the submit button
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    //Check input errors before inserting into database
+    if (empty($username_err) && empty($email_err) &&
+        empty($password_err) && empty($confirm_password_err)
+        && empty($hobby_err) && empty($date_err)) {
+
+        //sql statement for inserting data into users events
+        $sql = "INSERT INTO userevents (userid, eventid) VALUES (?,?)";
+
+        if ($stmt = $mysqli->prepare($sql)) {
+            $stmt->bind_param("ssssss", $param_userid, $param_eventid); // bind parameters to  queries
+
+            $param_userid = $_SESSION["username"];
+            $param_eventid = 2;
+
+            if ($stmt->execute()) {
+                $stmt->store_result();
+                //redirect to login page
+                //header("location: login.php");
+                //echo "submitted!";
+            } else {
+                echo "Oops! Something went wrong. Please try again later." . $mysqli->error;
+            }
+
+            $stmt->close(); // close statement - close query
+        } else {
+            echo "Oop! Something went wrong!. Please try again later." . $mysqli->error;
+        }
+    }
+
+}
+
 ?>
 
 <!-- This is just a template example of html that i pinched off the internet obviously ours will be different -->
@@ -57,6 +92,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
     <h1>Event Name</h1>
     <p>Details about the event</p>
     <p>Location, Time</p>
+    <input type="submit" class="btn btn-primary" value="Interested">
+    <input type="reset" class="btn btn-secondary ml-2" value="Not Interested">
 
 
 
@@ -65,3 +102,4 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
 
 </body>
 
+</html>

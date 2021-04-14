@@ -36,17 +36,17 @@ function getUserEvents()
 
 }
 
-function getRecommendedEvents()
+function getAllEvents()
 {
     global $mysqli;
-    $sql = "SELECT * FROM events";
+    $sql = "SELECT * FROM events order by eventid desc";
     $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
             echo "<h3>" . $row["name"] . "</h3>\n";
             echo "<p>" . $row["description"] . "</p>\n";
-            echo '<a href="event-page.php?groupid='.$row["groupid"].'" class="btn btn-info" role="button">View Group</a>';
+            echo '<a href="event-page.php?eventid='.$row["eventid"].'" class="btn btn-info" role="button">Find Out More</a>';
             echo "</div>";
         }
 
@@ -106,8 +106,8 @@ function getRecommendedEvents()
     <?php getUserEvents(); ?>
 
 
-    <h2>Suggested Events</h2>
-    <?php getRecommendedGroups(); ?>
+    <h2>All Events</h2>
+    <?php getAllEvents(); ?>
 
 </div>
 
