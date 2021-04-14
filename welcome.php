@@ -75,17 +75,8 @@ function getRecommendedGroups()
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
+
 <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-
-<nav>
-    <ul id="navlist">
-        <li><a href="groups-page.php" title="Groups">Groups</a></li>
-        <li><a href="profile-page.php" title="Profile">Profile</a></li>
-    </ul>
-</nav>
-
-=======
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!-- Links -->
@@ -111,7 +102,7 @@ function getRecommendedGroups()
     </ul>
 </nav>
 <h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to FriendFindr</h1>
->>>>>>> 2e5e7684607fed01da6c74cf8efef7f2f167eb33
+
 <div class="container">
     <h2>Your groups</h2>
     <?php getJoinedGroups(); ?>
