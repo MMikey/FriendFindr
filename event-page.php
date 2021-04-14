@@ -1,35 +1,28 @@
 <?php
+/** @var mysqli $mysqli */
+include_once "config.php";
+include("solution/Group.php");
 
-// Initialise the session
 session_start();
-
-//Check if the user is logged in, if not then redirect him to login page 
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
 {
     header("location: login.php");
     exit;
 }
 
-        //SQL Queries
-        $usergroups = "SELECT name, description FROM groups grp join usergroups ugr on grp.group_id = ugr.group_id WHERE username = ?";
-        $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on grp.group_id = ugr.group_id WHERE username = ?";
-
 ?>
+
 <!-- This is just a template example of html that i pinched off the internet obviously ours will be different -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>Events Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        body{ font: 14px sans-serif; text-align: center; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/FFStylesheet.css">
 </head>
-<body>
+<!--<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1> -->
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!-- Links -->
     <a class="navbar-brand" href="index.php">FriendFindr</a>
@@ -56,10 +49,19 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
         </li>
     </ul>
 </nav>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-    </p>
+
+<body>
+
+<div class = "container">
+
+    <h1>Event Name</h1>
+    <p>Details about the event</p>
+    <p>Location, Time</p>
+
+
+
+</div>
+
+
 </body>
-</html>
+
