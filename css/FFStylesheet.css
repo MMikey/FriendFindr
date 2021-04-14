@@ -1,12 +1,12 @@
 body{
-    font: 14px sans-serif;
-    text-align: center;
+
 }
 
 .wrapper {
     margin-right: auto;
     margin-left: auto;
 
+    text-align: center;
     width: 350px;
     padding: 20px;
 }

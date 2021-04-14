@@ -120,4 +120,33 @@ class Validator
             return "Please enter your birthdate!";
         }
     }
+
+    static function validateHobby($userid, $hobby) {
+        global $mysqli;
+            $sql = "SELECT userid FROM userhobbies WHERE userid = $userid AND hobbyid=$hobby";
+            if($result = $mysqli->query($sql)) {
+                if($result->num_rows > 0) {
+                    return "You're already part of this group..";
+                }
+                return true;
+            } else {
+                return "Oops! Something went wrong! $mysqli->error";
+            }
+
+    }
+
+    static function validateJoinGroup($user_id, $group_id) {
+        global $mysqli;
+        $sql = "SELECT userid FROM usergroups WHERE userid = $user_id AND groupid=$group_id;";
+
+        if($result = $mysqli->query($sql)) {
+            if($result->num_rows > 0)
+            {
+                return "You're already part of this group..";
+            }
+            return true;
+        } else {
+            return "Oops! Something went wrong! $mysqli->error";
+        }
+    }
 }

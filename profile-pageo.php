@@ -1,16 +1,33 @@
 <?php
 /** @var mysqli $mysqli */
 //include config file - connects to database
-require_once "config.php";
-include("solution/Validator.php");
-
+// Initialise the session
 session_start();
 
-if($_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
+$host = "localhost"; //if that doesn't work try 127.0.0.1
+$user="root";
+$password="";
+$dbname="friendfindr"; //change to whatever the database is on your machine
 
+//object oriented approach, basically connect to database
+$mysqli = new mysqli($host, $user, $password, $dbname);
+
+require_once "config.php";
+$conn = $mysqli;
+
+
+
+//get specific information for user
+
+//initial sql
+//gets the data that you want from db
+function GetVar( $var,$userid,$conn) {
+    // make the query
+    $query = $conn->query("SELECT ".$var." FROM users WHERE userid = '".$userid."' LIMIT 1");
+    $result = $query->fetch_assoc(); // fetch it first
+    return $result[$var];
+}
+include("solution/Validator.php");
 ?>
 
 <!DOCTYPE html>
@@ -49,8 +66,9 @@ if($_SESSION["loggedin"] !== true){
         </li>
     </ul>
 </nav>
-<h1><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
-
+<h1><b><?php echo GetVar('username', $_GET['userid'] ,$conn)?> </b></h1>
+<p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $_GET['userid'] ,$conn)?></p>
+<p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $_GET['userid'] ,$conn)?></p>
 <nav>
     <ul id="navlist">
         <li><a href="welcome.php" title="Home">Home</a></li>
