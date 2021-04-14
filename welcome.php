@@ -76,7 +76,7 @@ function getRecommendedGroups()
 </head>
 <body>
 
-<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+<!--<h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1> -->
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!-- Links -->
