@@ -69,45 +69,64 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $mysqli->close();
 }
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reset Password</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="This is a friend finding Application" />
+    <title>Welcome</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wpCSS.css"">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
-    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <!-- Links -->
-    <a class="navbar-brand" href="index.php">FriendFindr</a>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="welcome.php">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="groups-page.php">All groups</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Profile
-            </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="profile-page.php">My Profile</a>
-                <a class="dropdown-item" href="update-profile.php">Edit Profile</a>
-                <a class="dropdown-item" href="reset-password.php">Reset Password</a>
-                <a class="dropdown-item" href="logout.php">Logout</a>
+<section id="nav-bar">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="./data/logo.png" /></a>
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="welcome.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="groups-page.php">All Groups</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Profile
+                        </a>
+                        <div class="dropdown-menu" style="color:black">
+                            <a class="dropdown-item" href="profile-page.php">My Profile</a>
+                            <a class="dropdown-item" href="update-profile.php">Edit Profile</a>
+                            <a class="dropdown-item" href="reset-password.php">Reset Password</a>
+                            <a class="dropdown-item" href="logout.php">Logout</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About us</a>
+                    </li>
+                </ul>
             </div>
-        </li>
-    </ul>
-</nav>
+        </div>
+    </nav>
+</section>
+
     <div class="wrapper">
         <h2>Reset Password</h2>
         <p>Please fill out this form to reset your password.</p>
@@ -127,6 +146,46 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <a class="btn btn-link ml-2" href="welcome.php">Cancel</a>
             </div>
         </form>
-    </div>    
+    </div>
+
+<!-----sodicla media ------>
+<section id="social-media">
+    <div class="container text-center">
+        <p>FIND US ON SOCIAL MEDIA</p>
+
+        <div class="social-icons">
+            <a href="#"> <img src="./data/fb.png" /> </a>
+            <a href="#"> <img src="./data/ig.png" /> </a>
+            <a href="#"> <img src="./data/ws.jpg" /> </a>
+        </div>
+    </div>
+</section>
+
+<!----Footer Section---->
+<section id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 footer-box">
+                <img src="./data/logo.png" />
+                <p>
+                    Welcome To FriendFindr:
+                    Join your group and become a part of something
+                </p>
+            </div>
+            <div class="col-md-4 footer-box">
+                <p><b> Contact us </b></p>
+                <p><i class="fa fa-map-marker"></i> MMU, Manchester</p>
+                <p><i class="fa fa-phone"></i>01617959454</p>
+                <p><i class="fa fa-envelope"></i>BlaBlaBla@hotmail.co.uk</p>
+            </div>
+            <div class="col-md-4 footer-box">
+                <p><b> Subscribe </b></p>
+                <input type="email" class="form-control" placeholder="Your Email" />
+                <button type="button" class="btn btn-primary">Contact us</button>
+            </div>
+        </div>
+    </div>
+</section>
+
 </body>
 </html>
