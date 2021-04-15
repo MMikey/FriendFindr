@@ -14,29 +14,30 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 require_once "config.php";
 
 //declare variables and initialise with empty values
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
+$login_username = $login_password = "";
+$login_username_err = $login_password_err = $login_err = "";
+
 
 //processing form data when submitted by user
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submit_1']) {
     //check if username is empty
     //empty returns bool if variable is empty
     //trim removes whitespace from input
     if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter username";
+        $login_username_err = "Please enter username";
     } else {
-        $username = trim($_POST["username"]);
+        $login_username = trim($_POST["username"]);
     }
 
     //check if password is empty
     if (empty(trim($_POST["password"]))) {
-        $password_err = "Please enter your password.";
+        $login_password_err = "Please enter your password.";
     } else {
-        $password = trim($_POST["password"]);
+        $login_password = trim($_POST["password"]);
     }
 
     //if there are not errors - error strings are empty
-    if (empty($username_err) && empty($password_err)) {
+    if (empty($login_username_err) && empty($login_password_err)) {
 
         //prepare select statement
         $sql = "SELECT userid, username, password FROM users WHERE username = ?";
@@ -46,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("s", $param_username);
 
             //set parameters
-            $param_username = $username;
+            $param_username = $login_username;
 
             //attempt to execute prepared statement
             if ($stmt->execute()) {
@@ -58,10 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     //bind result variable
                     //essential stores each result variable from row into stmt, then we can use fetch to get each one by one
                     //in this case we have bound the results to the 3 variables in the arguements list, $id, $username, $hashed_password
-                    $stmt->bind_result($id, $username, $hashed_password);
+                    $stmt->bind_result($id, $login_username, $hashed_password);
                     if ($stmt->fetch()) {
                         //password verify checks if the password entered is the same as the hashed one stored in the database
-                        if (password_verify($password, $hashed_password)) {
+                        if (password_verify($login_password, $hashed_password)) {
                             //Password is correct so start a new session for that user.
                             //basically a session is local to the user so thats how we can display groups relevant to them
                             session_start();
@@ -69,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             //store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;
+                            $_SESSION["username"] = $login_username;
 
                             //redirect user to welcome page
                             header("location: welcome.php");
@@ -98,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $mysqli->close();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -106,8 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/FFStylesheet.css">
+    <link rel="stylesheet" type="text/css" href="css/rgCss.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -115,56 +116,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <!-- Links -->
-        <a class="navbar-brand" href="index.php">FriendFindr</a>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="welcome.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="groups-page.php">All groups</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Profile
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="profile-page.php">My Profile</a>
-                    <a class="dropdown-item" href="update-profile.php">Edit Profile</a>
-                    <a class="dropdown-item" href="reset-password.php">Reset Password</a>
-                    <a class="dropdown-item" href="logout.php">Logout</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
-    <div class="wrapper">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
-
+<div class="head">
+    <div class="form-box" id="form-box">
+        <p>Don't have an account?<a href="signup.php">Register here</a>.</p>
+        <div class="button-box">
+            <div id="btn"> </div>
+            <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+            <button type="button" class="toggle-btn" onclick="register()">Register</button>
+        </div>
+        <div class="social-icons">
+            <img src="./data/fb.png">
+            <img src="./data/ig.png">
+            <img src="./data/ws.jpg">
+        </div>
+        <!--LOGIN FORM-->
         <?php
         if (!empty($login_err)) {
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
+            echo '<div id="error_message"> <p>' . $login_err . '</p></div>';
         }
         ?>
+        <form id="login" class="input-group" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <input name = "username" type="text" class="input-field" placeholder="User Id" required>
+            <span class="invalid-feedback"><?php echo $login_username_err; ?></span>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
-            </div>
-            <p>Don't have an account? <a href="signup.php">Sign up now</a>.</p>
+            <input name="password" type="password" class="input-field" placeholder="Enter Password" required>
+            <span class="invalid-feedback"><?php echo $login_password_err;?></span>
+            <input name ="submit_1" type="submit" class="submit-btn" value="login">
         </form>
+
     </div>
+
+</div>
+
+    <script>
+        const x = document.getElementById("login");
+        const y = document.getElementById("register");
+        const z = document.getElementById("btn");
+
+        function register(){
+
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+        function login(){
+
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+        }
+    </script>
+</body>
+</html>
 </body>
 
 </html>

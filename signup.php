@@ -7,6 +7,7 @@ include("solution/Validator.php");
 //initialise variables with empty values
 $username = $password = $confirm_password = $email = $bio = $location = $birthdate = "";
 $username_err = $password_err = $confirm_password_err = $hobby_err = $email_err = $date_err = "";
+$all_errors = array();
 
 //processing form data when submitted
 
@@ -35,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //Validate confirm password
     //checks if confirm password field is empty
-    $checkConfirmPassword = Validator::validateConfirmPassword($password,$confirm_password);
+    $checkConfirmPassword = Validator::validateConfirmPassword($password,$_POST["confirm_password"]);
     if($checkConfirmPassword === true) {
         $confirm_password = trim($_POST["confirm_password"]);
     } else {
@@ -123,66 +124,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     }
+    $all_errors = array($username_err,$email_err, $password_err, $confirm_password_err,$hobby_err, $date_err);
     //$mysqli->close();
 }
+function getErrors($all_errors) : array{
+    $errors = array();
+    foreach($all_errors as $error) {
+        if(!empty($error)) {
+            $errors[] = $error;
+        }
+    }
+    return $errors;
+}
+
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Friend Finder - Sign Up</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/FFStylesheet.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+        <link rel="stylesheet" type="text/css" href="css/rgCss.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-</head>
+    </head>
 
-<body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <!-- Links -->
-    <a class="navbar-brand" href="index.php">FriendFindr</a>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="welcome.php">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="groups-page.php">All groups</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Profile
-            </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="profile-page.php">My Profile</a>
-                <a class="dropdown-item" href="update-profile.php">Edit Profile</a>
-                <a class="dropdown-item" href="reset-password.php">Reset Password</a>
-                <a class="dropdown-item" href="logout.php">Logout</a>
+    <body>
+    <div class="head">
+        <div class="form-box" id="form-box">
+            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+            <div class="button-box">
+                <div id="btn"> </div>
+                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
             </div>
-        </li>
-    </ul>
-</nav>
-    <div class="wrapper">
-        <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
+            <div class="social-icons">
+                <img src="./data/fb.png">
+                <img src="./data/ig.png">
+                <img src="./data/ws.jpg">
             </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-                <span class="invalid-feedback"><?php echo $email_err; ?></span>
-            </div>
-            <div class="form-group">
-                <label>Select a Hobby</label>
-                <!-- user can select mulitple hobbys and store them as an array -->
-                <select multiple name="hobby[]" class="form-control <?php echo (!empty($hobby_err)) ? 'is-invalid' : ''; ?>">
+            <ul class='errorMessages'>
+                <?php
+                $errors = getErrors($all_errors);
+                foreach($errors as $error) {
+                     echo "<li>$error</li>";
+                }
+
+                ?>
+            </ul>
+            <form id="login" class="input-group" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
+                <input type="text" name="username" class="input-field" value="<?php echo $username; ?>" placeholder="Username" required>
+
+
+                <input type="email" name="email" class="input-field" value="<?php echo $email; ?>" placeholder="Email Id" required>
+
+                <select multiple name="hobby[]" class="input-field">
                     <?php
                     //Populating hobby input field
                     //prepare sql select statement
@@ -197,43 +198,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     ?>
                 </select>
-                <span class="invalid-feedback"><?php echo $hobby_err; ?></span>
-            </div>
-            <div class="form-group">
-                <label>
-                    Enter something about yourself!
-                    <small class="text-muted">Optional</small>
-                </label>
-                <textarea  name="bio" class="form-control" rows="3" value = "<?php echo $bio;?>"></textarea>
-            </div>
-            <div class="form-group">
-                <label>
-                    Whats your city?
-                    <small class="text-muted">Optional</small>
-                </label>
-                <input type="text" name = "location" class = "form-control" value = "<?php echo $location?>">
-            </div>
-            <div class="form-group">
-                <label>Please confirm your date of birth</label>    
-                <input type = "date" name = "date" class = "form-control <?php echo (!empty($date_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $birthdate; ?>" id ="date">
-                <span class="invalid-feedback"><?php echo $date_err; ?></span>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
-                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-            </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+
+
+                <textarea  name="bio" class="input-field" rows="3" value = "<?php echo $bio;?>" placeholder="Tell us something about yourself"></textarea>
+
+                <input type="text" name = "location" class = "input-field" value = "<?php echo $location?>" placeholder="Whats your current city?">
+
+
+                <input type = "date" name = "date" class = "input-field" value="<?php echo $birthdate; ?>" id ="date">
+
+                <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
+
+
+                <input type="password" name="confirm_password" class="input-field" value="<?php echo $confirm_password; ?>"placeholder="Confirm Password">
+
+
+                <input type="checkbox" class="check-box"> <span> I agree </span>
+                <input type="submit" class="submit-btn" value="Register">
         </form>
+            </div>
     </div>
 </body>
 
