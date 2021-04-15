@@ -9,7 +9,7 @@
 body{
 	
 	font-family: 'Raleway', sans-serif;
-	background-image:url('./img/bck1.jpg');
+	background-image:url('./bck1.jpg');
 	background-repeat: no-repeat;
 	background-size: 100% auto;
 	
@@ -171,7 +171,7 @@ body{
 	
 	#about-us{
 		
-		background:f8f9fa;
+		background:#f8f9fa;
 		padding-bottom:50px;
 		padding-top: 50px;
 	}
@@ -354,7 +354,7 @@ body{
 	
 	height:100%;
 	width:100%;
-	background-image: linear-gradient(rgba(0,0,0,0.4),(rgba(0,0,0,0.4)),url('./img/bck1.jpg');
+	background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('bck2.jpg');
 	background-position:center;
 	background-size:cover;
 	position:absolute;
