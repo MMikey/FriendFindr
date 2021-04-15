@@ -228,14 +228,3 @@ SET time_zone = "+00:00";
     ADD PRIMARY KEY (`grouphobbies_id`),
     ADD KEY `hobbyid_grouphobbies` (`hobbyid`),
     ADD KEY `groupid_grouphobbies` (`groupid`);
-
-
--- Dumping data for table `events`
-INSERT INTO `events` (`eventid`, `name`, `description`, `location`, `finish_time`, `start_time`) VALUES
-(1, 'Event 1', '1', 'Manchester', '15/04/2021', '15/04/2021'),
-(2, 'Event 2', '2', 'Manchester', '16/04/2021', '16/04/2021'),
-(3, 'Event 3', '3', 'Manchester', '17/04/2021', '16/04/2021');
-
-INSERT INTO `userevent` (userid, eventid) VALUES
-(23, 1),
-(23,3);
