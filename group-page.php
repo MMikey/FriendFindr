@@ -25,16 +25,24 @@ try {
 }
 
 
-/*if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["join_group"])) {
+if(isset($_POST["join_group"])) {
     try {
         $group->add_user($_SESSION["id"]);
         header('location: group-page.php?groupid='.$group_ID);
     } catch(Exception $e) {
         $group_err = $e;
     }
-}*/
+}
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["post_message"])){
+if(isset($_POST["leave_group"])) {
+     try {
+         $group->remove_user($_SESSION["id"]);
+     } catch(Exception $e) {
+         $group_err = $e->getMessage();
+     }
+}
+
+if(isset($_POST["post_message"])){
     $sql = "INSERT into posts (userid, groupid, content) VALUES (?,?,?);";
 
     if($stmt = $mysqli->prepare($sql)) {
@@ -45,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["post_message"])){
 
         if($stmt->execute()) {
             $stmt->store_result();
-            header("location: group-page.php?group-id=$group_ID");
+            //header("location: group-page.php?group-id=$group_ID");
         } else {
             $post_err = "Oops! Something went wrong! " . $stmt->error;
         }
@@ -54,11 +62,45 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["post_message"])){
     }
 }
 
+function getPosts($group_id){
+    global $mysqli;
+
+    $sql = "SELECT content,userid,posted_at FROM posts WHERE groupid = $group_id ORDER BY posted_at DESC ";
+
+    if($result = $mysqli->query($sql)) {
+        if($result->num_rows == 0) {
+            echo <<<HTML
+                <div class="row">
+                <h5 class="col-12"> There are currently no posts: Be the first!</h5>
+                </div>
+                HTML;
+
+        }
+        while($row = $result->fetch_assoc()){
+            $sql = "SELECT username FROM users WHERE userid =".$row["userid"].";";
+            $_result = $mysqli->query($sql);
+            $_row = $_result->fetch_assoc();
+
+            echo <<<HTML
+                <div class="row">
+                <p class="col-2">{$_row["username"]}</p>
+                <hr/>
+                <p class="col-md">{$row["content"]}</p>
+                <p class="col-2">{$row["posted_at"]}</p>
+                </div>
+                HTML;
+        }
+    }
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="This is a friend finding Application" />
@@ -97,7 +139,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["post_message"])){
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Profile
                         </a>
-                        <div class="dropdown-menu" style="color:black">
+                        <div class="dropdown-menu" >
                             <a class="dropdown-item" href="profile-page.php">My Profile</a>
                             <a class="dropdown-item" href="update-profile.php">Edit Profile</a>
                             <a class="dropdown-item" href="reset-password.php">Reset Password</a>
@@ -126,17 +168,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["post_message"])){
     </div>
 
     <form method="post">
-        <?php echo (!$group->is_member($_SESSION["id"])) ? '<input type="submit" name="join_group" class="button" value="Join group">'  : '';?>
+        <?php echo (!$group->is_member($_SESSION["id"])) ? '<input type="submit" name="join_group" class="button" value="Join group">'  :
+                                                            '<input type="submit" name="leave_group" class="button" value="Leave group">';?>
     </form>
 
     <p><?php echo ($group->is_member($_SESSION["id"])) ? "Joined!" : "";?>
     </p>
-    <div class="container">
+    <div class="container p-3 bg-light">
         <h3>Group Posts</h3>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+       <div class="container overflow-auto p-2 bg-white">
+           <div class="row bg-secondary">
+               <p class="col-2">Username</p>
+               <hr/>
+               <p class="col-md">Post</p>
+               <p class="col-2">Posted at</p>
+           </div>
+           <?php getposts($group_ID) ?>
+       </div>
+        <form  method="post">
             <div class="form-group">
                 <label>Enter a message</label>
-                <textarea  name="message" class="form-control" rows="3" value = "<?php echo $post;?>"></textarea>
+                <textarea  name="message" class="form-control" rows="3" value = "<?php echo $post;?>"
+                    <?php echo ($group->is_member($_SESSION["id"])) ? "" : "placeholder='You must be a member to make a post' disabled"?>></textarea>
                 <span class="invalid-feedback"><?php echo $post_err; ?></span>
             </div>
             <div class="form-group">
@@ -144,6 +197,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["post_message"])){
             </div>
         </form>
     </div>
+
+    <div class="container p-3 bg-light">
+        <h3>Members</h3>
+        <?php
+        $members = $group->get_members();
+        foreach($members as $member=>$member_value){
+        echo <<<HTML
+            <div class="row">
+            <p class = "col-2">{$member_value}</p>
+            <a href="profile-page.php?userid=$member" class="btn-default col-10" role="button">View Profile</a>
+            </div>
+            HTML;
+        }
+        ?>
+    </div>
+
 </div>
 
 <!-----sodicla media ------>
