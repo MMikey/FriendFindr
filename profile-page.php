@@ -11,6 +11,13 @@ if($_SESSION["loggedin"] !== true){
     exit;
 }
 
+if(!isset($_GET["userid"]))
+{
+    $userid = $_SESSION["id"];
+} else {
+    $userid = $_GET["userid"];
+}
+
 function GetVar( $var,$userid,$conn) {
     // make the query
     $query = $conn->query("SELECT ".$var." FROM users WHERE userid = '".$userid."' LIMIT 1");
@@ -79,9 +86,9 @@ function GetVar( $var,$userid,$conn) {
 
 <div class="container">
 
-    <h1><b><?php echo GetVar('username', $_GET['userid'] ,$mysqli)?> </b></h1>
-    <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $_GET['userid'] ,$mysqli)?></p>
-    <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $_GET['userid'] ,$mysqli)?></p>
+    <h1><b><?php echo GetVar('username', $userid ,$mysqli)?> </b></h1>
+    <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $userid ,$mysqli)?></p>
+    <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $userid ,$mysqli)?></p>
 
 </div>
 

@@ -21,11 +21,13 @@ function getJoinedGroups()
     $joinedgroups_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql statement
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
-            echo "<h3>" . $row["name"] . "</h3>\n";
-            echo "<p>" . $row["description"] . "</p>\n";
-            echo '<a href="group-page.php?groupid='.$row["groupid"].'" class="btn btn-info" role="button">View Group</a>';
-            echo "</div>";
+            echo <<<HTML
+                    <div id="recommended-groups-box" class="jumbotron text-center">
+                        <h3 class="jumbotron-heading">{$row["name"]}</h3>
+                        <p class="lead text-muted">{$row["description"]}</p>
+                        <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-info" role="button">View Group</a>
+                    </div>
+                    HTML;
         }
     } else {
         $joinedgroups_err = "You're not part of any groups.. ";
@@ -39,17 +41,19 @@ function getJoinedGroups()
 function getRecommendedGroups()
 {
     global $mysqli;
-    $sql = "SELECT g.groupid, g.name, g.description FROM groups g, grouphobbies gh, userhobbies uh 
+    $sql = "SELECT DISTINCT g.groupid, g.name, g.description FROM groups g, grouphobbies gh, userhobbies uh 
             where gh.hobbyid = uh.hobbyid AND uh.userid = " . $_SESSION["id"] . ";";
     $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-                echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
-                echo "<h3>" . $row["name"] . "</h3>\n";
-                echo "<p>" . $row["description"] . "</p>\n";
-                echo '<a href="group-page.php?groupid='.$row["groupid"].'" class="btn btn-info" role="button">View Group</a>';
+                echo <<<HTML
+                    <div id="recommended-groups-box" class="jumbotron text-center">
+                        <h3 class="jumbotron-heading">{$row["name"]}</h3>
+                        <p class="lead text-muted">{$row["description"]}</p>
+                        <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-info" role="button">View Group</a>
+                    </div>
+                    HTML;
 
-                echo "</div>";
             }
 
     } else {
@@ -105,7 +109,7 @@ function getRecommendedGroups()
                             Profile
                         </a>
                         <div class="dropdown-menu" style="color:black">
-                            <a class="dropdown-item" href="profile-page.php">My Profile</a>
+                            <a id = "test" class="dropdown-item" href="profile-page.php">My Profile</a>
                             <a class="dropdown-item" href="update-profile.php">Edit Profile</a>
                             <a class="dropdown-item" href="reset-password.php">Reset Password</a>
                             <a class="dropdown-item" href="logout.php">Logout</a>

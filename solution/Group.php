@@ -105,7 +105,7 @@ class Group
         }
 
         $sql = "DELETE FROM usergroups WHERE usergroups_id = $usergroups_id";
-        if($mysqli->query($sql)) throw new Exception("$mysqli->error");
+        if(!$mysqli->query($sql)) throw new Exception("$mysqli->error");
 
     }
 
