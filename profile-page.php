@@ -18,6 +18,19 @@ if(!isset($_GET["userid"]))
     $userid = $_GET["userid"];
 }
 
+function getProfilePic() {
+    global $mysqli;
+    $sql = "SELECT name FROM profilepictures WHERE userid =". $_SESSION["id"] .";";
+
+    if($result = $mysqli->query($sql)) {
+        $row = $result->fetch_assoc();
+        return "uploads/profile_pictures/" . $row["name"] . ".jpg";
+    } else {
+        return $mysqli->error;
+    }
+
+}
+
 function GetVar( $var,$userid,$conn) {
     // make the query
     $query = $conn->query("SELECT ".$var." FROM users WHERE userid = '".$userid."' LIMIT 1");
@@ -85,7 +98,7 @@ function GetVar( $var,$userid,$conn) {
 </section>
 
 <div class="container">
-
+    <img src="<?php getProfilePic()?>"> <p><?php getProfilePic()?></p>
     <h1><b><?php echo GetVar('username', $userid ,$mysqli)?> </b></h1>
     <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $userid ,$mysqli)?></p>
     <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $userid ,$mysqli)?></p>

@@ -70,6 +70,7 @@ function getRecommendedGroups()
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="css/wpCss.css"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="This is a friend finding Application" />
@@ -108,8 +109,8 @@ function getRecommendedGroups()
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Profile
                         </a>
-                        <div class="dropdown-menu" style="color:black">
-                            <a id = "test" class="dropdown-item" href="profile-page.php">My Profile</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="profile-page.php">My Profile</a>
                             <a class="dropdown-item" href="update-profile.php">Edit Profile</a>
                             <a class="dropdown-item" href="reset-password.php">Reset Password</a>
                             <a class="dropdown-item" href="logout.php">Logout</a>

@@ -1,9 +1,13 @@
 <?php
 /** @var mysqli $mysqli  */
 include_once "config.php";
+session_start();
 
-$target_dir = "uploads/profile_pictures";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$target_dir = "uploads/profile_pictures/";
+$temp = explode(".", $_FILES["fileToUpload"]["name"]);
+$newfilename =  round(microtime(true)) . '.' . end($temp);
+$target_file = $target_dir . $newfilename;
+
 
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -39,6 +43,7 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     $uploadOk = 0;
 }
 
+if(!uploadToDatabase($target_file)) $uploadOk=0;
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
@@ -51,6 +56,40 @@ if ($uploadOk == 0) {
         echo "Sorry, there was an error uploading your file.";
     }
 }
-?>
+
+function uploadToDatabase($name) {
+    global $mysqli;
+    //check if file already exists
+    $sql = "SELECT profilepictureid FROM profilepictures WHERE userid =". $_SESSION["id"] .";";
+    if($result = $mysqli->query($sql))
+    {
+        if($result->num_rows == 0) {
+            $sql = "INSERT into profilepictures (name,userid) VALUES(?,?);";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("ss", $param_name, $param_id);
+            $param_name = $name;
+            $param_id = $_SESSION["id"];
+        }else {
+            $sql = "UPDATE profilepictures SET name=? WHERE userid =?;";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("ss", $param_name, $param_id);
+            $param_name = $name;
+            $param_id = $_SESSION["id"];
+        }
+        if($stmt->execute()) {
+            return true;
+        } else {
+            echo $mysqli->error;
+            return false;
+        }
+    } else {
+        echo $mysqli->error;
+        return false;
+    }
+
 }
+
+
+
+
 
