@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submit_1']) {
             echo "Something went wrong! " . $mysqli->error;
         }
     }
-
+         
     $mysqli->close();
 }
 
