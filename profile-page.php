@@ -31,6 +31,19 @@ function getProfilePic() {
 
 }
 
+function getHobbies($userid) {
+    global $mysqli;
+    $sql = "SELECT DISTINCT name, description FROM hobbies hb join userhobbies uhb on hb.hobbyid = uhb.hobbyid WHERE userid = $userid";
+
+    if($result = $mysqli->query($sql)) {
+        while($row = $result->fetch_assoc()) {
+            echo <<<HTML
+            <p>{$row["name"]}</p>
+            HTML;
+        }
+    }
+}
+
 function GetVar( $var,$userid,$conn) {
     // make the query
     $query = $conn->query("SELECT ".$var." FROM users WHERE userid = '".$userid."' LIMIT 1");
