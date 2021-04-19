@@ -129,6 +129,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <h2>Update Profile</h2>
     <p>Please fill in fields that you would like to update</p>
 
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+        Select image to upload:
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Upload Image" name="submit">
+    </form>
+
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <label>
