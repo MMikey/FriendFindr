@@ -212,7 +212,7 @@ function getPosts($group_id){
         <form  method="post">
             <div class="form-group">
                 <label>Enter a message</label>
-                <textarea  name="message" class="form-control" rows="3" value = "<?php echo $post;?>"
+                <textarea style="width: 50%" name="message" class="form-control text-center" rows="3" value = "<?php echo $post;?>"
                     <?php echo ($group->is_member($_SESSION["id"])) ? "" : "placeholder='You must be a member to make a post' disabled"?>></textarea>
                 <span class="invalid-feedback"><?php echo $post_err; ?></span>
             </div>

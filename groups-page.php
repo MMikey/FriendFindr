@@ -61,7 +61,7 @@ $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on 
 </head>
 <body>
 <section id="nav-bar">
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="./data/logo.png" /></a>
             <button
@@ -102,7 +102,9 @@ $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on 
         </div>
     </nav>
 </section>
-<?php getAllGroups()?>
+<div class="container" style="width: 60%">
+    <?php getAllGroups()?>
+</div>
 <!-----sodicla media ------>
 <section id="social-media">
     <div class="container text-center">

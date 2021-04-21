@@ -3,6 +3,7 @@
 //include config file - connects to database
 require_once "config.php";
 include("solution/Validator.php");
+include("solution/User.php");
 
 session_start();
 
@@ -18,30 +19,24 @@ if(!isset($_GET["userid"]))
     $userid = $_GET["userid"];
 }
 
-function getProfilePic() {
-    global $mysqli;
-    $sql = "SELECT name FROM profilepictures WHERE userid =". $_SESSION["id"] .";";
+try{
+    $user = new User($userid);
+} catch (Exception $e) {
+    $user_err = $e->getMessage();
+}
 
-    if($result = $mysqli->query($sql)) {
+function getProfilePic()
+{
+    global $mysqli;
+    $sql = "SELECT name FROM profilepictures WHERE userid =" . $_SESSION["id"] . ";";
+
+    if ($result = $mysqli->query($sql)) {
         $row = $result->fetch_assoc();
         return "uploads/profile_pictures/" . $row["name"] . ".jpg";
     } else {
         return $mysqli->error;
     }
 
-}
-
-function getHobbies($userid) {
-    global $mysqli;
-    $sql = "SELECT DISTINCT name, description FROM hobbies hb join userhobbies uhb on hb.hobbyid = uhb.hobbyid WHERE userid = $userid";
-
-    if($result = $mysqli->query($sql)) {
-        while($row = $result->fetch_assoc()) {
-            echo <<<HTML
-            <p>{$row["name"]}</p>
-            HTML;
-        }
-    }
 }
 
 function GetVar( $var,$userid,$conn) {
@@ -111,10 +106,25 @@ function GetVar( $var,$userid,$conn) {
 </section>
 
 <div class="container">
+
+    <?php
+    if (!empty($group_err)) {
+        echo '<div class="alert alert-danger">' . $group_err . '</div>';
+    }
+    ?>
     <img src="<?php getProfilePic()?>"> <p><?php getProfilePic()?></p>
     <h1><b><?php echo GetVar('username', $userid ,$mysqli)?> </b></h1>
     <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $userid ,$mysqli)?></p>
     <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $userid ,$mysqli)?></p>
+    <h3 class="font-weight-bold">Joined Groups: </h3>
+    <ul class="list-group mb-4" style="width: 20%">
+    <?php foreach($user->getGroups() as $group_id => $group) {
+        echo <<<HTML
+            <li class="list-group-item">$group</li>
+            HTML;
+    }
+    ?>
+    </ul>
 
 </div>
 

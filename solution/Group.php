@@ -13,10 +13,10 @@ class Group
     public function __construct($id)
     {
         $this->id = $id;
-        $this->loadUser($id);
+        $this->loadGroup($id);
     }
 
-    private function loadUser($id) {
+    private function loadGroup($id) {
         global $mysqli;
         $isValid = true;
         //get name and description
