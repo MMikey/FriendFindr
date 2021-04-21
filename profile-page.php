@@ -106,26 +106,32 @@ function GetVar( $var,$userid,$conn) {
 </section>
 
 <div class="container">
-
-    <?php
-    if (!empty($group_err)) {
-        echo '<div class="alert alert-danger">' . $group_err . '</div>';
-    }
-    ?>
-    <img src="<?php getProfilePic()?>"> <p><?php getProfilePic()?></p>
-    <h1><b><?php echo GetVar('username', $userid ,$mysqli)?> </b></h1>
-    <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $userid ,$mysqli)?></p>
-    <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $userid ,$mysqli)?></p>
-    <h3 class="font-weight-bold">Joined Groups: </h3>
-    <ul class="list-group mb-4" style="width: 20%">
-    <?php foreach($user->getGroups() as $group_id => $group) {
-        echo <<<HTML
-            <li class="list-group-item">$group</li>
-            HTML;
-    }
-    ?>
-    </ul>
-
+    <div class="row">
+        <?php
+        if (!empty($group_err)) {
+            echo '<div class="alert alert-danger">' . $group_err . '</div>';
+        }
+        ?>
+        <div class="">
+            <img class="img-thumbnail rounded-circle" alt="No profile picture found" src="<?php echo getProfilePic()?>">
+            <h1 class="text-center"><b><?php echo GetVar('username', $userid ,$mysqli)?> </b></h1>
+        </div>
+        <div class="col-sm">
+            <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $userid ,$mysqli)?></p>
+            <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $userid ,$mysqli)?></p>
+        </div>
+        <div class="col-sm float-right" >
+            <h3 class="font-weight-bold">Joined Groups: </h3>
+            <ul class="list-group mb-4" style="width: 50%">
+            <?php foreach($user->getGroups() as $group_id => $group) {
+                echo <<<HTML
+                    <li class="list-group-item">$group</li>
+                    HTML;
+            }
+            ?>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <!-----sodicla media ------>

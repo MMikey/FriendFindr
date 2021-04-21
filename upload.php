@@ -1,7 +1,12 @@
 <?php
 /** @var mysqli $mysqli  */
 include_once "config.php";
+
 session_start();
+if($_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
 
 $target_dir = "uploads/profile_pictures/";
 $temp = explode(".", $_FILES["fileToUpload"]["name"]);
@@ -43,7 +48,7 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     $uploadOk = 0;
 }
 
-if(!uploadToDatabase($target_file)) $uploadOk=0;
+if(!uploadToDatabase($newfilename)) $uploadOk=0;
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
