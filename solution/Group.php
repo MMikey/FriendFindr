@@ -13,10 +13,10 @@ class Group
     public function __construct($id)
     {
         $this->id = $id;
-        $this->loadUser($id);
+        $this->loadGroup($id);
     }
 
-    private function loadUser($id) {
+    private function loadGroup($id) {
         global $mysqli;
         $isValid = true;
         //get name and description
@@ -79,7 +79,7 @@ class Group
         $sql = "INSERT INTO usergroups (userid,groupid) VALUES (". $user_id . "," . $this->id  .");";
 
         $valid = $this->is_member($user_id);
-        if($valid === true) {
+        if($valid !== true) {
             if ($mysqli->query($sql)) {
                 echo "You've successfully joined this group";
             } else {
@@ -90,20 +90,54 @@ class Group
         }
     }
 
-    public function is_member($user_id) : bool {
+    public function remove_user($user_id) : void {
+        global $mysqli;
+        if(!$this->is_member($user_id)) {
+            throw new Exception("Not a member");
+        }
+
+        $sql = "SELECT usergroups_id FROM usergroups WHERE userid = $user_id AND groupid = $this->id";
+
+        if($result = $mysqli->query($sql)) {
+            $usergroups_id = $result->fetch_assoc()["usergroups_id"];
+        } else {
+            echo "error" . $mysqli->error;
+        }
+
+        $sql = "DELETE FROM usergroups WHERE usergroups_id = $usergroups_id";
+        if(!$mysqli->query($sql)) throw new Exception("$mysqli->error");
+
+    }
+
+    public function is_member($user_id){
             global $mysqli;
             $sql = "SELECT userid FROM usergroups WHERE userid = $user_id AND groupid=$this->id;";
 
             if($result = $mysqli->query($sql)) {
-                if($result->num_rows > 0)
+                if($result->num_rows ==0)
                 {
-                    return "You're already part of this group..";
+                    return false;
                 }
                 return true;
             } else {
                 return "Oops! Something went wrong! $mysqli->error";
             }
-            }
+    }
+
+    public function get_members(){
+        global $mysqli;
+        $members = array();
+        $sql = "SELECT u.userid, u.username FROM users u, usergroups ug
+            where u.userid = ug.userid AND ug.groupid = " . $this->id . ";";
+
+        if($result = $mysqli->query($sql)) {
+            while($row = $result->fetch_assoc()) {
+                    $members[$row["userid"]] = $row["username"];
+                }
+        }
+        return $members;
+    }
+
 }
 
 ?>

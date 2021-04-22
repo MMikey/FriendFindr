@@ -1,3 +1,6 @@
+.dropdown-menu .dropdown-item{
+	color: #a517ba !important;
+}
 
 *{
 	margin:0;
@@ -10,10 +13,8 @@ body{
 	
 	font-family: 'Raleway', sans-serif;
 	background-image:url('./bck1.jpg');
-	background-repeat: no-repeat;
+	background-repeat: repeat-y;
 	background-size: 100% auto;
-	
-	
 }
 
 #nav-bar{
@@ -23,6 +24,8 @@ body{
 	
 	
 }
+
+
 
 .navbar{
 	
@@ -41,7 +44,6 @@ body{
 
 
 .navbar-nav li a{
-	
 	color: #fff !important;
 	font-weight: 600;
 	float:right;
@@ -361,4 +363,4 @@ body{
 	
 	
 }
-	
+

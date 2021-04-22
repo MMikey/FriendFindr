@@ -1,5 +1,6 @@
 <?php
-
+/** @var mysqli $mysqli */
+include_once  "config.php";
 // Initialise the session
 session_start();
 
@@ -11,8 +12,37 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
 }
 
         //SQL Queries
-        $usergroups = "SELECT name, description FROM groups grp join usergroups ugr on grp.group_id = ugr.group_id WHERE username = ?";
-        $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on grp.group_id = ugr.group_id WHERE username = ?";
+
+
+function getAllGroups() {
+    global $mysqli;
+
+    $sql = "SELECT groupid, name, description FROM groups;";
+
+    $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo <<<HTML
+                    <div id="recommended-groups-box" class="jumbotron text-center">
+                        <h3 class="jumbotron-heading">{$row["name"]}</h3>
+                        <p class="lead text-muted">{$row["description"]}</p>
+                        <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-info" role="button">View Group</a>
+                    </div>
+                    HTML;
+
+        }
+
+    } else {
+        $group_err = "No groups to recommend.. Try selecting some hobbies";
+    }
+    if (!empty($group_err)) {
+        echo '<div class="alert alert-danger">' . $group_err . '</div>';
+    }
+
+}
+
+$usergroups = "SELECT name, description FROM groups grp join usergroups ugr on grp.group_id = ugr.group_id WHERE username = ?";
+$othergroups = "SELECT name, description FROM groups grp join usergroups ugr on grp.group_id = ugr.group_id WHERE username = ?";
 
 ?>
 <!-- This is just a template example of html that i pinched off the internet obviously ours will be different -->
@@ -31,7 +61,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
 </head>
 <body>
 <section id="nav-bar">
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="./data/logo.png" /></a>
             <button
@@ -75,11 +105,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
         </div>
     </nav>
 </section>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-    </p>
+<div class="container" style="width: 60%">
+    <?php getAllGroups()?>
+</div>
 <!-----sodicla media ------>
 <section id="social-media">
     <div class="container text-center">

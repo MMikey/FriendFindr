@@ -7,7 +7,7 @@ include("solution/Validator.php");
 //initialise variables with empty values
 $username = $password = $confirm_password = $email = $bio = $location = $birthdate = "";
 $username_err = $password_err = $confirm_password_err = $hobby_err = $email_err = $date_err = "";
-$all_errors = array();
+$errors = array();
 
 //processing form data when submitted
 
@@ -123,8 +123,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Error!" . $mysqli->error;
             }
         }
+    } else {
+        $all_errors = array($username_err,$email_err, $password_err, $confirm_password_err,$hobby_err, $date_err);
+        $errors = getErrors($all_errors);
     }
-    $all_errors = array($username_err,$email_err, $password_err, $confirm_password_err,$hobby_err, $date_err);
+
     //$mysqli->close();
 }
 function getErrors($all_errors) : array{
@@ -144,9 +147,9 @@ function getErrors($all_errors) : array{
 
     <head>
         <meta charset="UTF-8">
-        <title>Login</title>
+        <title>Sign-Up</title>
         <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
-        <link rel="stylesheet" type="text/css" href="css/rgCss.css">
+        <link rel="stylesheet" type="text/css" href="css/rgCss.css?version=51"">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -156,26 +159,28 @@ function getErrors($all_errors) : array{
     <body>
     <div class="head">
         <div class="form-box" id="form-box">
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+            <a class="login-logo" href="index.php"><img src="./data/logo.png" /></a>
             <div class="button-box">
-                <div id="btn"> </div>
-                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
-                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+                <div id="btnR"> </div>
+                <a href="login.php"><button type="button" class="toggle-btn">Log In</button></a>
+                <button type="button" class="toggle-btn">Register</button>
             </div>
             <div class="social-icons">
                 <img src="./data/fb.png">
                 <img src="./data/ig.png">
                 <img src="./data/ws.jpg">
             </div>
-            <ul class='errorMessages'>
-                <?php
-                $errors = getErrors($all_errors);
-                foreach($errors as $error) {
-                     echo "<li>$error</li>";
-                }
-
-                ?>
-            </ul>
+            <div class='error-messages'>
+                <ul>
+                    <?php
+                    if(!empty($errors)) {
+                        foreach ($errors as $error) {
+                            echo "<li id='error_message'>$error</li>";
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
             <form id="login" class="input-group" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
                 <input type="text" name="username" class="input-field" value="<?php echo $username; ?>" placeholder="Username" required>

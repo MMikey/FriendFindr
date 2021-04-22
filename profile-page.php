@@ -3,12 +3,47 @@
 //include config file - connects to database
 require_once "config.php";
 include("solution/Validator.php");
+include("solution/User.php");
 
 session_start();
 
 if($_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
+}
+
+if(!isset($_GET["userid"]))
+{
+    $userid = $_SESSION["id"];
+} else {
+    $userid = $_GET["userid"];
+}
+
+try{
+    $user = new User($userid);
+} catch (Exception $e) {
+    $user_err = $e->getMessage();
+}
+
+function getProfilePic()
+{
+    global $mysqli;
+    $sql = "SELECT name FROM profilepictures WHERE userid =" . $_SESSION["id"] . ";";
+
+    if ($result = $mysqli->query($sql)) {
+        $row = $result->fetch_assoc();
+        return "uploads/profile_pictures/" . $row["name"] . ".jpg";
+    } else {
+        return $mysqli->error;
+    }
+
+}
+
+function GetVar( $var,$userid,$conn) {
+    // make the query
+    $query = $conn->query("SELECT ".$var." FROM users WHERE userid = '".$userid."' LIMIT 1");
+    $result = $query->fetch_assoc(); // fetch it first
+    return $result[$var];
 }
 
 ?>
@@ -21,7 +56,7 @@ if($_SESSION["loggedin"] !== true){
     <meta name="description" content="This is a friend finding Application" />
     <title>Welcome</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/wpCSS.css"">
+    <link rel="stylesheet" type="text/css" href="css/wpCss.css"">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -72,33 +107,38 @@ if($_SESSION["loggedin"] !== true){
         </div>
     </nav>
 </section>
+<<<<<<< HEAD
 <h1><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
+=======
+>>>>>>> e20714620678bbf3e66eebf11f51535ebdede413
 
 <div class="container">
-
-    <h2>Your Hobbies:</h2>
-
-    <div class="form-group">
-        <label>Select a Hobby</label>
-        <!-- user can select mulitple hobbys and store them as an array -->
-        <select multiple name="hobby[]" class="form-control <?php echo (!empty($hobby_err)) ? 'is-invalid' : ''; ?>">
-            <?php
-            //Populating hobby input field
-            //prepare sql select statement
-            $sql = "SELECT hobbyid, name FROM hobbies";
-            if ($result = $mysqli->query($sql)) {
-                while ($row = $result->fetch_assoc()) {
-                    //user echo with html to create stuff
-                    echo '<option value ="' . $row["hobbyid"] . '">' . $row["name"] . "</option>/n";
-                }
-            } else {
-                echo "Error!" . $mysqli->error;
+    <div class="row">
+        <?php
+        if (!empty($group_err)) {
+            echo '<div class="alert alert-danger">' . $group_err . '</div>';
+        }
+        ?>
+        <div class="">
+            <img class="img-thumbnail rounded-circle" alt="No profile picture found" src="<?php echo getProfilePic()?>">
+            <h1 class="text-center"><b><?php echo GetVar('username', $userid ,$mysqli)?> </b></h1>
+        </div>
+        <div class="col-sm">
+            <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $userid ,$mysqli)?></p>
+            <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $userid ,$mysqli)?></p>
+        </div>
+        <div class="col-sm float-right" >
+            <h3 class="font-weight-bold">Joined Groups: </h3>
+            <ul class="list-group mb-4" style="width: 50%">
+            <?php foreach($user->getGroups() as $group_id => $group) {
+                echo <<<HTML
+                    <li class="list-group-item">$group</li>
+                    HTML;
             }
             ?>
-        </select>
-        <span class="invalid-feedback"><?php echo $hobby_err; ?></span>
+            </ul>
+        </div>
     </div>
-
 </div>
 
 <!-----sodicla media ------>

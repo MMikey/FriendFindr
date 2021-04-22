@@ -4,14 +4,6 @@
 // Initialise the session
 session_start();
 
-$host = "localhost"; //if that doesn't work try 127.0.0.1
-$user="root";
-$password="";
-$dbname="friendfindr"; //change to whatever the database is on your machine
-
-//object oriented approach, basically connect to database
-$mysqli = new mysqli($host, $user, $password, $dbname);
-
 require_once "config.php";
 $conn = $mysqli;
 

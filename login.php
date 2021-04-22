@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submit_1']) {
             echo "Something went wrong! " . $mysqli->error;
         }
     }
-
+         
     $mysqli->close();
 }
 
@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submit_1']) {
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="css/rgCss.css">
+    <link rel="stylesheet" type="text/css" href="css/rgCss.css?version=51"">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -118,11 +118,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submit_1']) {
 <body>
 <div class="head">
     <div class="form-box" id="form-box">
-        <p>Don't have an account?<a href="signup.php">Register here</a>.</p>
+        <a class="login-logo" href="index.php"><img src="./data/logo.png" /></a>
         <div class="button-box">
             <div id="btn"> </div>
             <button type="button" class="toggle-btn" onclick="login()">Log In</button>
-            <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            <a href="signup.php"><button type="button" class="toggle-btn">Register</button></a>
         </div>
         <div class="social-icons">
             <img src="./data/fb.png">
@@ -130,11 +130,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submit_1']) {
             <img src="./data/ws.jpg">
         </div>
         <!--LOGIN FORM-->
+        <div class="error-messages">
         <?php
         if (!empty($login_err)) {
             echo '<div id="error_message"> <p>' . $login_err . '</p></div>';
         }
         ?>
+        </div>
         <form id="login" class="input-group" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <input name = "username" type="text" class="input-field" placeholder="User Id" required>
             <span class="invalid-feedback"><?php echo $login_username_err; ?></span>
