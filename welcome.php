@@ -41,8 +41,7 @@ function getJoinedGroups()
 function getRecommendedGroups()
 {
     global $mysqli;
-    $sql = "SELECT DISTINCT g.groupid, g.name, g.description FROM groups g, grouphobbies gh, userhobbies uh 
-            where gh.hobbyid = uh.hobbyid AND uh.userid = " . $_SESSION["id"] . ";";
+    $sql = "SELECT DISTINCT g.groupid, g.name, g.description FROM groups g, grouphobbies gh, userhobbies uh where gh.hobbyid = uh.hobbyid AND uh.userid = " . $_SESSION["id"] . ";";
     $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
