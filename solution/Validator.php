@@ -110,7 +110,7 @@ class Validator
     static function validateBirthday($birthday) {
         if(!empty($birthday)) {
             $birthdate = strtotime($birthday);
-            //31536000 is the number of seconds
+            //31536000 is the number of seconds in a year
             if(time() - $birthdate < 18 * 31536000) {
                 return "You must be 18 to join!";
             }else{
