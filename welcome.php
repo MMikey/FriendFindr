@@ -182,7 +182,7 @@ function getRecommendedGroups()
 	</section>
 
 
-
+<section id ="group-page">
 <div class="container">
     <!--<h2>Your groups</h2>
     --><?php /*getJoinedGroups(); */?>
@@ -192,6 +192,7 @@ function getRecommendedGroups()
     <?php getRecommendedGroups(); ?>
 
 </div>
+</section>
 <!-----sodicla media ------>
 <section id="social-media">
     <div class="container text-center">
