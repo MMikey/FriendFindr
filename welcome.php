@@ -132,18 +132,14 @@ function getRecommendedGroups()
         </div>
     </nav>
 </section>
-
-
-
-
-
 </section>
 	<!----------Banner section --------------->
-	<h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
+
 	<section id="banner">
 	<div class ="container">
 	<div class ="row">
 	<div class = "col-md-6">
+    <h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
 	<p class="promo-title"> Friends Coming together </p>
 	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
