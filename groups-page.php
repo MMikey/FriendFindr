@@ -14,6 +14,30 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
         //SQL Queries
 
 
+function getJoinedGroups()
+{
+    global $mysqli;
+    $sql = "SELECT g.groupid, g.name, g.description FROM groups g, usergroups ug WHERE g.groupid = ug.groupid AND ug.userid =" . $_SESSION["id"] . ";";
+    $joinedgroups_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql statement
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo <<<HTML
+                    <div id="recommended-groups-box" class="jumbotron text-center">
+                        <h3 class="jumbotron-heading">{$row["name"]}</h3>
+                        <p class="lead text-muted">{$row["description"]}</p>
+                        <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-info" role="button">View Group</a>
+                    </div>
+                    HTML;
+        }
+    } else {
+        $joinedgroups_err = "You're not part of any groups.. ";
+    }
+    if (!empty($joinedgroups_err)) {
+        echo '<div class="alert alert-danger">' . $joinedgroups_err . '</div>';
+    }
+
+}
+
 function getAllGroups() {
     global $mysqli;
 
@@ -106,6 +130,10 @@ $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on 
     </nav>
 </section>
 <div class="container" style="width: 60%">
+    <h2>Joined Groups</h2>
+    <?php getJoinedGroups()?>
+
+    <h2>All Groups</h2>
     <?php getAllGroups()?>
 </div>
 <!-----sodicla media ------>
