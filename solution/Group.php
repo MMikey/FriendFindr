@@ -18,9 +18,8 @@ class Group
 
     private function loadGroup($id) {
         global $mysqli;
-        $isValid = true;
         //get name and description
-        $sql = "SELECT name, description FROM groups WHERE groupid = ?";//fetch data about group
+        $sql = "SELECT name, description FROM groups WHERE groupid = ?";
 
         if($stmt = $mysqli->prepare($sql)) {
             $stmt->bind_param("s",$param_groupid);
