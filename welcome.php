@@ -104,6 +104,9 @@ function getRecommendedGroups()
                     <li class="nav-item">
                         <a class="nav-link" href="groups-page.php">All Groups</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events-page.php">Events</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Profile

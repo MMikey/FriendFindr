@@ -85,6 +85,9 @@ function GetVar( $var,$userid,$conn) {
                     <li class="nav-item">
                         <a class="nav-link" href="groups-page.php">All Groups</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events-page.php">Events</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Profile
@@ -104,6 +107,10 @@ function GetVar( $var,$userid,$conn) {
         </div>
     </nav>
 </section>
+<<<<<<< HEAD
+<h1><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
+=======
+>>>>>>> e20714620678bbf3e66eebf11f51535ebdede413
 
 <div class="container">
     <div class="row">
