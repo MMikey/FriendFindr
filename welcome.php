@@ -105,8 +105,14 @@ function getRecommendedGroups()
                     <li class="nav-item">
                         <a class="nav-link" href="welcome.php">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="groups-page.php">All Groups</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Groups
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="groups-page.php">All Groups</a>
+                            <a class="dropdown-item" href="create-group.php">Create Group</a>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="events-page.php">Events</a>
@@ -130,7 +136,63 @@ function getRecommendedGroups()
         </div>
     </nav>
 </section>
-<h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to FriendFindr</h1>
+</section>
+	<!----------Banner section --------------->
+
+	<section id="banner">
+	<div class ="container">
+	<div class ="row">
+	<div class = "col-md-6">
+    <h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
+	<p class="promo-title"> Friends Coming together </p>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+	It has survived not only five centuries </p>
+	<a href="#">  </a>
+	</div>
+	<div class="col-md-6 text-center">
+	<img src="./data/friendship.webp" class="img-fluid">
+	
+	</div>
+	</div>
+	</div>
+	
+	
+	 <!--<img src="./img/bck1.jpg" class="bottom-img"> -->
+	</section>
+	
+	<!--service section -->
+	
+	<section id="services">
+	<div class="container text-center">
+	<h1 class="title"> WHAT WE DO? </h1>
+	<div class="row">
+	<div class="col-md-4 services">
+	<img src="./data/home.jpg" class="service-img">
+	<h4> Home </h4>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	</div>
+	<div class="col-md-4 services">
+	<img src="./data/event.jpg" class="service-img">
+	<h4> Events </h4>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	</div>
+	<div class="col-md-4 services">
+	<img src="./data/profile.jpg" class="service-img">
+	<h4> Profile </h4>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	</div>
+	</div>
+	<button type="button" class="btn btn-primary"> All services </button>
+	</div>
+	</section>
+
+
+
 <div class="container">
     <!--<h2>Your groups</h2>
     --><?php /*getJoinedGroups(); */?>

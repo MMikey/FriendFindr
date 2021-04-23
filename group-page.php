@@ -158,14 +158,23 @@ function getPosts($group_id){
                     <li class="nav-item">
                         <a class="nav-link" href="welcome.php">Home</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Groups
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="groups-page.php">All Groups</a>
+                            <a class="dropdown-item" href="create-group.php">Create Group</a>
+                        </div>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="groups-page.php">All Groups</a>
+                        <a class="nav-link" href="events-page.php">Events</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Profile
                         </a>
-                        <div class="dropdown-menu" >
+                        <div class="dropdown-menu">
                             <a class="dropdown-item" href="profile-page.php">My Profile</a>
                             <a class="dropdown-item" href="update-profile.php">Edit Profile</a>
                             <a class="dropdown-item" href="reset-password.php">Reset Password</a>
