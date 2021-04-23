@@ -156,6 +156,58 @@ function getErrors($all_errors) : array{
 
     </head>
 
+    <section id="nav-bar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img src="./data/logo.png" /></a>
+                <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                >
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="welcome.php">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                Groups
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="groups-page.php">All Groups</a>
+                                <a class="dropdown-item" href="create-group.php">Create Group</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="events-page.php">Events</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                Profile
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="profile-page.php">My Profile</a>
+                                <a class="dropdown-item" href="update-profile.php">Edit Profile</a>
+                                <a class="dropdown-item" href="reset-password.php">Reset Password</a>
+                                <a class="dropdown-item" href="logout.php">Logout</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.php">About us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </section>
+
     <body>
     <div class="head">
         <div class="form-box" id="form-box">

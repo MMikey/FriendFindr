@@ -86,13 +86,13 @@ function getRecommendedGroups()
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><img src="./data/logo.png" /></a>
                 <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
                 >
                     <i class="fa fa-bars"></i>
                 </button>
@@ -101,8 +101,14 @@ function getRecommendedGroups()
                         <li class="nav-item">
                             <a class="nav-link" href="welcome.php">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="groups-page.php">All Groups</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                Groups
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="groups-page.php">All Groups</a>
+                                <a class="dropdown-item" href="create-group.php">Create Group</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="events-page.php">Events</a>
@@ -125,7 +131,7 @@ function getRecommendedGroups()
                 </div>
             </div>
         </nav>
-    </section>
+    </section></section>
     <h1 class="my-5" style="text-align: center">About Us</h1>
     <div class="container">
         <h2>Your groups</h2>
