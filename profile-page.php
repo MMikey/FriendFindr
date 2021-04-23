@@ -28,7 +28,7 @@ try{
 function getProfilePic()
 {
     global $mysqli;
-    $sql = "SELECT name FROM profilepictures WHERE userid =" . $_SESSION["id"] . ";";
+    $sql = "SELECT name FROM profilepictures WHERE userid =" . $_GET["userid"] . ";";
 
     if ($result = $mysqli->query($sql)) {
         $row = $result->fetch_assoc();
@@ -107,7 +107,7 @@ function GetVar( $var,$userid,$conn) {
         </div>
     </nav>
 </section>
-<h1><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
+
 
 <div class="container">
     <div class="row">
@@ -117,7 +117,7 @@ function GetVar( $var,$userid,$conn) {
         }
         ?>
         <div class="">
-            <img class="img-thumbnail rounded-circle" alt="No profile picture found" src="<?php echo getProfilePic()?>">
+            <img class="w-50 img-thumbnail rounded-circle" style="alt="No profile picture found" src="<?php echo getProfilePic()?>" onerror=this.src="uploads/profile_pictures/default.jpg">
             <h1 class="text-center"><b><?php echo GetVar('username', $userid ,$mysqli)?> </b></h1>
         </div>
         <div class="col-sm">
