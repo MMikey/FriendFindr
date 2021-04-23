@@ -261,7 +261,7 @@ function getErrors($all_errors) : array{
                 </select>
 
 
-                <textarea  name="bio" class="input-field" rows="3" value = "<?php echo $bio;?>" placeholder="Tell us something about yourself"></textarea>
+                <textarea name="bio" class="input-field" rows="3" value = "<?php echo $bio;?>" placeholder="Tell us something about yourself"></textarea>
 
                 <input type="text" name = "location" class = "input-field" value = "<?php echo $location?>" placeholder="Whats your current city?">
 
