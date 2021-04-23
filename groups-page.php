@@ -22,10 +22,14 @@ function getJoinedGroups()
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo <<<HTML
-                    <div id="recommended-groups-box" class="jumbotron text-center">
-                        <h3 class="jumbotron-heading">{$row["name"]}</h3>
-                        <p class="lead text-muted">{$row["description"]}</p>
-                        <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-info" role="button">View Group</a>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body">
+                                <h5 class="text-center card-title">{$row["name"]}</h5>
+                                <p class="card-text text-muted">{$row["description"]}</p>
+                                <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-sm btn-outline-secondary" role="button">View Group</a>
+                                </div>
+                        </div>
                     </div>
                     HTML;
         }
@@ -47,13 +51,16 @@ function getAllGroups() {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo <<<HTML
-                    <div id="recommended-groups-box" class="jumbotron text-center">
-                        <h3 class="jumbotron-heading">{$row["name"]}</h3>
-                        <p class="lead text-muted">{$row["description"]}</p>
-                        <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-info" role="button">View Group</a>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body">
+                                <h5 class="text-center card-title">{$row["name"]}</h5>
+                                <p class="card-text text-muted">{$row["description"]}</p>
+                                <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-sm btn-outline-secondary" role="button">View Group</a>
+                                </div>
+                        </div>
                     </div>
                     HTML;
-
         }
 
     } else {
@@ -130,11 +137,15 @@ $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on 
     </nav>
 </section>
 <div class="container" style="width: 60%">
-    <h2>Joined Groups</h2>
-    <?php getJoinedGroups()?>
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h3 class="display-4">Joined Groups</h3>
+    </div>
+    <div class="row"><?php getJoinedGroups()?></div>
 
-    <h2>All Groups</h2>
-    <?php getAllGroups()?>
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h3 class="display-4">All Groups</h3>
+    </div>
+    <div class="row"><?php getAllGroups()?></div>
 </div>
 <!-----sodicla media ------>
 <section id="social-media">

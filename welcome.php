@@ -46,10 +46,14 @@ function getRecommendedGroups()
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
                 echo <<<HTML
-                    <div id="recommended-groups-box" class="jumbotron text-center">
-                        <h3 class="jumbotron-heading">{$row["name"]}</h3>
-                        <p class="lead text-muted">{$row["description"]}</p>
-                        <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-info" role="button">View Group</a>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body">
+                                <h5 class="text-center card-title">{$row["name"]}</h5>
+                                <p class="card-text text-muted">{$row["description"]}</p>
+                                <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-sm btn-outline-secondary" role="button">View Group</a>
+                                </div>
+                        </div>
                     </div>
                     HTML;
 
@@ -133,7 +137,7 @@ function getRecommendedGroups()
 
 
     <h2>Recommended groups</h2>
-    <?php getRecommendedGroups(); ?>
+    <div class="row"><?php getRecommendedGroups(); ?></div>
 
 </div>
 <!-----sodicla media ------>
