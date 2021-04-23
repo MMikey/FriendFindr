@@ -126,7 +126,7 @@ function getRecommendedGroups()
             </div>
         </nav>
     </section>
-    <h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to FriendFindr</h1>
+    <h1 class="my-5" style="text-align: center">About Us</h1>
     <div class="container">
         <h2>Your groups</h2>
         <?php getJoinedGroups(); ?>
