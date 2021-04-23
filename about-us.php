@@ -160,7 +160,7 @@ function getRecommendedGroups()
 	
 	<section id="services">
 	<div class="container text-center">
-	<h1 class="title"> WHAT WE DO? </h1>
+	<h1 class="title"> WHY CHOOSE US </h1>
 	<div class="row">
 	<div class="col-md-4 services">
 	<img src="./data/home.jpg" class="service-img">
