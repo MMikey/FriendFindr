@@ -273,7 +273,7 @@ INSERT INTO `users` (`userid`, `username`, `email`, `password`, `location`, `bio
 (25, 'asdf', '1234', '$2y$10$WJ3Zyf9/NroKWfPNUslmUOIWaLX3esk3JZwA7xwx3da4.igN4YapC', NULL, NULL, '2021-04-08 20:06:23', '0000-00-00'),
 (26, 'kev', '18051646@stu.mmu.ac.uk', '$2y$10$kY0kScri2xOCJG91OVGD7OPM5n3bHTT64EeGSMPLHsENGplSo6uba', 'manchester', 'my name is kev and i like cheese', '2021-04-08 21:17:10', '1997-04-08'),
 (27, 'Mikey1', '1', '$2y$10$nSzD88KrTMSJ09tMbjyfPe1.5ZyTjOchHkkvCYq7CLLKPzi3yJdW.', 'bham', 'sad', '2021-04-15 16:55:01', '0000-00-00'),
-(28, 'Billy bob', '1', '$2y$10$8wZpyE3s1c4HENHTBury3ukynSYIZuNki0eauF/ym3NORVC/E1CCS', 'bham', 'My name is bob and i\'m a fan of most things', '2021-04-16 12:20:16', '0000-00-00');
+(28, 'Billy bob', '1', '$2y$10$8wZpyE3s1c4HENHTBury3ukynSYIZuNki0eauF/ym3NORVC/E1CCS', 'bham', 'My name is bob and im a fan of most things', '2021-04-16 12:20:16', '0000-00-00');
 
 --
 -- Indexes for dumped tables
@@ -406,6 +406,19 @@ ALTER TABLE `userhobbies`
 --
 ALTER TABLE `users`
   MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+    MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `profilepicture`
+--
+ALTER TABLE `profilepictures`
+    MODIFY `profilepictureid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Constraints for dumped tables
