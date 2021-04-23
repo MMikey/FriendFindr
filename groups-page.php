@@ -98,7 +98,7 @@ $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on 
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About us</a>
+                        <a class="nav-link" href="about-us.php">About us</a>
                     </li>
                 </ul>
             </div>
