@@ -75,15 +75,23 @@ body{
 		color: #fff;
 		padding-top:5%;
 		padding-bottom:10%;
-		font-size:400px;
+		
 		
 	
 		
 	}
 	#banner h1{
 
-		float:left;
-		margin:200px;
+		margin-right:300px;
+	
+	}
+
+
+	#banner p{
+
+		margin-top:-30px;
+		padding:10px;
+
 	}
 	.promo-title{
 		
