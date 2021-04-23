@@ -126,14 +126,14 @@ function getRecommendedGroups()
         </div>
     </nav>
 </section>
-<h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to FriendFindr</h1>
+
 
 
 
 
 </section>
 	<!----------Banner section --------------->
-	
+	<h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
 	<section id="banner">
 	<div class ="container">
 	<div class ="row">
@@ -146,7 +146,7 @@ function getRecommendedGroups()
 	<a href="#">  </a>
 	</div>
 	<div class="col-md-6 text-center">
-	<img src="./img/friendship.webp" class="img-fluid">
+	<img src="./data/friendship.webp" class="img-fluid">
 	
 	</div>
 	</div>
@@ -163,19 +163,19 @@ function getRecommendedGroups()
 	<h1 class="title"> WHAT WE DO? </h1>
 	<div class="row">
 	<div class="col-md-4 services">
-	<img src="./img/home.jpg" class="service-img">
+	<img src="./data/home.jpg" class="service-img">
 	<h4> Home </h4>
 	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
 	</div>
 	<div class="col-md-4 services">
-	<img src="./img/event.jpg" class="service-img">
+	<img src="./data/event.jpg" class="service-img">
 	<h4> Events </h4>
 	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
 	</div>
 	<div class="col-md-4 services">
-	<img src="./img/profile.jpg" class="service-img">
+	<img src="./data/profile.jpg" class="service-img">
 	<h4> Profile </h4>
 	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
