@@ -13,6 +13,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
 if(empty($_GET["groupid"])){
     header('location: groups-page.php');
 }
+
 $group_ID = $_GET["groupid"]; //gets id from url
 
 $post = "";
