@@ -126,14 +126,14 @@ function getRecommendedGroups()
         </div>
     </nav>
 </section>
-<h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to FriendFindr</h1>
+
 
 
 
 
 </section>
 	<!----------Banner section --------------->
-	
+	<h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
 	<section id="banner">
 	<div class ="container">
 	<div class ="row">
