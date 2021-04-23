@@ -136,6 +136,7 @@ body{
 	
 	#services{
 		padding:40px 0;
+		
 			
 	}
 		
@@ -152,6 +153,16 @@ body{
 		
 		
 	}
+
+	#group-page{
+
+		background-image: linear-gradient(to right, #a517ba, #5f1782);
+
+
+
+	}
+
+
 	
 	.services h4{
 		
