@@ -28,7 +28,8 @@ try{
 function getProfilePic()
 {
     global $mysqli;
-    $sql = "SELECT name FROM profilepictures WHERE userid =" . $_GET["userid"] . ";";
+    global $userid;
+    $sql = "SELECT name FROM profilepictures WHERE userid =" . $userid . ";";
 
     if ($result = $mysqli->query($sql)) {
         $row = $result->fetch_assoc();
