@@ -2,6 +2,31 @@
 /** @var mysqli $mysqli */
 include_once "config.php";
 include("solution/Group.php");
+function getEvent()
+{
+    global $mysqli;
+
+    $event_ID = $_GET["eventid"]; //gets id from url
+    $sql = "SELECT * FROM events where eventid = $event_ID";
+    $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<h1>" . $row["name"] . "</h1>\n";
+            echo "<h2>" . $row["description"] . "</h2>\n";
+            echo "<h2>" . $row["location"] . "</h2>\n";
+            echo "<h2>" . $row["start_time"] . "</h2>\n";
+            echo "<h2>" . $row["finish_time"] . "</h2>\n";
+            echo "</div>";
+        }
+
+    } else {
+        //$group_err = "No groups to recommend.. Try selecting some hobbies";
+    }
+    if (!empty($group_err)) {
+        echo '<div class="alert alert-danger">' . $group_err . '</div>';
+    }
+
+}
 
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
@@ -111,9 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class = "container">
 
-    <h1>Event Name</h1>
-    <p>Details about the event</p>
-    <p>Location, Time</p>
+    <?php getEvent();?>
     <input type="submit" class="btn btn-primary" value="Interested">
     <input type="reset" class="btn btn-secondary ml-2" value="Not Interested">
 

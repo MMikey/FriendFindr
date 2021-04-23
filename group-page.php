@@ -14,7 +14,6 @@ if(empty($_GET["groupid"])){
     header('location: groups-page.php');
 }
 $group_ID = $_GET["groupid"]; //gets id from url
-
 $post = "";
 $group_err = $post_err = "";
 
