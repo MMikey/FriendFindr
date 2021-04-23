@@ -107,10 +107,7 @@ function GetVar( $var,$userid,$conn) {
         </div>
     </nav>
 </section>
-<<<<<<< HEAD
 <h1><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
-=======
->>>>>>> e20714620678bbf3e66eebf11f51535ebdede413
 
 <div class="container">
     <div class="row">

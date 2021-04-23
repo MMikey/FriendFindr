@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2021 at 05:25 PM
+-- Generation Time: Apr 23, 2021 at 01:38 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -54,7 +54,8 @@ CREATE TABLE `grouphobbies` (
 
 INSERT INTO `grouphobbies` (`groupid`, `hobbyid`, `grouphobbies_id`) VALUES
 (1, 1, 1),
-(2, 5, 2);
+(2, 5, 2),
+(3, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -73,8 +74,9 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`groupid`, `name`, `description`) VALUES
-(1, 'Rockers', 'rock fanatics'),
-(2, 'Football Fanatics', 'GROUPS FOR FOOTBALL');
+(1, 'Rockers', 'Fellow rock fan unite! This is a space for everyone to discuss anything rock related. Join the group and chat below!'),
+(2, 'Football Fanatics', 'Footballer Fans! Get together with other soccer stans and chat about the latest footy news and goings on'),
+(3, 'Hiphopheads', 'HipHopHeads everywhere. Discuss the latest albums, artists and everything in between. Meet your tribe!');
 
 -- --------------------------------------------------------
 
@@ -120,6 +122,39 @@ CREATE TABLE `posts` (
   `content` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`postid`, `userid`, `groupid`, `posted_at`, `content`) VALUES
+(26, 23, 1, '2021-04-16 11:53:30', 'hi everyone i am mikey'),
+(27, 28, 1, '2021-04-16 12:26:09', 'Hi mikey i am billy bob'),
+(28, 28, 1, '2021-04-16 12:26:52', 'Hi mikey i am billy bob'),
+(29, 28, 1, '2021-04-16 12:27:05', 'Hi mikey i am billy bob'),
+(32, 28, 1, '2021-04-16 15:04:09', 'hi'),
+(35, 28, 2, '2021-04-16 16:25:33', 'hello'),
+(36, 28, 2, '2021-04-16 16:29:51', 'test 2'),
+(37, 27, 2, '2021-04-16 16:32:50', 'Hello billy bob!');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profilepictures`
+--
+
+CREATE TABLE `profilepictures` (
+  `profilepictureid` int(11) NOT NULL,
+  `name` int(11) NOT NULL,
+  `userid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `profilepictures`
+--
+
+INSERT INTO `profilepictures` (`profilepictureid`, `name`, `userid`) VALUES
+(0, 1619027371, 23);
+
 -- --------------------------------------------------------
 
 --
@@ -148,7 +183,13 @@ CREATE TABLE `usergroups` (
 --
 
 INSERT INTO `usergroups` (`userid`, `groupid`, `usergroups_id`) VALUES
-(26, 2, 1);
+(26, 2, 1),
+(28, 1, 38),
+(28, 3, 39),
+(23, 2, 44),
+(28, 2, 45),
+(27, 2, 47),
+(23, 1, 48);
 
 -- --------------------------------------------------------
 
@@ -174,7 +215,33 @@ INSERT INTO `userhobbies` (`userid`, `hobbyid`, `userhobbiesId`) VALUES
 (25, 4, 26),
 (26, 1, 27),
 (26, 5, 28),
-(26, 7, 29);
+(26, 7, 29),
+(23, 3, 30),
+(23, 4, 31),
+(27, 8, 32),
+(28, 1, 33),
+(28, 2, 34),
+(28, 3, 35),
+(28, 4, 36),
+(28, 5, 37),
+(28, 6, 38),
+(28, 7, 39),
+(28, 8, 40),
+(28, 9, 41),
+(28, 10, 42),
+(28, 11, 43),
+(28, 12, 44),
+(27, 1, 45),
+(27, 2, 46),
+(27, 3, 47),
+(27, 4, 48),
+(27, 5, 49),
+(27, 6, 50),
+(27, 7, 51),
+(27, 9, 52),
+(27, 10, 53),
+(27, 11, 54),
+(27, 12, 55);
 
 -- --------------------------------------------------------
 
@@ -201,10 +268,12 @@ INSERT INTO `users` (`userid`, `username`, `email`, `password`, `location`, `bio
 (14, '', '', '$2y$10$xqN8etw6TXqXdg7z0D6ghOltjewc7XxUboyIhiW.kbaaBFKa9nGWu', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00'),
 (21, 'kevin', '', '$2y$10$y5cjoQqpl4H0OsH9ge40XOkqvK6R9p0qRCXfF2haBBp6EvJ04iEjy', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00'),
 (22, 'kyle', '33', '$2y$10$SCNVrPw66Gr7K1LcrcSN.er7gV.y.plNVc1ZQv965V3hqKgWMosI.', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00'),
-(23, 'mikey', 'michael@hotmail.com', '$2y$10$APY5QAdEwT//JR0TqJZwvellTaVzxymbPQP7RpThagT5d.zp7gwpi', NULL, NULL, '2021-04-01 15:04:30', '0000-00-00'),
+(23, 'mikey', 'michael@hotmail.com', '$2y$10$APY5QAdEwT//JR0TqJZwvellTaVzxymbPQP7RpThagT5d.zp7gwpi', 'birmingham', 'my name is mikey', '2021-04-01 15:04:30', '0000-00-00'),
 (24, 'ChessmanMagee', '1234', '$2y$10$loftTNKtBcYXZnr4263gTeD.UNErgg62cEg0NRJww4JyM289ZPDb6', NULL, NULL, '2021-04-08 19:59:08', '0000-00-00'),
 (25, 'asdf', '1234', '$2y$10$WJ3Zyf9/NroKWfPNUslmUOIWaLX3esk3JZwA7xwx3da4.igN4YapC', NULL, NULL, '2021-04-08 20:06:23', '0000-00-00'),
-(26, 'kev', '18051646@stu.mmu.ac.uk', '$2y$10$kY0kScri2xOCJG91OVGD7OPM5n3bHTT64EeGSMPLHsENGplSo6uba', 'manchester', 'my name is kev and i like cheese', '2021-04-08 21:17:10', '1997-04-08');
+(26, 'kev', '18051646@stu.mmu.ac.uk', '$2y$10$kY0kScri2xOCJG91OVGD7OPM5n3bHTT64EeGSMPLHsENGplSo6uba', 'manchester', 'my name is kev and i like cheese', '2021-04-08 21:17:10', '1997-04-08'),
+(27, 'Mikey1', '1', '$2y$10$nSzD88KrTMSJ09tMbjyfPe1.5ZyTjOchHkkvCYq7CLLKPzi3yJdW.', 'bham', 'sad', '2021-04-15 16:55:01', '0000-00-00'),
+(28, 'Billy bob', '1', '$2y$10$8wZpyE3s1c4HENHTBury3ukynSYIZuNki0eauF/ym3NORVC/E1CCS', 'bham', 'My name is bob and i\'m a fan of most things', '2021-04-16 12:20:16', '0000-00-00');
 
 --
 -- Indexes for dumped tables
@@ -247,6 +316,13 @@ ALTER TABLE `posts`
   ADD UNIQUE KEY `postid_UNIQUE` (`postid`),
   ADD KEY `userid_posts_idx` (`userid`),
   ADD KEY `groupid_posts_idx` (`groupid`);
+
+--
+-- Indexes for table `profilepictures`
+--
+ALTER TABLE `profilepictures`
+  ADD PRIMARY KEY (`profilepictureid`),
+  ADD KEY `profilepicture_userid` (`userid`);
 
 --
 -- Indexes for table `userevent`
@@ -293,13 +369,13 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `grouphobbies`
 --
 ALTER TABLE `grouphobbies`
-  MODIFY `grouphobbies_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `grouphobbies_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `groupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `groupid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
@@ -311,25 +387,25 @@ ALTER TABLE `hobbies`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `usergroups`
 --
 ALTER TABLE `usergroups`
-  MODIFY `usergroups_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `usergroups_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `userhobbies`
 --
 ALTER TABLE `userhobbies`
-  MODIFY `userhobbiesId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `userhobbiesId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Constraints for dumped tables
@@ -348,6 +424,12 @@ ALTER TABLE `grouphobbies`
 ALTER TABLE `posts`
   ADD CONSTRAINT `groupid_posts` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`),
   ADD CONSTRAINT `userid_posts` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
+
+--
+-- Constraints for table `profilepictures`
+--
+ALTER TABLE `profilepictures`
+  ADD CONSTRAINT `profilepicture_userid` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
 
 --
 -- Constraints for table `userevent`
