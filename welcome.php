@@ -48,8 +48,8 @@ function getRecommendedGroups()
                 echo <<<HTML
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
+                            <div class="card-header text-center"><h5>{$row["name"]}</h5></div>
                             <div class="card-body">
-                                <h5 class="text-center card-title">{$row["name"]}</h5>
                                 <p class="card-text text-muted">{$row["description"]}</p>
                                 <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-sm btn-outline-secondary" role="button">View Group</a>
                                 </div>

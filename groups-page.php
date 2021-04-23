@@ -24,14 +24,15 @@ function getJoinedGroups()
             echo <<<HTML
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
+                            <div class="card-header text-center"><h5>{$row["name"]}</h5></div>
                             <div class="card-body">
-                                <h5 class="text-center card-title">{$row["name"]}</h5>
                                 <p class="card-text text-muted">{$row["description"]}</p>
                                 <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-sm btn-outline-secondary" role="button">View Group</a>
                                 </div>
                         </div>
                     </div>
                     HTML;
+
         }
     } else {
         $joinedgroups_err = "You're not part of any groups.. ";
@@ -53,14 +54,15 @@ function getAllGroups() {
             echo <<<HTML
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
+                            <div class="card-header text-center"><h5>{$row["name"]}</h5></div>
                             <div class="card-body">
-                                <h5 class="text-center card-title">{$row["name"]}</h5>
                                 <p class="card-text text-muted">{$row["description"]}</p>
                                 <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-sm btn-outline-secondary" role="button">View Group</a>
                                 </div>
                         </div>
                     </div>
                     HTML;
+
         }
 
     } else {
@@ -144,12 +146,12 @@ $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on 
 </section>
 <div class="container" style="width: 60%">
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h3 class="display-4">Joined Groups</h3>
+        <h2>Joined Groups</h2>
     </div>
     <div class="row"><?php getJoinedGroups()?></div>
 
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h3 class="display-4">All Groups</h3>
+        <h2>All Groups</h2>
     </div>
     <div class="row"><?php getAllGroups()?></div>
 </div>
