@@ -120,7 +120,7 @@ function getAllEvents()
         </div>
     </nav>
 </section>
-<h1><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
+
 
 <body>
 

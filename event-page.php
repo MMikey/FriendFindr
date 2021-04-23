@@ -122,4 +122,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 
+<!-----sodicla media ------>
+<section id="social-media">
+    <div class="container text-center">
+        <p>FIND US ON SOCIAL MEDIA</p>
+
+        <div class="social-icons">
+            <a href="#"> <img src="./data/fb.png" /> </a>
+            <a href="#"> <img src="./data/ig.png" /> </a>
+            <a href="#"> <img src="./data/ws.jpg" /> </a>
+        </div>
+    </div>
+</section>
+
+<!----Footer Section---->
+<section id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 footer-box">
+                <img src="./data/logo.png" />
+                <p>
+                    Welcome To FriendFindr:
+                    Join your group and become a part of something
+                </p>
+            </div>
+            <div class="col-md-4 footer-box">
+                <p><b> Contact us </b></p>
+                <p><i class="fa fa-map-marker"></i> MMU, Manchester</p>
+                <p><i class="fa fa-phone"></i>01617959454</p>
+                <p><i class="fa fa-envelope"></i>BlaBlaBla@hotmail.co.uk</p>
+            </div>
+            <div class="col-md-4 footer-box">
+                <p><b> Subscribe </b></p>
+                <input type="email" class="form-control" placeholder="Your Email" />
+                <button type="button" class="btn btn-primary">Contact us</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 </html>
