@@ -63,7 +63,11 @@ function getRecommendedGroups()
         $group_err = "No groups to recommend.. Try selecting some hobbies";
     }
     if (!empty($group_err)) {
-        echo '<div class="alert alert-danger">' . $group_err . '</div>';
+        echo <<<HTML
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="text-center alert alert-danger">{$group_err}</div>
+                </div>
+                HTML;
     }
 
 }
@@ -199,7 +203,7 @@ function getRecommendedGroups()
 
 
     <h2>Recommended groups</h2>
-    <div class="row"><?php getRecommendedGroups(); ?></div>
+    <div class="row justify-content-md-center"><?php getRecommendedGroups(); ?></div>
 
 </div>
 </section>

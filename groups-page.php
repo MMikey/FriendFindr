@@ -148,12 +148,12 @@ $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on 
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h2>Joined Groups</h2>
     </div>
-    <div class="row"><?php getJoinedGroups()?></div>
+    <div class="row justify-content-md-center"><?php getJoinedGroups()?></div>
 
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h2>All Groups</h2>
     </div>
-    <div class="row"><?php getAllGroups()?></div>
+    <div class="row justify-content-md-center"><?php getAllGroups()?></div>
 </div>
 <!-----sodicla media ------>
 <section id="social-media">
