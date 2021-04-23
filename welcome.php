@@ -146,7 +146,7 @@ function getRecommendedGroups()
 	<a href="#">  </a>
 	</div>
 	<div class="col-md-6 text-center">
-	<img src="./img/friendship.webp" class="img-fluid">
+	<img src=".C:\Users\zenne\OneDrive\Desktop\Xampp\htdocs\FriendFindr\uploads" class="img-fluid">
 	
 	</div>
 	</div>
