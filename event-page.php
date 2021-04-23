@@ -117,8 +117,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="submit" class="btn btn-primary" value="Interested">
     <input type="reset" class="btn btn-secondary ml-2" value="Not Interested">
 
-
-
 </div>
 
 
