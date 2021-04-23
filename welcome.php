@@ -131,17 +131,59 @@ function getRecommendedGroups()
 
 
 
-<section id="home">
-    <div class="container text-center">
-        <p>Home</p>
-
-        <div class="social-icons">
-            <a href="#"> <img src="./data/fb.png" /> </a>
-            <a href="#"> <img src="./data/ig.png" /> </a>
-            <a href="#"> <img src="./data/ws.jpg" /> </a>
-        </div>
-    </div>
 </section>
+	<!----------Banner section --------------->
+	
+	<section id="banner">
+	<div class ="container">
+	<div class ="row">
+	<div class = "col-md-6">
+	<p class="promo-title"> Friends Coming together </p>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+	It has survived not only five centuries </p>
+	<a href="#">  </a>
+	</div>
+	<div class="col-md-6 text-center">
+	<img src="./img/friendship.webp" class="img-fluid">
+	
+	</div>
+	</div>
+	</div>
+	
+	
+	 <!--<img src="./img/bck1.jpg" class="bottom-img"> -->
+	</section>
+	
+	<!--service section -->
+	
+	<section id="services">
+	<div class="container text-center">
+	<h1 class="title"> WHAT WE DO? </h1>
+	<div class="row">
+	<div class="col-md-4 services">
+	<img src="./img/home.jpg" class="service-img">
+	<h4> Home </h4>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	</div>
+	<div class="col-md-4 services">
+	<img src="./img/event.jpg" class="service-img">
+	<h4> Events </h4>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	</div>
+	<div class="col-md-4 services">
+	<img src="./img/profile.jpg" class="service-img">
+	<h4> Profile </h4>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	</div>
+	</div>
+	<button type="button" class="btn btn-primary"> All services </button>
+	</div>
+	</section>
 
 
 
