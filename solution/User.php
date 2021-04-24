@@ -92,6 +92,20 @@ class User
         }
     }
 
+    function getProfilePic()
+    {
+        global $mysqli;
+        $sql = "SELECT name FROM profilepictures WHERE userid = $this->id;";
+
+        if ($result = $mysqli->query($sql)) {
+            $row = $result->fetch_assoc();
+            return "uploads/profile_pictures/" . $row["name"];
+        } else {
+            return $mysqli->error;
+        }
+
+    }
+
 
 
 }
