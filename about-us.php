@@ -155,58 +155,35 @@ function getRecommendedGroups()
 	
 	 <!--<img src="./img/bck1.jpg" class="bottom-img"> -->
 	</section>
-	
-	<!--service section -->
-	
-	<section id="services">
-	<div class="container text-center">
-	<h1 class="title"> WHY CHOOSE US </h1>
-	<div class="row">
-	<div class="col-md-4 services">
-	<img src="./data/home.jpg" class="service-img">
-	<h4> Home </h4>
+
+
+    <section id="bann">
+	<div class ="container">
+	<div class ="row">
+	<div class = "col-md-6">
+    <!-- <h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1> -->
+	<h1 class="promo-title"> We can help </h1>
+    
+	<img src="./data/help.png" class="img-fluid"> 
+	<a href="#">  </a>
+	</div>
+	<div class="col-md-6 text-center">
+
+	<br> <br> 
 	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
-	</div>
-	<div class="col-md-4 services">
-	<img src="./data/event.jpg" class="service-img">
-	<h4> Events </h4>
-	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
-	</div>
-	<div class="col-md-4 services">
-	<img src="./data/profile.jpg" class="service-img">
-	<h4> Profile </h4>
-	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+	It has survived not only five centuries </p>
+    <br>
+    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+	It has survived not only five centuries </p>
+  
 	</div>
 	</div>
-	<button type="button" class="btn btn-primary"> All services </button>
 	</div>
 	</section>
-      <!--  <?php getJoinedGroups(); ?>
-
-
-        <h2>Recommended groups</h2>
-        <?php getRecommendedGroups(); ?>
-
-        -->
-
-    </div>
-    <!-----sodicla media ------>
-    <section id="social-media">
-        <div class="container text-center">
-            <p>FIND US ON SOCIAL MEDIA</p>
-
-            <div class="social-icons">
-                <a href="#"> <img src="./data/fb.png" /> </a>
-                <a href="#"> <img src="./data/ig.png" /> </a>
-                <a href="#"> <img src="./data/ws.jpg" /> </a>
-            </div>
-        </div>
-    </section>
-
-    <!----Footer Section---->
     <section id="footer">
         <div class="container">
             <div class="row">
@@ -230,7 +207,34 @@ function getRecommendedGroups()
                 </div>
             </div>
         </div>
+    </section> 
+	
+	<!--service section -->
+
+      <!--  <?php getJoinedGroups(); ?>
+
+
+        <h2>Recommended groups</h2>
+        <?php getRecommendedGroups(); ?>
+
+        -->
+
+    </div>
+    <!-----sodicla media ------>
+    <section id="social-media">
+        <div class="container text-center">
+            <p>FIND US ON SOCIAL MEDIA</p>
+
+            <div class="social-icons">
+                <a href="#"> <img src="./data/fb.png" /> </a>
+                <a href="#"> <img src="./data/ig.png" /> </a>
+                <a href="#"> <img src="./data/ws.jpg" /> </a>
+            </div>
+        </div>
     </section>
+
+    <!----Footer Section---->
+   
 
     </body>
     </html>

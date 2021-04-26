@@ -101,7 +101,7 @@ function GetVar( $var,$userid,$conn) {
         </div>
     </nav>
 </section>
-
+<section id="profile">
 <div class="container">
     <div class="row">
         <?php
@@ -109,13 +109,20 @@ function GetVar( $var,$userid,$conn) {
             echo '<div class="alert alert-danger">' . $group_err . '</div>';
         }
         ?>
+<<<<<<< HEAD
         <div class="">
             <img class="w-50 img-thumbnail rounded-circle" style="alt="No profile picture found" src="<?php echo $user->getProfilePic()?>" onerror=this.src="uploads/profile_pictures/default.jpg">
+=======
+        <div class="bo-area">
+            <img class="w-50 img-thumbnail rounded-circle" style="alt="No profile picture found" src="<?php echo getProfilePic()?>" onerror=this.src="uploads/profile_pictures/default.jpg">
+>>>>>>> parent of aa5d0a3 (Revert "new")
             <h1 class="text-center"><b><?php echo GetVar('username', $userid ,$mysqli)?> </b></h1>
-        </div>
-        <div class="col-sm">
             <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $userid ,$mysqli)?></p>
             <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $userid ,$mysqli)?></p>
+        </div>
+        <div class="col-sm">
+         <!--   <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $userid ,$mysqli)?></p>
+            <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $userid ,$mysqli)?></p> -->
         </div>
         <div class="col-sm float-right" >
             <h3 class="font-weight-bold">Joined Groups: </h3>
@@ -130,6 +137,7 @@ function GetVar( $var,$userid,$conn) {
         </div>
     </div>
 </div>
+        </section>
 
 <!-----sodicla media ------>
 <section id="social-media">
