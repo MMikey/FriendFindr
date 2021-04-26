@@ -142,7 +142,7 @@ function getErrors($all_errors) : array{
 
 ?>
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
 
     <head>
@@ -221,7 +221,7 @@ function getErrors($all_errors) : array{
                 <input type="checkbox" class="check-box"> <span> I agree </span>
                 <input type="submit" class="submit-btn" value="Register">
         </form>
-            </div>
+        </div>
     </div>
 </body>
 
