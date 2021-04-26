@@ -139,10 +139,11 @@ function getRecommendedGroups()
 	<div class = "col-md-6">
     <!-- <h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1> -->
 	<p class="promo-title"> About us </p>
-	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-	It has survived not only five centuries </p>
+	<p> We are a community that’s working towards making the online experience a better place.
+         We want users to have the ability to make friends online through similar interests and hobbies and then move onto 
+         potentially becoming close friends. We wanted users to have the option to plan events and meet ups
+          but due to the pandemic that part of our service has been postponed. Users deserve a fresh experience
+           and if they sign onto our community. That’s exactly what they’ll get!</p>
 	<a href="#">  </a>
 	</div>
 	<div class="col-md-6 text-center">
@@ -169,16 +170,13 @@ function getRecommendedGroups()
 	</div>
 	<div class="col-md-6 text-center">
 
-	<br> <br> 
-	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-	It has survived not only five centuries </p>
-    <br>
-    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-	It has survived not only five centuries </p>
+	<br> <br>  <br> <br> 
+	<p> One in four adults experience mental health problems. 
+        We want to give individuals a chance to connect with others in times of need. 
+        Use this opportunity to explore new avenues in life and get out your comfort zone
+         without leaving the comfort of your own home. This opportunity will allows users to not only connect 
+         but to explore and potentially lead to life changing situations. </p>
+ 
   
 	</div>
 	</div>
@@ -198,7 +196,7 @@ function getRecommendedGroups()
                     <p><b> Contact us </b></p>
                     <p><i class="fa fa-map-marker"></i> MMU, Manchester</p>
                     <p><i class="fa fa-phone"></i>01617959454</p>
-                    <p><i class="fa fa-envelope"></i>BlaBlaBla@hotmail.co.uk</p>
+                    <p><i class="fa fa-envelope"></i>friendfindr1@hotmail.com</p>
                 </div>
                 <div class="col-md-4 footer-box">
                     <p><b> Subscribe </b></p>
