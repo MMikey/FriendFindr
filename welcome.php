@@ -146,10 +146,12 @@ function getRecommendedGroups()
 	<div class = "col-md-6">
     <h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
 	<p class="promo-title"> Friends Coming together </p>
-	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-	It has survived not only five centuries </p>
+	<p> Friend findr is a community where users of all backgrounds can interact online,
+         plan meet ups and even explore each others interests. 
+         This website will give you the opportunity to get out your comfort zone and to meet individuals online despite the intensity
+          of the pandemic. You’ll have the opportunity to interact with other users,
+           discuss interests and hobbies in person or online. It’s also free to create an account so sign up today!!!
+	 </p>
 	<a href="#">  </a>
 	</div>
 	<div class="col-md-6 text-center">
@@ -172,20 +174,21 @@ function getRecommendedGroups()
 	<div class="col-md-4 services">
 	<img src="./data/home.jpg" class="service-img">
 	<h4> Home </h4>
-	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	<p> This is the place we call home. We want users to feel comfortable when browsing our website and feel like they have the freedom to explore, chat and make friends through our free to use services. </p>
 	</div>
 	<div class="col-md-4 services">
 	<img src="./data/event.jpg" class="service-img">
 	<h4> Events </h4>
-	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	<p> Users will have the option to sign up to on going events and meet their friends with similar interests and hobbies.
+         We believe users should have the right to make their own events from their own interests
+          they believe should be apart of our community.  </p>
 	</div>
 	<div class="col-md-4 services">
 	<img src="./data/profile.jpg" class="service-img">
 	<h4> Profile </h4>
-	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	<p> Each individual will have their own profile which they can built to suit their style. 
+        Users can input a profile picture of their choice and can give a brief description about themselves;
+         other users will then be able to view their profiles and interact with each other through the groups page.  </p>
 	</div>
 	</div>
 	<button type="button" class="btn btn-primary"> All services </button>

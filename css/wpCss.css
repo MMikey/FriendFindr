@@ -443,7 +443,7 @@ body{
 
 
 border:1px solid;
-margin-top:30px;
+margin-top:10%;
 
 
 }
@@ -451,14 +451,14 @@ margin-top:30px;
 #profile h1{
 
 
-	margin-left:-150px;
-	margin-top:20px;
+	margin-left:-60%;
+	margin-top:5%;
 
 }
 
 #profile p{
 
-margin-top:20px;
+margin-top:10%;
 
 }
 
@@ -467,7 +467,7 @@ margin-top:20px;
 
 border:4px solid;
 padding-left:50px;
-margin-left:-61px;
+margin-left:-5%;
 
 
 }
