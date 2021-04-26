@@ -282,7 +282,7 @@ function getPosts($group_id){
                 <p><b> Contact us </b></p>
                 <p><i class="fa fa-map-marker"></i> MMU, Manchester</p>
                 <p><i class="fa fa-phone"></i>01617959454</p>
-                <p><i class="fa fa-envelope"></i>BlaBlaBla@hotmail.co.uk</p>
+                <p><i class="fa fa-envelope"></i>friendfindr1@hotmail.com</p>
             </div>
             <div class="col-md-4 footer-box">
                 <p><b> Subscribe </b></p>
