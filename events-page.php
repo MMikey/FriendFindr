@@ -130,14 +130,16 @@ function getAllEvents()
 
 <body>
 
-<div class="container">
-    <h2>Your Events</h2>
-    <?php getUserEvents(); ?>
+<div class="container" style="">
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h2>Your Events</h2>
+    </div>
+    <div class="row justify-content-md-center"><?php getUserEvents();?></div>
 
-
-    <h2>All Events</h2>
-    <?php getAllEvents(); ?>
-
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h2>All Events</h2>
+    </div>
+    <div class="row justify-content-md-center"><?php getAllEvents();?></div>
 </div>
 
 <!-----sodicla media ------>
@@ -181,7 +183,5 @@ function getAllEvents()
 
 </body>
 </html>
-
-
 
 </body>

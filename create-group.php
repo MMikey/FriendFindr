@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="description" content="This is a friend finding Application" />
     <title>Welcome</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/wpCSS.css"">
+    <link rel="stylesheet" type="text/css" href="css/rgCSS.css"">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -134,16 +134,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </section>
 
 <div class="container" style="">
-    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h2>Create Your Own Group!</h2>
+    <div id="form-box" class="form-box">
+        <h3>Create Your Own Group!</h3>
 
         <form id="login" class="input-group" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div>
-                <h3>Enter a group name</h3>
+            <div class="form-group">
+                <h4>Enter a group name</h4>
                 <input type="text" name="groupname" class="input-field" value="<?php echo $groupname; ?>" placeholder="Group Name" required>
             </div>
-            <div>
-                <h3>Enter a group description</h3>
+            <div class="form-group">
+                <h4>Enter a group description</h4>
                 <input type="text" name="description" class="input-field" value="<?php echo $description; ?>" placeholder="Description" required>
             </div>
             <input type="submit" class="submit-btn" value="Create Group">
