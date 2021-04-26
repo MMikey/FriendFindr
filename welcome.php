@@ -209,8 +209,8 @@ function getRecommendedGroups()
         <p>FIND US ON SOCIAL MEDIA</p>
 
         <div class="social-icons">
-            <a href="#"> <img src="./data/fb.png" /> </a>
-            <a href="#"> <img src="./data/ig.png" /> </a>
+            <a href="https://www.facebook.com/FriendR-103531628556075"> <img src="./data/fb.png" /> </a>
+            <a href="https://www.instagram.com/friendfindr123/"> <img src="./data/ig.png" /> </a>
             <a href="#"> <img src="./data/ws.jpg" /> </a>
         </div>
     </div>
