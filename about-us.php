@@ -155,62 +155,35 @@ function getRecommendedGroups()
 	
 	 <!--<img src="./img/bck1.jpg" class="bottom-img"> -->
 	</section>
-
-
-    <section id="bann">
-	<div class ="container">
-	<div class ="row">
-	<div class = "col-md-6">
-    <!-- <h1 class="my-5" style="text-align: center">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1> -->
-	<h1 class="promo-title"> We can help </h1>
-    
-	<img src="./data/help.png" class="img-fluid"> 
-	<a href="#">  </a>
-	</div>
-	<div class="col-md-6 text-center">
-
-	<br> <br> 
-	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-	It has survived not only five centuries </p>
-    <br>
-    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-	when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-	It has survived not only five centuries </p>
-  
-	</div>
-	</div>
-	</div>
-	</section>
-    <section id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 footer-box">
-                    <img src="./data/logo.png" />
-                    <p>
-                        Welcome To FriendFindr:
-                        Join your group and become a part of something
-                    </p>
-                </div>
-                <div class="col-md-4 footer-box">
-                    <p><b> Contact us </b></p>
-                    <p><i class="fa fa-map-marker"></i> MMU, Manchester</p>
-                    <p><i class="fa fa-phone"></i>01617959454</p>
-                    <p><i class="fa fa-envelope"></i>BlaBlaBla@hotmail.co.uk</p>
-                </div>
-                <div class="col-md-4 footer-box">
-                    <p><b> Subscribe </b></p>
-                    <input type="email" class="form-control" placeholder="Your Email" />
-                    <button type="button" class="btn btn-primary">Contact us</button>
-                </div>
-            </div>
-        </div>
-    </section> 
 	
 	<!--service section -->
-
+	
+	<section id="services">
+	<div class="container text-center">
+	<h1 class="title"> WHY CHOOSE US </h1>
+	<div class="row">
+	<div class="col-md-4 services">
+	<img src="./data/home.jpg" class="service-img">
+	<h4> Home </h4>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	</div>
+	<div class="col-md-4 services">
+	<img src="./data/event.jpg" class="service-img">
+	<h4> Events </h4>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	</div>
+	<div class="col-md-4 services">
+	<img src="./data/profile.jpg" class="service-img">
+	<h4> Profile </h4>
+	<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
+	</div>
+	</div>
+	<button type="button" class="btn btn-primary"> All services </button>
+	</div>
+	</section>
       <!--  <?php getJoinedGroups(); ?>
 
 
@@ -234,7 +207,30 @@ function getRecommendedGroups()
     </section>
 
     <!----Footer Section---->
-   
+    <section id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-box">
+                    <img src="./data/logo.png" />
+                    <p>
+                        Welcome To FriendFindr:
+                        Join your group and become a part of something
+                    </p>
+                </div>
+                <div class="col-md-4 footer-box">
+                    <p><b> Contact us </b></p>
+                    <p><i class="fa fa-map-marker"></i> MMU, Manchester</p>
+                    <p><i class="fa fa-phone"></i>01617959454</p>
+                    <p><i class="fa fa-envelope"></i>BlaBlaBla@hotmail.co.uk</p>
+                </div>
+                <div class="col-md-4 footer-box">
+                    <p><b> Subscribe </b></p>
+                    <input type="email" class="form-control" placeholder="Your Email" />
+                    <button type="button" class="btn btn-primary">Contact us</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
     </body>
     </html>
