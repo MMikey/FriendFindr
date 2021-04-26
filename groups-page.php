@@ -1,6 +1,7 @@
 <?php
 /** @var mysqli $mysqli */
 include_once  "config.php";
+include("solution/Group.php");
 // Initialise the session
 session_start();
 
@@ -21,18 +22,13 @@ function getJoinedGroups()
     $joinedgroups_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql statement
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo <<<HTML
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-header text-center"><h5>{$row["name"]}</h5></div>
-                            <div class="card-body">
-                                <p class="card-text text-muted">{$row["description"]}</p>
-                                <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-sm btn-outline-secondary" role="button">View Group</a>
-                                </div>
-                        </div>
-                    </div>
-                    HTML;
-
+            try {
+                $group = new Group($row["groupid"]);
+            } catch(Exception $e) {
+                $group_err = $e->getMessage();
+                continue;
+            }
+            echo $group->groupDisplay();
         }
     } else {
         $joinedgroups_err = "You're not part of any groups.. ";
@@ -51,18 +47,13 @@ function getAllGroups() {
     $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo <<<HTML
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-header text-center"><h5>{$row["name"]}</h5></div>
-                            <div class="card-body">
-                                <p class="card-text text-muted">{$row["description"]}</p>
-                                <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-sm btn-outline-secondary" role="button">View Group</a>
-                                </div>
-                        </div>
-                    </div>
-                    HTML;
-
+            try {
+                $group = new Group($row["groupid"]);
+            } catch(Exception $e) {
+                $group_err = $e->getMessage();
+                continue;
+            }
+            echo $group->groupDisplay();
         }
 
     } else {
@@ -144,7 +135,7 @@ $othergroups = "SELECT name, description FROM groups grp join usergroups ugr on 
         </div>
     </nav>
 </section>
-<div class="container" style="width: 60%">
+<div class="container" style="">
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h2>Joined Groups</h2>
     </div>

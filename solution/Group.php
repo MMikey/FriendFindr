@@ -137,6 +137,35 @@ class Group
         return $members;
     }
 
+    public function getGroupPic(){
+        global $mysqli;
+        $sql = "SELECT name FROM grouppictures WHERE groupid = $this->id;";
+
+        if ($result = $mysqli->query($sql)) {
+            if($result->num_rows ==0) return "";
+            $row = $result->fetch_assoc();
+            return "uploads/group_pictures/" . $row["name"];
+        } else {
+            return $mysqli->error;
+        }
+
+    }
+
+    public function groupDisplay(){
+        return <<<HTML
+                    <div class="col-md-4 py-3">
+                        <div class="card h-100 box-shadow shadow">
+                            <img class="card-img-top" style="height:200px" src="{$this->getGroupPic()}">
+                            <div class="card-header text-center"><h5>{$this->name}</h5></div>
+                            <div class="card-body d-flex flex-column">
+                                <p class="card-text text-muted">{$this->description}</p>
+                                <a href="group-page.php?groupid={$this->id}" class="btn btn-sm btn-outline-secondary mt-auto" role="button">View Group</a>
+                                </div>
+                        </div>
+                    </div>
+                    HTML;
+    }
+
 }
 
 ?>

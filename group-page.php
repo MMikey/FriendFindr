@@ -2,6 +2,7 @@
 /** @var mysqli $mysqli */
 include_once "config.php";
 include("solution/Group.php");
+include("solution/User.php");
 
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
@@ -98,6 +99,7 @@ function getPosts($group_id){
             $_result = $mysqli->query($sql);
             $_row = $_result->fetch_assoc();
             $delete_btn = "";
+            $imgsrc = User::getProfilePicForUser($row["userid"]);
             if($row['userid'] == $_SESSION['id']) {
                 $delete_btn=<<<HTML
                     <form method="post" action="">
@@ -106,10 +108,12 @@ function getPosts($group_id){
                     </form>
                     HTML;
             }
-
             echo <<<HTML
                 <tr>
-                    <th style="width:20%" scope="row" class="table-secondary">{$_row["username"]}</th>
+                    <th style="width:20%" scope="row" class="table-secondary">
+                        {$_row["username"]}
+                        <img class="w-25 rounded-circle" src="$imgsrc">
+                    </th>
                     <td style="width:50%">{$row["content"]}</td>
                     <td style="width:20%">{$row["posted_at"]}</td>
                     <td style="width:%" class="float-right">{$delete_btn}</td>
@@ -192,26 +196,28 @@ function getPosts($group_id){
 
 <h1 class="my-5"></h1>
 <div class="container ">
-    <section class="jumbotron text-center">
+    <section class="jumbotron mb-2 jumbotron-image shadow border rounded"
+             style="background-image: linear-gradient(to bottom,rgba(255,255,255,0.6),rgba(255,255,255,0.9)),url(<?php echo $group->getGroupPic()?>)">
         <div class="container">
             <?php
             if (!empty($group_err)) {
                 echo '<div class="alert alert-danger">' . $group_err . '</div>';
             }
             ?>
-            <h2 class="jumbotron-heading"><?php echo $group->get_name() ?></h2>
-            <p class="lead text-muted"><?php echo $group->get_description()?></p>
+            <h2 class="jumbotron-heading display-4"><?php echo $group->get_name() ?></h2>
+            <p class="lead"><?php echo $group->get_description()?></p>
             <form method="post">
                 <?php echo (!$group->is_member($_SESSION["id"])) ? '<input type="submit" name="join_group" class="btn btn-primary" value="Join group">'  :
-                    '<input type="submit" name="leave_group" class="btn btn-secondary" value="Leave group">';?>
+                    '<input type="submit" name="leave_group" class="btn btn-danger" value="Leave group">';?>
             </form>
+            <img src="<?php $group->getGroupPic()?>">
         </div>
     </section>
 
     </p>
-    <div class="container p-3 bg-light">
+    <div class="container p-3 mb-2 bg-light border rounded shadow">
         <h3>Group Posts</h3>
-       <div class="container overflow-auto p-2 bg-white">
+       <div class="container overflow-auto mb-2 bg-white" style="height: 25rem">
            <table class="table table-striped">
                <tbody>
                    <?php getposts($group_ID) ?>
@@ -231,7 +237,7 @@ function getPosts($group_id){
         </form>
     </div>
 
-    <div class="container mt-2 mb-2 p-3 bg-light">
+    <div class="container mb-2 p-3 bg-light border rounded shadow">
         <h3>Members</h3>
         <?php
         $members = $group->get_members();

@@ -25,20 +25,7 @@ try{
     $user_err = $e->getMessage();
 }
 
-function getProfilePic()
-{
-    global $mysqli;
-    global $userid;
-    $sql = "SELECT name FROM profilepictures WHERE userid =" . $userid . ";";
 
-    if ($result = $mysqli->query($sql)) {
-        $row = $result->fetch_assoc();
-        return "uploads/profile_pictures/" . $row["name"] . ".jpg";
-    } else {
-        return $mysqli->error;
-    }
-
-}
 
 function GetVar( $var,$userid,$conn) {
     // make the query
@@ -123,7 +110,7 @@ function GetVar( $var,$userid,$conn) {
         }
         ?>
         <div class="">
-            <img class="w-50 img-thumbnail rounded-circle" style="alt="No profile picture found" src="<?php echo getProfilePic()?>" onerror=this.src="uploads/profile_pictures/default.jpg">
+            <img class="w-50 img-thumbnail rounded-circle" style="alt="No profile picture found" src="<?php echo $user->getProfilePic()?>" onerror=this.src="uploads/profile_pictures/default.jpg">
             <h1 class="text-center"><b><?php echo GetVar('username', $userid ,$mysqli)?> </b></h1>
         </div>
         <div class="col-sm">
