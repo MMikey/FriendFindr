@@ -138,11 +138,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Create Your Own Group!</h2>
 
         <form id="login" class="input-group" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-            <input type="text" name="groupname" class="input-field" value="<?php echo $groupname; ?>" placeholder="Group Name" required>
+            <div>
+                <h3>Enter a group name</h3>
+                <input type="text" name="groupname" class="input-field" value="<?php echo $groupname; ?>" placeholder="Group Name" required>
             </div>
-            <div class="form-group">
-            <input type="text" name="description" class="input-field" value="<?php echo $description; ?>" placeholder="Description" required>
+            <div>
+                <h3>Enter a group description</h3>
+                <input type="text" name="description" class="input-field" value="<?php echo $description; ?>" placeholder="Description" required>
             </div>
             <input type="submit" class="submit-btn" value="Create Group">
         </form>
