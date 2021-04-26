@@ -394,7 +394,9 @@ body{
 }
 
 
-
+.jumbotron-image {
+	background-position: center center;
+}
 /************* about us *************/
 
 #ban{

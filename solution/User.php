@@ -106,6 +106,19 @@ class User
 
     }
 
+    static function getProfilePicForUser($userid) {
+        global $mysqli;
+        $sql = "SELECT name FROM profilepictures WHERE userid = $userid;";
+
+        if ($result = $mysqli->query($sql)) {
+            if($result->num_rows ==0) return "uploads/profile_pictures/default.jpg";
+            $row = $result->fetch_assoc();
+            return "uploads/profile_pictures/" . $row["name"];
+        } else {
+            return $mysqli->error;
+        }
+    }
+
 
 
 }

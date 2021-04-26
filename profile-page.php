@@ -25,20 +25,7 @@ try{
     $user_err = $e->getMessage();
 }
 
-function getProfilePic()
-{
-    global $mysqli;
-    global $userid;
-    $sql = "SELECT name FROM profilepictures WHERE userid =" . $userid . ";";
 
-    if ($result = $mysqli->query($sql)) {
-        $row = $result->fetch_assoc();
-        return "uploads/profile_pictures/" . $row["name"] . ".jpg";
-    } else {
-        return $mysqli->error;
-    }
-
-}
 
 function GetVar( $var,$userid,$conn) {
     // make the query

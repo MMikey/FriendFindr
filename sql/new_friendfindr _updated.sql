@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2021 at 06:43 PM
+-- Generation Time: Apr 26, 2021 at 11:18 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -57,6 +57,28 @@ INSERT INTO `grouphobbies` (`groupid`, `hobbyid`, `grouphobbies_id`) VALUES
 (2, 5, 2),
 (3, 3, 3),
 (4, 12, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `grouppictures`
+--
+
+CREATE TABLE `grouppictures` (
+  `grouppictureid` int(10) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `groupid` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `grouppictures`
+--
+
+INSERT INTO `grouppictures` (`grouppictureid`, `name`, `groupid`) VALUES
+(1, '1619293225.jpg', 1),
+(2, '1619360000.jpg', 2),
+(3, '1619360020.jpg', 3),
+(4, '1619360125.jpg', 4);
 
 -- --------------------------------------------------------
 
@@ -138,7 +160,12 @@ INSERT INTO `posts` (`postid`, `userid`, `groupid`, `posted_at`, `content`) VALU
 (36, 28, 2, '2021-04-16 16:29:51', 'test 2'),
 (37, 27, 2, '2021-04-16 16:32:50', 'Hello billy bob!'),
 (38, 29, 4, '2021-04-23 22:17:30', 'hello everyone\r\n'),
-(39, 23, 4, '2021-04-23 22:18:10', 'hi reg');
+(39, 23, 4, '2021-04-23 22:18:10', 'hi reg'),
+(40, 23, 4, '2021-04-25 16:43:40', 'test\r\n'),
+(41, 23, 4, '2021-04-25 16:43:47', 'test\r\n'),
+(42, 23, 4, '2021-04-25 16:43:51', 'test'),
+(43, 23, 4, '2021-04-25 16:43:56', 'test'),
+(44, 23, 4, '2021-04-25 16:44:03', 'test');
 
 -- --------------------------------------------------------
 
@@ -157,7 +184,7 @@ CREATE TABLE `profilepictures` (
 --
 
 INSERT INTO `profilepictures` (`profilepictureid`, `name`, `userid`) VALUES
-(1, '1619211464.jpg', 23);
+(2, '1619367673.jpg', 23);
 
 -- --------------------------------------------------------
 
@@ -196,7 +223,9 @@ INSERT INTO `usergroups` (`userid`, `groupid`, `usergroups_id`) VALUES
 (27, 3, 50),
 (27, 4, 51),
 (29, 4, 52),
-(23, 4, 53);
+(23, 4, 53),
+(29, 1, 54),
+(23, 1, 57);
 
 -- --------------------------------------------------------
 
@@ -315,6 +344,13 @@ ALTER TABLE `grouphobbies`
   ADD KEY `groupid_grouphobbies` (`groupid`);
 
 --
+-- Indexes for table `grouppictures`
+--
+ALTER TABLE `grouppictures`
+  ADD PRIMARY KEY (`grouppictureid`),
+  ADD KEY `groupid` (`groupid`);
+
+--
 -- Indexes for table `groups`
 --
 ALTER TABLE `groups`
@@ -392,6 +428,12 @@ ALTER TABLE `grouphobbies`
   MODIFY `grouphobbies_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `grouppictures`
+--
+ALTER TABLE `grouppictures`
+  MODIFY `grouppictureid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
@@ -407,19 +449,19 @@ ALTER TABLE `hobbies`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `postid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `profilepictures`
 --
 ALTER TABLE `profilepictures`
-  MODIFY `profilepictureid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `profilepictureid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `usergroups`
 --
 ALTER TABLE `usergroups`
-  MODIFY `usergroups_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `usergroups_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `userhobbies`
@@ -443,6 +485,12 @@ ALTER TABLE `users`
 ALTER TABLE `grouphobbies`
   ADD CONSTRAINT `groupid_grouphobbies` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`),
   ADD CONSTRAINT `hobbyid_grouphobbies` FOREIGN KEY (`hobbyid`) REFERENCES `hobbies` (`hobbyid`);
+
+--
+-- Constraints for table `grouppictures`
+--
+ALTER TABLE `grouppictures`
+  ADD CONSTRAINT `grouppictures_ibfk_1` FOREIGN KEY (`groupid`) REFERENCES `groups` (`groupid`);
 
 --
 -- Constraints for table `posts`

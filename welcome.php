@@ -7,6 +7,7 @@
 session_start();
 
 require_once "config.php";
+include "solution/Group.php";
 
 //Check if the user is logged in, if not then redirect him to login page 
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
@@ -45,17 +46,13 @@ function getRecommendedGroups()
     $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-                echo <<<HTML
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-header text-center"><h5>{$row["name"]}</h5></div>
-                            <div class="card-body">
-                                <p class="card-text text-muted">{$row["description"]}</p>
-                                <a href="group-page.php?groupid={$row["groupid"]}" class="btn btn-sm btn-outline-secondary" role="button">View Group</a>
-                                </div>
-                        </div>
-                    </div>
-                    HTML;
+            try {
+                $group = new Group($row["groupid"]);
+            } catch(Exception $e) {
+                $group_err = $e->getMessage();
+                continue;
+            }
+            echo $group->groupDisplay();
 
             }
 
@@ -198,10 +195,6 @@ function getRecommendedGroups()
 
 <section id ="group-page">
 <div class="container">
-    <!--<h2>Your groups</h2>
-    --><?php /*getJoinedGroups(); */?>
-
-
     <h2>Recommended groups</h2>
     <div class="row justify-content-md-center"><?php getRecommendedGroups(); ?></div>
 

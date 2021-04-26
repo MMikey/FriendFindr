@@ -8,7 +8,9 @@ if($_SESSION["loggedin"] !== true){
     exit;
 }
 
-$target_dir = "uploads/profile_pictures/";
+//check if we're uploading to profile or group page
+if(isset($_POST["groupid"])) $target_dir = "uploads/group_pictures/";
+else $target_dir = "uploads/profile_pictures/";
 $temp = explode(".", $_FILES["fileToUpload"]["name"]);
 $newfilename =  round(microtime(true)) . '.' . end($temp);
 $target_file = $target_dir . $newfilename;
@@ -20,7 +22,7 @@ $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
+        echo "File is an image - " .   $check["mime"] . ".";
         $uploadOk = 1;
     } else {
         echo "File is not an image.";
@@ -47,7 +49,10 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     $uploadOk = 0;
 }
 
-if(!uploadToDatabase($newfilename)) $uploadOk=0;
+if(!isset($_POST["groupid"]) && !uploadProfilePicToDatabase($newfilename)) $uploadOk=0;
+else if(isset($_POST["groupid"]) && !uploadGroupPicToDatabase($newfilename)) $uploadOk =0;
+
+
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
@@ -61,7 +66,38 @@ if ($uploadOk == 0) {
     }
 }
 
-function uploadToDatabase($name) {
+function uploadGroupPicToDatabase($name) {
+    global $mysqli;
+    //check if file already exists
+    $sql = "SELECT grouppictureid FROM grouppictures WHERE groupid =". $_POST["groupid"] .";";
+    if($result = $mysqli->query($sql))
+    {
+        if($result->num_rows == 0) {
+            $sql = "INSERT into grouppictures (name,groupid) VALUES(?,?);";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("ss", $param_name, $param_id);
+            $param_name = $name;
+            $param_id = $_POST["groupid"];
+        }else {
+            $sql = "UPDATE grouppictures SET name=? WHERE groupid =?;";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("ss", $param_name, $param_id);
+            $param_name = $name;
+            $param_id = $_POST["groupid"];
+        }
+        if($stmt->execute()) {
+            return true;
+        } else {
+            echo $mysqli->error;
+            return false;
+        }
+    } else {
+        echo $mysqli->error;
+        return false;
+    }
+
+}
+function uploadProfilePicToDatabase($name) {
     global $mysqli;
     //check if file already exists
     $sql = "SELECT profilepictureid FROM profilepictures WHERE userid =". $_SESSION["id"] .";";
