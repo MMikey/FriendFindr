@@ -70,6 +70,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
+if(isset($_POST["join_group"])) {
+    try {
+        $group->add_user($_SESSION["id"]);
+        header('location: group-page.php?groupid='.$group_ID);
+    } catch(Exception $e) {
+        $group_err = $e;
+    }
+}
+
+if(isset($_POST["leave_group"])) {
+    try {
+        $group->remove_user($_SESSION["id"]);
+    } catch(Exception $e) {
+        $group_err = $e->getMessage();
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -150,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 
-<!-----sodicla media ------>
+<!-----Social media ------>
 <section id="social-media">
     <div class="container text-center">
         <p>FIND US ON SOCIAL MEDIA</p>
