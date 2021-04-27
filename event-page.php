@@ -3,6 +3,8 @@
 include_once "config.php";
 include("solution/Group.php");
 
+$eventname = $evendesc = $eventloc = $eventst = $eventet = "";
+
 
 
 function getEvent()
@@ -14,12 +16,13 @@ function getEvent()
     $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+
             echo "<h1>" . $row["name"] . "</h1>\n";
             echo "<h2>" . $row["description"] . "</h2>\n";
             echo "<h2>" . $row["location"] . "</h2>\n";
-            echo "<h2>" . $row["start_time"] . "</h2>\n";
-            echo "<h2>" . $row["finish_time"] . "</h2>\n";
-            echo "</div>";
+       //     echo "<h2>" . $row["start_time"] . "</h2>\n";
+       //     echo "<h2>" . $row["finish_time"] . "</h2>\n";
+
         }
 
     } else {
@@ -30,7 +33,6 @@ function getEvent()
     }
 
 }
-
 
 function is_member(){
             global $mysqli;
@@ -170,11 +172,15 @@ if(isset($_POST["not_interested"])) {
 
 <div class = "container">
 
+
+    <section class="jumbotron mb-2 jumbotron-image shadow border rounded"
+    style="background-color: #f8f9fa">
     <?php getEvent();?>
     <form method="post">
                 <input type="submit" name="interested" class="btn btn-primary" value="Interested">
                 <input type="submit" name="not_interested" class="btn btn-danger" value="Not Interested">
     </form>
+    </section>
 
 </div>
 

@@ -146,8 +146,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h4>Enter a group description</h4>
                 <input type="text" name="description" class="input-field" value="<?php echo $description; ?>" placeholder="Description" required>
             </div>
+
+
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+                Select a Group Image
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <input type="submit" value="Upload Image" name="submit">
+
+
+
             <input type="submit" class="submit-btn" value="Create Group">
         </form>
+
+
 
     </div>
 </div>
