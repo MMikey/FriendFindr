@@ -2,6 +2,11 @@
 /** @var mysqli $mysqli */
 include_once "config.php";
 include("solution/Group.php");
+
+$eventname = $evendesc = $eventloc = $eventst = $eventet = "";
+
+
+
 function getEvent()
 {
     global $mysqli;
@@ -11,12 +16,13 @@ function getEvent()
     $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+
             echo "<h1>" . $row["name"] . "</h1>\n";
             echo "<h2>" . $row["description"] . "</h2>\n";
             echo "<h2>" . $row["location"] . "</h2>\n";
-            echo "<h2>" . $row["start_time"] . "</h2>\n";
-            echo "<h2>" . $row["finish_time"] . "</h2>\n";
-            echo "</div>";
+       //     echo "<h2>" . $row["start_time"] . "</h2>\n";
+       //     echo "<h2>" . $row["finish_time"] . "</h2>\n";
+
         }
 
     } else {
@@ -28,6 +34,39 @@ function getEvent()
 
 }
 
+function is_member(){
+            global $mysqli;
+            $user_id = $_SESSION["id"];
+            $eventid = $_GET["eventid"];
+            $sql = "SELECT userid FROM userever WHERE userid = $user_id AND eventid=$eventid;";
+
+            if($result = $mysqli->query($sql)) {
+                if($result->num_rows ==0)
+                {
+                    return false;
+                }
+                return true;
+            } else {
+                return "Oops! Something went wrong! $mysqli->error";
+            }
+    }
+
+function remove_user() : void {
+    global $mysqli;
+    if(!is_member()) {
+        throw new Exception("Not a member");
+    } else {
+
+        $user_id = $_SESSION["id"];
+        $eventid = $_GET["eventid"];
+
+
+        $sql = "DELETE FROM userevent WHERE userid = $user_id AND  eventid = $eventid";
+        if (!$mysqli->query($sql)) throw new Exception("$mysqli->error");
+    }
+
+}
+
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
 {
@@ -35,39 +74,30 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
     exit;
 }
 
-//checks if the page sends a 'post' method
-//essentially checks if the user has clicked the submit button
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if(isset($_POST["interested"])) {
 
-    //Check input errors before inserting into database
-    if (empty($username_err) && empty($email_err) &&
-        empty($password_err) && empty($confirm_password_err)
-        && empty($hobby_err) && empty($date_err)) {
 
-        //sql statement for inserting data into users events
-        $sql = "INSERT INTO userevents (userid, eventid) VALUES (?,?)";
+    $sql = "INSERT INTO userevent (userid,eventid) VALUES (". $_SESSION["id"] . "," . $_GET["eventid"]  .");";
 
-        if ($stmt = $mysqli->prepare($sql)) {
-            $stmt->bind_param("ssssss", $param_userid, $param_eventid); // bind parameters to  queries
+    $valid = is_member();
 
-            $param_userid = $_SESSION["username"];
-            $param_eventid = 2;
-
-            if ($stmt->execute()) {
-                $stmt->store_result();
-                //redirect to login page
-                //header("location: login.php");
-                //echo "submitted!";
-            } else {
-                echo "Oops! Something went wrong. Please try again later." . $mysqli->error;
-            }
-
-            $stmt->close(); // close statement - close query
+    if($valid !== true) {
+        if ($mysqli->query($sql)) {
+            echo "You've successfully joined this group";
         } else {
-            echo "Oop! Something went wrong!. Please try again later." . $mysqli->error;
+            throw new Exception("$mysqli->error");
         }
+    } else {
+        throw new Exception($valid);
     }
+}
 
+if(isset($_POST["not_interested"])) {
+    try {
+        remove_user();
+    } catch(Exception $e) {
+        $group_err = $e->getMessage();
+    }
 }
 
 ?>
@@ -142,15 +172,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class = "container">
 
+
+    <section class="jumbotron mb-2 jumbotron-image shadow border rounded"
+    style="background-color: #f8f9fa">
     <?php getEvent();?>
-    <input type="submit" class="btn btn-primary" value="Interested">
-    <input type="reset" class="btn btn-secondary ml-2" value="Not Interested">
+    <form method="post">
+                <input type="submit" name="interested" class="btn btn-primary" value="Interested">
+                <input type="submit" name="not_interested" class="btn btn-danger" value="Not Interested">
+    </form>
+    </section>
 
 </div>
 
 </body>
 
-<!-----sodicla media ------>
+<!-----Social media ------>
 <section id="social-media">
     <div class="container text-center">
         <p>FIND US ON SOCIAL MEDIA</p>
