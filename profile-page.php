@@ -140,7 +140,7 @@ function GetVar($var, $userid, $conn)
                             <ul class="list-group pb-2">
                                 <?php
                                 foreach($user->getGroups() as $groupid=>$group) {
-                                    echo "<a href='$groupid' class='list-group-item list-group-item-action'>$group</a>";
+                                    echo "<a href='group-page.php?groupid=$groupid' class='list-group-item list-group-item-action'>$group</a>";
                                 }
                                 ?>
                             </ul>
