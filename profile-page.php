@@ -114,15 +114,26 @@ function GetVar( $var,$userid,$conn) {
              <!--   <p><b><u>Location:</u></b>&nbsp;&nbsp;<?php echo GetVar('location', $userid ,$mysqli)?></p>
                 <p><b><u>About Me:</u></b>&nbsp;&nbsp;<?php echo  GetVar('bio', $userid ,$mysqli)?></p> -->
             </div>
-            <div class="col-sm float-right" >
+            <div class="col-sm" >
                 <h3 class="font-weight-bold">Joined Groups: </h3>
-                <ul class="list-group mb-4" style="width: 50%">
+                <ul class="list-group mb-4" style="width: %">
                 <?php foreach($user->getGroups() as $group_id => $group) {
                     echo <<<HTML
                         <li class="list-group-item">$group</li>
                         HTML;
                 }
                 ?>
+                </ul>
+            </div>
+            <div class="col-sm" >
+                <h3 class="font-weight-bold">Hobbies:</h3>
+                <ul class="list-group" style="width:%">
+                    <?php foreach($user->getHobbies() as $hobby) {
+                        echo <<<HTML
+                        <li class="list-group-item">$hobby</li>
+                        HTML;
+                    }
+                    ?>
                 </ul>
             </div>
         </div>

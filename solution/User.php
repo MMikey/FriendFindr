@@ -83,13 +83,14 @@ class User
     public function getHobbies() {
         global $mysqli;
         $hobbies = array();
-        $sql = "SELECT name, description FROM hobbies hb join userhobbies uhb on hb.hobbyid = uhb.hobbyid WHERE userid = $this->userid";
+        $sql = "SELECT name FROM hobbies hb join userhobbies uhb on hb.hobbyid = uhb.hobbyid WHERE userid = $this->id";
 
         if($result = $mysqli->query($sql)) {
             while($row = $result->fetch_assoc()) {
-                $hobbies[] = array($row["name"],$row["description"]);
+                $hobbies[] = $row["name"];
             }
         }
+        return $hobbies;
     }
 
     function getProfilePic()
