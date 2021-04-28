@@ -125,12 +125,11 @@ function GetVar($var, $userid, $conn)
                         </div>
                         <div class="mt-2 col-sm-4 text-center float-right">
                             <figure>
+                                <div class="rounded-circle">
                                 <img class="img-responsive rounded-circle w-100" style="" alt="No profile picture found"
                                      src="<?php echo $user->getProfilePic() ?>"
                                      onerror=this.src="uploads/profile_pictures/default.jpg">
-                                <figcaption>
-
-                                </figcaption>
+                                </div>
                             </figure>
                         </div>
                         </div>

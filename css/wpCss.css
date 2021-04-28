@@ -461,3 +461,10 @@ border:1px solid;
 margin-top:10%;
 
 }
+
+.rounded-circle{
+					border:1px solid;
+					border-radius:50%;
+					width:200px;
+					height:200px;
+				}

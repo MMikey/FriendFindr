@@ -9,7 +9,6 @@ if($_SESSION["loggedin"] !== true){
 }
 
 
-
 //check if we're uploading to profile or group page
 if(isset($_GET["groupid"]) || isset($_POST["groupid"])) $target_dir = "uploads/group_pictures/";
 else $target_dir = "uploads/profile_pictures/";
