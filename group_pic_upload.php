@@ -1,6 +1,21 @@
 <?php
 /** @var mysqli $mysqli */
 include_once "C:/xampp\htdocs\FriendFindr\config.php";
+include("solution/Group.php");
+
+if(!isset($_GET["groupid"]))
+{
+    header("location:welcome.php");
+} else {
+    $groupid = $_GET["groupid"];
+}
+
+try{
+    $group = new Group($groupid);
+} catch(Exception $e){
+        echo $e->getMessage();
+}
+
 
 ?>
 
@@ -8,11 +23,12 @@ include_once "C:/xampp\htdocs\FriendFindr\config.php";
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="This is a friend finding Application" />
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="description" content="This is a friend finding Application"/>
     <title>Welcome</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/wpCSS.css"">
+    <link rel="stylesheet" type="text/css" href="css/wpCSS.css"
+    ">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -21,15 +37,15 @@ include_once "C:/xampp\htdocs\FriendFindr\config.php";
 <section id="nav-bar">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="./data/logo.png" /></a>
+            <a class="navbar-brand" href="#"><img src="./data/logo.png"/></a>
             <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
             >
                 <i class="fa fa-bars"></i>
             </button>
@@ -70,14 +86,17 @@ include_once "C:/xampp\htdocs\FriendFindr\config.php";
     </nav>
 </section>
 <div class="container">
-    <h2>Update grouppic</h2>
+    <h2>Upload Image for <?php echo $group->get_name()?> </h2>
     <p>Please fill in fields that you would like to update</p>
 
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-        Select image to upload:
-        <input type="number" name="groupid">
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <input type="submit" value="Upload Image" name="submit">
+    <form action="upload.php?groupid=<?php echo $groupid?>" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="fileToUpload">Select image to upload:</label>
+            <input type="file" name="fileToUpload" id="fileToUpload">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Upload Image" name="submit">
+        </div>
     </form>
 
 

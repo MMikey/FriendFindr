@@ -206,7 +206,7 @@ function getRecommendedGroups()
     </section>
     <section id="group-page">
         <div class="container">
-            <h2>Recommended groups</h2>
+            <h2 class="text-white promo-title pt-3">Recommended groups</h2>
             <div class="row justify-content-md-center"><?php getRecommendedGroups(); ?></div>
 
         </div>

@@ -3,7 +3,8 @@
 //include config file - connects to database
 require_once "config.php";
 
-$groupname = $description = $imagename = "";
+$groupname = $description = $imagename = $hobby = "";
+$groupname_err = $description_err = $hobby_err = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -18,15 +19,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $description = $_POST["description"];
     }
-
+    if (empty($_POST["hobby"])) {
+        $hobby_err = "Please enter an associated hobby";
+    } else {
+        $hobby = $_POST["hobby"];
+    }
     //Check input errors before inserting into database
-    if (empty($groupname_err) && empty($description_err)) {
+    if (empty($groupname_err) && empty($description_err) && empty($hobby_err)) {
 
         //sql statement for inserting data into users table with parameters
         $sql = "INSERT INTO groups (name, description) VALUES (?,?)";
 
         if ($stmt = $mysqli->prepare($sql)) {
-            $stmt->bind_param("ss",$param_groupname, $param_description); // bind parameters to  queries]
+            $stmt->bind_param("ss", $param_groupname, $param_description); // bind parameters to  queries]
 
             $param_groupname = $groupname;
             $param_description = $description;
@@ -42,8 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     echo "Error!" . $mysqli->error;
                 }
-
-                header('location:group-page.php?groupid='.$maxgroup);
             } else {
                 echo "Oops! Something went wrong. Please try again later." . $mysqli->error;
             }
@@ -52,9 +55,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Oop! Something went wrong!. Please try again later." . $mysqli->error;
         }
-
+        $sql = "INSERT INTO grouphobbies (hobbyid,groupid) VALUES ($hobby, $maxgroup);";
+        if ($mysqli->query($sql)) {
+            header('location:group_pic_upload.php?groupid=' . $maxgroup);
+        } else {
+            echo "Error!" . $mysqli->error;
+        }
     } else {
-        $all_errors = array($groupname_err,$description_err);
+        $all_errors = array($groupname_err, $description_err);
         $errors = getErrors($all_errors);
     }
 
@@ -70,11 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <link rel="stylesheet" type="text/css" href="css/wpCss.css"/>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="This is a friend finding Application" />
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="description" content="This is a friend finding Application"/>
     <title>Welcome</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/rgCSS.css"">
+    <link rel="stylesheet" type="text/css" href="css/rgCSS.css"
+    ">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -84,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <section id="nav-bar">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="./data/logo.png" /></a>
+            <a class="navbar-brand" href="#"><img src="./data/logo.png"/></a>
             <button
                     class="navbar-toggler"
                     type="button"
@@ -137,30 +146,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="form-box" class="form-box">
         <h3>Create Your Own Group!</h3>
 
-        <form id="login" class="input-group" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <form id="login" class="input-group" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
+              method="post">
             <div class="form-group">
                 <h4>Enter a group name</h4>
-                <input type="text" name="groupname" class="input-field" value="<?php echo $groupname; ?>" placeholder="Group Name" required>
+                <input type="text" name="groupname" class="input-field" value="<?php echo $groupname; ?>"
+                       placeholder="Group Name" required>
             </div>
             <div class="form-group">
                 <h4>Enter a group description</h4>
-                <input type="text" name="description" class="input-field" value="<?php echo $description; ?>" placeholder="Description" required>
+                <input type="text" name="description" class="input-field" value="<?php echo $description; ?>"
+                       placeholder="Description" required>
             </div>
 
-
-            <form action="upload.php" method="post" enctype="multipart/form-data">
-                Select a Group Image
-                <input type="file" name="fileToUpload" id="fileToUpload">
-                <input type="submit" value="Upload Image" name="submit">
-
-
-
+            <div class="form-group">
+                <h4>Select an associated Hobby</h4>
+                <select name="hobby" class="form-control <?php echo (!empty($hobby_err)) ? 'is-invalid' : ''; ?>">
+                    <?php
+                    //Populating hobby input field
+                    //prepare sql select statement
+                    $sql = "SELECT hobbyid, name FROM hobbies";
+                    if ($result = $mysqli->query($sql)) {
+                        while ($row = $result->fetch_assoc()) {
+                            //user echo with html to create stuff
+                            echo '<option value ="' . $row["hobbyid"] . '">' . $row["name"] . "</option>/n";
+                        }
+                    } else {
+                        echo "Error!" . $mysqli->error;
+                    }
+                    ?>
+                </select>
+                <span class="invalid-feedback"><?php echo $hobby_err; ?></span>
+            </div>
             <input type="submit" class="submit-btn" value="Create Group">
         </form>
-
-
-
     </div>
+
+
+</div>
 </div>
 
 <!-----sodicla media ------>
@@ -169,9 +192,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>FIND US ON SOCIAL MEDIA</p>
 
         <div class="social-icons">
-            <a href="#"> <img src="./data/fb.png" /> </a>
-            <a href="#"> <img src="./data/ig.png" /> </a>
-            <a href="#"> <img src="./data/ws.jpg" /> </a>
+            <a href="#"> <img src="./data/fb.png"/> </a>
+            <a href="#"> <img src="./data/ig.png"/> </a>
+            <a href="#"> <img src="./data/ws.jpg"/> </a>
         </div>
     </div>
 </section>
@@ -181,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <div class="row">
             <div class="col-md-4 footer-box">
-                <img src="./data/logo.png" />
+                <img src="./data/logo.png"/>
                 <p>
                     Welcome To FriendFindr:
                     Join your group and become a part of something
@@ -195,7 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="col-md-4 footer-box">
                 <p><b> Subscribe </b></p>
-                <input type="email" class="form-control" placeholder="Your Email" />
+                <input type="email" class="form-control" placeholder="Your Email"/>
                 <button type="button" class="btn btn-primary">Contact us</button>
             </div>
         </div>
