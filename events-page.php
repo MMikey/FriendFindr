@@ -21,14 +21,18 @@ function getUserEvents()
     $joinedgroups_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql statement
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
-            echo "<h3>" . $row["name"] . "</h3>\n";
-            echo "<p>" . $row["description"] . "</p>\n";
+            echo "<div class=\"col-md-4 py-3\">";
+            echo  "<div class=\"card h-100 box-shadow shadow\">";
+            echo "<div class=\"card-header text-center\"><h5>". $row["name"] ."</h5></div>";
+            echo "<div class=\"card-body d-flex flex-column\">";
+            echo "<p class=\"card-text text-muted\">".$row["description"]."</p>";
             echo '<a href="event-page.php?eventid='.$row["eventid"].'" class="btn btn-info" role="button">Find Out More</a>';
+            echo  "</div>";
+            echo  "</div>";
             echo "</div>";
         }
     } else {
-        $joinedgroups_err = "You haven't selected any events";
+        $joinedgroups_err = "Start finding some events!";
     }
     if (!empty($joinedgroups_err)) {
         echo '<div class="alert alert-danger">' . $joinedgroups_err . '</div>';
@@ -43,10 +47,14 @@ function getAllEvents()
     $group_err = ($result = $mysqli->query($sql)) ? "" : "Error: " . $mysqli->error;//error check sql
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo "<div id=\"recommended-groups-box\" class=\"jumbotron\">";
-            echo "<h3>" . $row["name"] . "</h3>\n";
-            echo "<p>" . $row["description"] . "</p>\n";
+            echo "<div class=\"col-md-4 py-3\">";
+            echo  "<div class=\"card h-100 box-shadow shadow\">";
+            echo "<div class=\"card-header text-center\"><h5>". $row["name"] ."</h5></div>";
+            echo "<div class=\"card-body d-flex flex-column\">";
+            echo "<p class=\"card-text text-muted\">".$row["description"]."</p>";
             echo '<a href="event-page.php?eventid='.$row["eventid"].'" class="btn btn-info" role="button">Find Out More</a>';
+            echo  "</div>";
+            echo  "</div>";
             echo "</div>";
         }
 
@@ -130,14 +138,16 @@ function getAllEvents()
 
 <body>
 
-<div class="container">
-    <h2>Your Events</h2>
-    <?php getUserEvents(); ?>
+<div class="container" style="">
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h2>Your Events</h2>
+    </div>
+    <div class="row justify-content-md-center"><?php getUserEvents();?></div>
 
-
-    <h2>All Events</h2>
-    <?php getAllEvents(); ?>
-
+    <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h2>All Events</h2>
+    </div>
+    <div class="row justify-content-md-center"><?php getAllEvents();?></div>
 </div>
 
 <!-----sodicla media ------>
@@ -181,7 +191,5 @@ function getAllEvents()
 
 </body>
 </html>
-
-
 
 </body>

@@ -1,0 +1,9 @@
+insert into events (name, description) values ("North Shore Mega Fun Carnival", "Mahons Amusements are bringing all the Fun of the Fair back to the North Shore as part of the School Holidays. With so much on offer we have something for everyone- from the Extreme Turbo Boost, Hurricane, Dodgem Cars, Flying Dragon, Cup & Saucer and so much more- plus a great line up of Carnival Games to entertain the masses");
+
+insert into events (name, description) values ("The Sweet Caroline Tour", "Neil Diamond - the consummate American singer-songwriter whose deep, resounding voice and timeless tunes have made him one of the world’s most loved and lauded artists, earning him numerous Top Ten hits, Grammy awards and induction into the Rock and Roll Hall of Fame.");
+
+insert into events (name, description) values ("Candlelight Music Series", "The Candlelight Music Series presents an intimate multisensory experience of well known music by candlelight at the beautiful Saint Matthew’s in the city, Manchester 2021.");
+
+insert into events (name, description) values ("Big Wednesday - Fresh Comedy", "It's BiG WEdnesday - our weekly fresh comedy night with up to 12 comedians plus our Pro MC for just $15. Catch the Pro's trying out their fresh New Year material, rising stars and our best new faces graduating from the Raw Open Mic gigs. No 2 shows are ever the same. 2 hour show.");
+
+insert into events (name, description) values ("Takapuna Ice Rink", "Get your skates on for icy fun at the Takapuna Ice Rink from Saturday 17 April - 2 May at 38 Hurstmere! The fully covered, 10m by 25 m, 100% pure ice rink provides fun for all ages. Skate to the latest hits under the festoon and disco lights. The Takapuna Ice Rink will provide excitement for the young and young at heart, guaranteeing cool fun for everyone!");

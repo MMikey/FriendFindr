@@ -142,7 +142,7 @@ function getErrors($all_errors) : array{
 
 ?>
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
 
     <head>
@@ -212,16 +212,16 @@ function getErrors($all_errors) : array{
 
                 <input type = "date" name = "date" class = "input-field" value="<?php echo $birthdate; ?>" id ="date">
 
-                <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
+                <input type="password" name="password" class="input-field" value="<?php echo $password; ?>"placeholder="Enter Password" required>
 
 
-                <input type="password" name="confirm_password" class="input-field" value="<?php echo $confirm_password; ?>"placeholder="Confirm Password">
+                <input type="password" name="confirm_password" class="input-field" value="<?php echo $confirm_password; ?>" placeholder="Confirm Password">
 
 
                 <input type="checkbox" class="check-box"> <span> I agree </span>
                 <input type="submit" class="submit-btn" value="Register">
         </form>
-            </div>
+        </div>
     </div>
 </body>
 

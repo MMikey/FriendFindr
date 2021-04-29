@@ -123,9 +123,12 @@ class Group
             }
     }
 
+    /**
+     * @return array returns array of all members of the group. returns empty array if group has no members
+     */
     public function get_members(){
         global $mysqli;
-        $members = array();
+        $members = array(); //initialise an array for returning
         $sql = "SELECT u.userid, u.username FROM users u, usergroups ug
             where u.userid = ug.userid AND ug.groupid = " . $this->id . ";";
 
@@ -148,22 +151,21 @@ class Group
         } else {
             return $mysqli->error;
         }
-
     }
 
     public function groupDisplay(){
         return <<<HTML
-                    <div class="col-md-4 py-3">
-                        <div class="card h-100 box-shadow shadow">
-                            <img class="card-img-top" style="height:200px" src="{$this->getGroupPic()}">
-                            <div class="card-header text-center"><h5>{$this->name}</h5></div>
-                            <div class="card-body d-flex flex-column">
-                                <p class="card-text text-muted">{$this->description}</p>
-                                <a href="group-page.php?groupid={$this->id}" class="btn btn-sm btn-outline-secondary mt-auto" role="button">View Group</a>
-                                </div>
+            <div class="col-md-4 py-3">
+                <div class="card h-100 box-shadow shadow">
+                    <img class="card-img-top" style="height:200px" src="{$this->getGroupPic()}">
+                    <div class="card-header text-center"><h5>{$this->name}</h5></div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="card-text text-muted">{$this->description}</p>
+                        <a href="group-page.php?groupid={$this->id}" class="btn btn-sm btn-outline-secondary mt-auto" role="button">View Group</a>
                         </div>
-                    </div>
-                    HTML;
+                </div>
+            </div>
+            HTML;
     }
 
 }

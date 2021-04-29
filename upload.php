@@ -8,8 +8,9 @@ if($_SESSION["loggedin"] !== true){
     exit;
 }
 
+
 //check if we're uploading to profile or group page
-if(isset($_POST["groupid"])) $target_dir = "uploads/group_pictures/";
+if(isset($_GET["groupid"]) || isset($_POST["groupid"])) $target_dir = "uploads/group_pictures/";
 else $target_dir = "uploads/profile_pictures/";
 $temp = explode(".", $_FILES["fileToUpload"]["name"]);
 $newfilename =  round(microtime(true)) . '.' . end($temp);
@@ -49,8 +50,9 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     $uploadOk = 0;
 }
 
-if(!isset($_POST["groupid"]) && !uploadProfilePicToDatabase($newfilename)) $uploadOk=0;
-else if(isset($_POST["groupid"]) && !uploadGroupPicToDatabase($newfilename)) $uploadOk =0;
+if(!isset($_GET["groupid"]) && !isset($_POST["groupid"])) {
+    if(!uploadProfilePicToDatabase($newfilename)) $uploadOk=0;
+} else if(!uploadGroupPicToDatabase($newfilename)) $uploadOk =0;
 
 
 // Check if $uploadOk is set to 0 by an error
@@ -60,7 +62,7 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-        header("location: profile-page.php");
+        header("location: welcome.php");
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
@@ -69,7 +71,8 @@ if ($uploadOk == 0) {
 function uploadGroupPicToDatabase($name) {
     global $mysqli;
     //check if file already exists
-    $sql = "SELECT grouppictureid FROM grouppictures WHERE groupid =". $_POST["groupid"] .";";
+    $groupid = (isset($_GET["groupid"])) ? $_GET["groupid"] : $_POST["groupid"];
+    $sql = "SELECT grouppictureid FROM grouppictures WHERE groupid =". $groupid .";";
     if($result = $mysqli->query($sql))
     {
         if($result->num_rows == 0) {
@@ -77,13 +80,13 @@ function uploadGroupPicToDatabase($name) {
             $stmt = $mysqli->prepare($sql);
             $stmt->bind_param("ss", $param_name, $param_id);
             $param_name = $name;
-            $param_id = $_POST["groupid"];
+            $param_id = $groupid;
         }else {
             $sql = "UPDATE grouppictures SET name=? WHERE groupid =?;";
             $stmt = $mysqli->prepare($sql);
             $stmt->bind_param("ss", $param_name, $param_id);
             $param_name = $name;
-            $param_id = $_POST["groupid"];
+            $param_id = $groupid;
         }
         if($stmt->execute()) {
             return true;
