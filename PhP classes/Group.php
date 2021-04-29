@@ -1,7 +1,7 @@
 <?php
 /** @var mysqli $mysqli */
 include_once "config.php";
-include "solution/Validator.php";
+include "PhP classes/Validator.php";
 
 class Group
 {

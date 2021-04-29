@@ -2,7 +2,7 @@
 /**
  * @var mysqli $mysqli
  */
-include("solution/Validator.php");
+include("PhP classes/Validator.php");
 
 // Initialise the session
 session_start();

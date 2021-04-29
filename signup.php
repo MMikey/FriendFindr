@@ -2,7 +2,7 @@
 /** @var mysqli $mysqli */
 //include config file - connects to database
 require_once "config.php";
-include("solution/Validator.php");
+include("PhP classes/Validator.php");
 
 //initialise variables with empty values
 $username = $password = $confirm_password = $email = $bio = $location = $birthdate = "";

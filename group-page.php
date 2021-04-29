@@ -1,8 +1,8 @@
 <?php
 /** @var mysqli $mysqli */
 include_once "config.php";
-include("solution/Group.php");
-include("solution/User.php");
+include("PhP classes/Group.php");
+include("PhP classes/User.php");
 
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)

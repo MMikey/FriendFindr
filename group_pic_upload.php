@@ -1,7 +1,7 @@
 <?php
 /** @var mysqli $mysqli */
 include_once "C:/xampp\htdocs\FriendFindr\config.php";
-include("solution/Group.php");
+include("PhP classes/Group.php");
 
 if(!isset($_GET["groupid"]))
 {

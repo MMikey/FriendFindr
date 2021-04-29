@@ -1,7 +1,7 @@
 <?php
 /** @var mysqli $mysqli */
 include_once "config.php";
-include("solution/Group.php");
+include("PhP classes/Group.php");
 
 $eventname = $evendesc = $eventloc = $eventst = $eventet = "";
 

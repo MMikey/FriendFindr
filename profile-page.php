@@ -2,8 +2,8 @@
 /** @var mysqli $mysqli */
 //include config file - connects to database
 require_once "config.php";
-include("solution/Validator.php");
-include("solution/User.php");
+include("PhP classes/Validator.php");
+include("PhP classes/User.php");
 
 session_start();
 
