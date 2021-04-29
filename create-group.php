@@ -153,11 +153,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" name="groupname" class="input-field" value="<?php echo $groupname; ?>"
                        placeholder="Group Name" required>
             </div>
-<<<<<<< HEAD
+
             <div>
                 <h3>    Enter a group description</h3>
                 <input type="text" name="description" class="input-field" value="<?php echo $description; ?>" placeholder="Description" required>
-=======
+
             <div class="form-group">
                 <h4>Enter a group description</h4>
                 <input type="text" name="description" class="input-field" value="<?php echo $description; ?>"
@@ -182,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ?>
                 </select>
                 <span class="invalid-feedback"><?php echo $hobby_err; ?></span>
->>>>>>> 6e4be40e513af16ce79b2a85caa6635ce3d874f7
+
             </div>
             <input type="submit" class="submit-btn" value="Create Group">
         </form>
