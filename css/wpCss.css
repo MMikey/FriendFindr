@@ -141,13 +141,23 @@ body{
 		
 			
 	}
-		
+	
+	
+
+	
+
 	.service-img{
 
 	width:150px;
 	margin-top:20px;
+	border-radius: 50%;
+	
 	}
 	
+
+
+
+
 	.services{
 		
 		
@@ -462,9 +472,48 @@ margin-top:10%;
 
 }
 
+<<<<<<< HEAD
+
+.bo-area{
+
+border:4px solid;
+padding-left:50px;
+padding-right:30px;
+margin-left:-5%;
+
+
+
+}
+
+#profile p{
+
+}
+
+.col-sm{
+
+	float:left;
+	
+	
+}
+
+/***************** create groups ******************/
+
+#group h3{
+
+margin-right:60px;
+	
+}
+
+#group form{
+
+	margin-left:-40px;
+		
+	}
+=======
 .rounded-circle{
 					border:1px solid;
 					border-radius:50%;
 					width:200px;
 					height:200px;
 				}
+>>>>>>> 6e4be40e513af16ce79b2a85caa6635ce3d874f7
