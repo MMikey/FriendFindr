@@ -141,13 +141,23 @@ body{
 		
 			
 	}
-		
+	
+	
+
+	
+
 	.service-img{
 
 	width:150px;
 	margin-top:20px;
+	border-radius: 50%;
+	
 	}
 	
+
+
+
+
 	.services{
 		
 		
@@ -484,3 +494,17 @@ margin-left:-5%;
 	
 	
 }
+
+/***************** create groups ******************/
+
+#group h3{
+
+margin-right:60px;
+	
+}
+
+#group form{
+
+	margin-left:-40px;
+		
+	}

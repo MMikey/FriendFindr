@@ -132,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 </section>
-
+<section id="group">
 <div class="container" style="">
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h2>Create Your Own Group!</h2>
@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" name="groupname" class="input-field" value="<?php echo $groupname; ?>" placeholder="Group Name" required>
             </div>
             <div>
-                <h3>Enter a group description</h3>
+                <h3>    Enter a group description</h3>
                 <input type="text" name="description" class="input-field" value="<?php echo $description; ?>" placeholder="Description" required>
             </div>
             <input type="submit" class="submit-btn" value="Create Group">
@@ -151,6 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </div>
 </div>
+</section>
 
 <!-----sodicla media ------>
 <section id="social-media">
