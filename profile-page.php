@@ -105,44 +105,48 @@ function GetVar($var, $userid, $conn)
     <div class="container">
         <div class="row">
             <div class="col-sm-8 p-2 mx-auto">
-                <div class="bo-area p-3 mb-2 rounded shadow" style="background-image: linear-gradient(to right, #7070ec, #7340f1);">
+                <div class="bo-area p-3 mb-2 rounded shadow"
+                     style="background-image: linear-gradient(to right, #7070ec, #7340f1);">
                     <div class="col-sm-12 mb-2 pb-2 border-bottom text-color">
                         <div class="row">
-                        <div class="col-sm-6 ">
-                            <h2><?php echo GetVar('username', $userid, $mysqli) ?> </h2>
-                            <p><strong>Location:</strong>&nbsp;&nbsp;<?php echo GetVar('location', $userid, $mysqli) ?>
-                            </p>
-                            <p><strong>About Me:</strong>&nbsp;&nbsp;<?php echo GetVar('bio', $userid, $mysqli) ?></p>
-                            <p><strong>Hobbies: </strong>
-                                <?php
-                                foreach ($user->getHobbies() as $hobby) {
-                                    echo <<<HTML
+                            <div class="col-sm-6 ">
+                                <h2><?php echo GetVar('username', $userid, $mysqli) ?> </h2>
+                                <p>
+                                    <strong>Location:</strong>&nbsp;&nbsp;<?php echo GetVar('location', $userid, $mysqli) ?>
+                                </p>
+                                <p><strong>About Me:</strong>&nbsp;&nbsp;<?php echo GetVar('bio', $userid, $mysqli) ?>
+                                </p>
+                                <p><strong>Hobbies: </strong>
+                                    <?php
+                                    foreach ($user->getHobbies() as $hobby) {
+                                        echo <<<HTML
                                     <span class="mr-1 badge badge-light">$hobby</span>
                                     HTML;
-                                }
-                                ?>
-                            </p>
-                        </div>
-                        <div class="mt-2 col-sm-4 text-center float-right">
-                            <figure>
-                                <div class="rounded-circle">
-                                <img class="img-responsive rounded-circle w-100" style="" alt="No profile picture found"
-                                     src="<?php echo $user->getProfilePic() ?>"
-                                     onerror=this.src="uploads/profile_pictures/default.jpg">
-                                </div>
-                            </figure>
-                        </div>
+                                    }
+                                    ?>
+                                </p>
+                            </div>
+                            <div class="mt-2 col-sm-4 text-center float-right">
+                                <figure>
+                                    <div class="rounded-circle">
+                                        <img class="img-responsive rounded-circle w-100" style=""
+                                             alt="No profile picture found"
+                                             src="<?php echo $user->getProfilePic() ?>"
+                                             onerror=this.src="uploads/profile_pictures/default.jpg">
+                                    </div>
+                                </figure>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 divider text-center mx-auto">
                         <h2><strong>Groups</strong></h2>
-                            <ul class="list-group pb-2">
-                                <?php
-                                foreach($user->getGroups() as $groupid=>$group) {
-                                    echo "<a href='group-page.php?groupid=$groupid' class='list-group-item list-group-item-action'>$group</a>";
-                                }
-                                ?>
-                            </ul>
+                        <ul class="list-group pb-2">
+                            <?php
+                            foreach ($user->getGroups() as $groupid => $group) {
+                                echo "<a href='group-page.php?groupid=$groupid' class='list-group-item list-group-item-action'>$group</a>";
+                            }
+                            ?>
+                        </ul>
                     </div>
                 </div>
             </div>
